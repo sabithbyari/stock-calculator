@@ -4,6 +4,14 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>StockTools — Free Stock Calculators</title>
+<meta name="description" content="Free stock market calculators for Indian traders and investors. Calculate stock averages, buy/sell P&L, target-based investment planning, and more. No signup required."/>
+<meta name="keywords" content="stock average calculator, buy sell calculator, stock profit calculator, intraday target calculator, stock investment calculator, P&L calculator India, NSE BSE calculator, stock market tools, free trading calculator, entry exit point calculator"/>
+<meta name="author" content="StockTools"/>
+<meta property="og:title" content="StockTools — Free Stock Calculators for Indian Traders"/>
+<meta property="og:description" content="Calculate stock averages, P&L, and plan your trades with target-based entry & exit calculators. 100% free, no signup."/>
+<meta property="og:type" content="website"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://stocktools.in/"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
 <style>
@@ -219,24 +227,40 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
 .empty svg{width:40px;height:40px;stroke:var(--border2);fill:none;stroke-width:1.5;margin-bottom:12px}
 .empty p{font-size:13px}
 
+/* ── MOBILE OVERLAY ── */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(10,22,40,.55);z-index:99;backdrop-filter:blur(2px)}
+.sidebar-overlay.active{display:block}
+
+/* ── MOBILE HAMBURGER ── */
+.mob-menu-btn{display:none;background:none;border:none;cursor:pointer;color:var(--text2);padding:6px;border-radius:var(--radius);margin-right:4px;align-items:center;justify-content:center}
+.mob-menu-btn svg{width:20px;height:20px}
+.mob-menu-btn:hover{background:var(--blue-light);color:var(--blue)}
+
 @media(max-width:768px){
-  .sidebar{position:fixed;height:100vh;top:0;left:0}
-  .sidebar:not(.collapsed){box-shadow:4px 0 24px rgba(10,22,40,.3)}
+  .mob-menu-btn{display:flex}
+  .sidebar{position:fixed;height:100vh;top:0;left:0;z-index:200;transform:translateX(-100%);transition:transform .25s ease,width .25s ease}
+  .sidebar:not(.collapsed){transform:translateX(0);box-shadow:4px 0 24px rgba(10,22,40,.35);width:var(--sidebar-w)}
+  .sidebar.collapsed{transform:translateX(-100%)}
   .grid2,.compare-wrap{grid-template-columns:1fr}
   .compare-arrow{display:none}
   .metric-grid{grid-template-columns:1fr 1fr}
   .content{padding:20px 16px}
-  .home-hero{padding:32px 24px}
-  .home-hero h1{font-size:28px}
+  .home-hero{padding:28px 20px}
+  .home-hero h1{font-size:26px}
+  .hero-stats{gap:16px;flex-wrap:wrap}
   .bs-breakdown{grid-template-columns:1fr}
+  .tools-grid{grid-template-columns:1fr}
+  .topbar{padding:0 16px}
+  .imp-table{font-size:12px}
+  .imp-table th,.imp-table td{padding:8px 8px}
 }
 </style>
 </head>
 <body>
 <div class="app">
-
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebarMobile()"></div>
 <!-- ── SIDEBAR ── -->
-<nav class="sidebar" id="sidebar">
+<nav class="sidebar collapsed" id="sidebar">
   <div class="sb-top">
     <div class="sb-logo" onclick="navigate('home')">
       <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
@@ -263,6 +287,10 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
     <div class="sb-item" id="nav-buysell" onclick="navigate('buysell')">
       <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
       <span class="sb-item-text">Buy / Sell P&L</span>
+    </div>
+    <div class="sb-item" id="nav-target" onclick="navigate('target')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+      <span class="sb-item-text">Target Planner</span>
     </div>
     <div class="sb-item coming" title="Coming soon">
       <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
@@ -302,6 +330,9 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
 <div class="main">
   <div class="topbar">
     <div class="topbar-left">
+      <button class="mob-menu-btn" onclick="toggleSidebar()" title="Toggle menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <div class="topbar-crumb" id="topbar-crumb">
         <span>StockTools</span>
       </div>
@@ -320,7 +351,7 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
         <h1>Smart tools for<br/><span>smarter investing</span></h1>
         <p>Simple, no-nonsense calculators to help you understand your trades, average costs, and profits — all in one place.</p>
         <div class="hero-stats">
-          <div><div class="hero-stat-val">2</div><div class="hero-stat-lbl">Tools available</div></div>
+          <div><div class="hero-stat-val">3</div><div class="hero-stat-lbl">Tools available</div></div>
           <div><div class="hero-stat-val">Free</div><div class="hero-stat-lbl">Always & forever</div></div>
           <div><div class="hero-stat-val">100%</div><div class="hero-stat-lbl">Private — no data saved</div></div>
         </div>
@@ -352,6 +383,16 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
           <div class="tool-card-arrow">Open tool →</div>
         </div>
 
+        <div class="tool-card" onclick="navigate('target')">
+          <span class="tool-card-tag tag-free">Free</span>
+          <div class="tool-card-icon purple">
+            <svg viewBox="0 0 24 24" class="tc-purple"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
+          <h3>Target-Based Investment Planner</h3>
+          <p>Set a profit target for any stock and instantly get your required capital, quantity, and ideal entry & exit prices to hit that exact amount.</p>
+          <div class="tool-card-arrow">Open tool →</div>
+        </div>
+
         <div class="tool-card coming">
           <span class="tool-card-tag tag-soon">Coming Soon</span>
           <div class="tool-card-icon orange">
@@ -363,14 +404,27 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
 
         <div class="tool-card coming">
           <span class="tool-card-tag tag-soon">Coming Soon</span>
-          <div class="tool-card-icon purple">
-            <svg viewBox="0 0 24 24" class="tc-purple"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          <div class="tool-card-icon orange">
+            <svg viewBox="0 0 24 24" class="tc-orange"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
           </div>
           <h3>EMI Calculator</h3>
           <p>Work out your monthly EMI, total interest paid and full repayment schedule for any loan.</p>
         </div>
       </div>
-    </div>
+
+      <!-- SEO Keywords Section -->
+      <div class="seo-section">
+        <div class="seo-section-title">Popular Tools & Topics</div>
+        <div class="seo-tags">
+          <span>Stock Average Calculator</span><span>Buy Sell P&L Calculator</span><span>Intraday Target Calculator</span>
+          <span>Entry Exit Point Calculator</span><span>Stock Profit Calculator India</span><span>NSE BSE Trade Calculator</span>
+          <span>Capital Required for Trade</span><span>How to Average Down Stocks</span><span>Stock Return Calculator</span>
+          <span>Free Trading Tools India</span><span>Zerodha Kite Calculator</span><span>Equity Trading Calculator</span>
+          <span>Investment Planner</span><span>Risk Reward Calculator</span><span>Position Sizing Tool</span>
+        </div>
+        <p class="seo-desc">StockTools offers free, browser-based stock market calculators for Indian traders and investors on NSE and BSE. Calculate your average cost of stock purchases, figure out your buy/sell profit and loss, plan your intraday or delivery trades with target-based entry and exit points, and determine how much capital you need. All calculations are done locally — no data is stored or shared.</p>
+      </div>
+    </div><!-- end home-page -->
 
     <!-- ── TOOL 1: STOCK AVG CALCULATOR ── -->
     <div class="tool-page" id="page-avgcalc">
@@ -511,13 +565,150 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
       </div>
     </div>
 
+    <!-- ── TOOL 3: TARGET PLANNER ── -->
+    <div class="tool-page" id="page-target">
+      <div style="margin-bottom:24px">
+        <h2 style="font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px">Target-Based Investment Planner</h2>
+        <p style="font-size:13px;color:var(--text3)">Tell us how much you want to earn from a stock — we'll calculate the exact entry price, exit price, quantity, and capital required.</p>
+      </div>
+
+      <div class="target-mode-tabs">
+        <button class="target-tab active" id="tab-target" onclick="switchTargetTab('target')">🎯 I know my profit target</button>
+        <button class="target-tab" id="tab-capital" onclick="switchTargetTab('capital')">💰 I know my capital</button>
+      </div>
+
+      <div class="grid2">
+        <!-- LEFT: Inputs -->
+        <div>
+          <div class="card" id="target-inputs-target">
+            <div class="card-head">
+              <div class="card-icon" style="background:#f3f0ff"><svg viewBox="0 0 24 24" style="stroke:#7c3aed;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+              <div><div class="card-title">Your Target</div><div class="card-sub">How much profit do you want?</div></div>
+            </div>
+            <div class="field"><label>Stock CMP — Current Market Price (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="t-cmp" placeholder="e.g. 1500.00" min="0" oninput="targetCalc()"/></div></div>
+            <div class="field"><label>Profit Target (₹) — How much you want to earn</label><div class="input-pre"><span>₹</span><input type="number" id="t-profit" placeholder="e.g. 500" min="0" oninput="targetCalc()"/></div></div>
+            <div class="divider"></div>
+            <div class="field"><label>Risk % per trade (stop-loss buffer)</label>
+              <select id="t-risk" onchange="targetCalc()">
+                <option value="1">1% — Very tight</option>
+                <option value="2" selected>2% — Moderate (recommended)</option>
+                <option value="3">3% — Loose</option>
+                <option value="5">5% — Wide</option>
+                <option value="custom">Custom…</option>
+              </select>
+            </div>
+            <div class="field" id="t-risk-custom-wrap" style="display:none"><label>Custom Risk %</label><input type="number" id="t-risk-custom" placeholder="e.g. 1.5" min="0.1" max="50" step="0.1" oninput="targetCalc()"/></div>
+            <div class="field"><label>Target % move (optional — overrides auto)</label>
+              <select id="t-move" onchange="targetCalc()">
+                <option value="auto" selected>Auto-calculate</option>
+                <option value="1">1% move</option>
+                <option value="2">2% move</option>
+                <option value="3">3% move</option>
+                <option value="5">5% move</option>
+                <option value="custom">Custom…</option>
+              </select>
+            </div>
+            <div class="field" id="t-move-custom-wrap" style="display:none"><label>Custom move %</label><input type="number" id="t-move-custom" placeholder="e.g. 2.5" min="0.1" step="0.1" oninput="targetCalc()"/></div>
+          </div>
+
+          <div class="card" id="target-inputs-capital" style="display:none">
+            <div class="card-head">
+              <div class="card-icon" style="background:#fef3c7"><svg viewBox="0 0 24 24" style="stroke:#b45309;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+              <div><div class="card-title">Your Capital</div><div class="card-sub">How much can you invest?</div></div>
+            </div>
+            <div class="field"><label>Stock CMP (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="c-cmp" placeholder="e.g. 1500.00" min="0" oninput="capitalCalc()"/></div></div>
+            <div class="field"><label>Capital Available (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="c-capital" placeholder="e.g. 50000" min="0" oninput="capitalCalc()"/></div></div>
+            <div class="field"><label>Target % gain you expect</label>
+              <select id="c-move" onchange="capitalCalc()">
+                <option value="1">1%</option>
+                <option value="2" selected>2%</option>
+                <option value="3">3%</option>
+                <option value="5">5%</option>
+                <option value="custom">Custom…</option>
+              </select>
+            </div>
+            <div class="field" id="c-move-custom-wrap" style="display:none"><label>Custom %</label><input type="number" id="c-move-custom" placeholder="e.g. 2.5" min="0.1" step="0.1" oninput="capitalCalc()"/></div>
+            <div class="field"><label>Risk % (stop-loss)</label>
+              <select id="c-risk" onchange="capitalCalc()">
+                <option value="1">1%</option>
+                <option value="2" selected>2%</option>
+                <option value="3">3%</option>
+                <option value="5">5%</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Results -->
+        <div>
+          <div id="target-result-empty" class="card" style="height:280px;display:flex;flex-direction:column;justify-content:center">
+            <div class="empty">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              <p>Enter the stock's CMP and your<br/>profit target to get your plan</p>
+            </div>
+          </div>
+
+          <div id="target-result-show" style="display:none">
+            <div class="target-result-hero profit-zone" id="target-hero">
+              <div class="trh-label">Estimated Profit</div>
+              <div class="trh-value" id="trh-profit">—</div>
+              <div class="trh-sub" id="trh-sub">—</div>
+            </div>
+
+            <div class="target-steps">
+              <div class="target-step">
+                <div class="ts-num">1</div>
+                <div>
+                  <div class="ts-label">Entry Price</div>
+                  <div class="ts-value accent" id="ts-entry">—</div>
+                </div>
+              </div>
+              <div class="target-step">
+                <div class="ts-num">2</div>
+                <div>
+                  <div class="ts-label">Exit / Target Price</div>
+                  <div class="ts-value green" id="ts-exit">—</div>
+                </div>
+              </div>
+              <div class="target-step">
+                <div class="ts-num">3</div>
+                <div>
+                  <div class="ts-label">Stop-Loss Price</div>
+                  <div class="ts-value orange" id="ts-sl">—</div>
+                </div>
+              </div>
+              <div class="target-step">
+                <div class="ts-num">4</div>
+                <div>
+                  <div class="ts-label">Quantity to Buy</div>
+                  <div class="ts-value" id="ts-qty">—</div>
+                </div>
+              </div>
+              <div class="target-step">
+                <div class="ts-num">5</div>
+                <div>
+                  <div class="ts-label">Capital Required</div>
+                  <div class="ts-value" id="ts-capital">—</div>
+                </div>
+              </div>
+            </div>
+            <div id="target-rr-box" class="formula-box">
+              <div class="formula-title">Risk : Reward Summary</div>
+              <div class="formula-body" id="target-formula"></div>
+            </div>
+            <div class="target-warn" id="target-warn" style="display:none">⚠️ This is a planning tool only. Always use a stop-loss. Past performance of stocks is not indicative of future results.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div><!-- end content -->
 </div><!-- end main -->
 </div><!-- end app -->
 
 <script>
 /* ── NAVIGATION ── */
-const pages={home:'Home',avgcalc:'Avg Calculator',buysell:'Buy / Sell P&L'};
+const pages={home:'Home',avgcalc:'Avg Calculator',buysell:'Buy / Sell P&L',target:'Target Planner'};
 function navigate(id){
   document.querySelectorAll('.home-page,.tool-page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
@@ -529,10 +720,53 @@ function navigate(id){
     id==='home'?'<span>StockTools</span>':
     `<span style="cursor:pointer;color:var(--blue)" onclick="navigate('home')">StockTools</span> <span>›</span> <span>${pages[id]}</span>`;
   document.querySelector('.content').scrollTo(0,0);
+  // Close sidebar on mobile after navigation
+  if(window.innerWidth<=768){
+    document.getElementById('sidebar').classList.add('collapsed');
+    document.getElementById('sidebar-overlay').classList.remove('active');
+  }
 }
 function toggleSidebar(){
-  document.getElementById('sidebar').classList.toggle('collapsed');
+  const sb=document.getElementById('sidebar');
+  const isMobile=window.innerWidth<=768;
+  if(isMobile){
+    sb.classList.toggle('collapsed');
+    document.getElementById('sidebar-overlay').classList.toggle('active',!sb.classList.contains('collapsed'));
+  } else {
+    sb.classList.toggle('collapsed');
+  }
 }
+function closeSidebarMobile(){
+  document.getElementById('sidebar').classList.add('collapsed');
+  document.getElementById('sidebar-overlay').classList.remove('active');
+}
+
+/* ── SEO KEYWORDS SECTION ── */
+.seo-section{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);padding:24px 28px;margin-top:8px}
+.seo-section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:14px}
+.seo-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.seo-tags span{background:var(--blue-pale);border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--text2);padding:4px 12px;font-weight:500}
+.seo-desc{font-size:12px;color:var(--text3);line-height:1.8;margin:0}
+
+/* ── TARGET PLANNER ── */
+.target-mode-tabs{display:flex;gap:8px;margin-bottom:20px;background:var(--blue-pale);border-radius:var(--radius-lg);padding:4px}
+.target-tab{flex:1;text-align:center;padding:8px 12px;border-radius:var(--radius);font-size:13px;font-weight:500;color:var(--text3);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;transition:.15s}
+.target-tab.active{background:var(--white);color:var(--blue);box-shadow:0 1px 4px rgba(10,22,40,.12)}
+.target-result-hero{text-align:center;padding:24px 20px;border-radius:var(--radius-xl);margin-bottom:16px;border:2px solid var(--border)}
+.target-result-hero.profit-zone{background:linear-gradient(135deg,var(--success-bg),#f0fdf9);border-color:#6ee7b7}
+.target-result-hero.neutral-zone{background:var(--blue-pale);border-color:var(--border2)}
+.trh-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:6px}
+.trh-value{font-size:38px;font-weight:700;letter-spacing:-.5px;color:var(--success);line-height:1}
+.trh-sub{font-size:13px;color:var(--text3);margin-top:6px}
+.target-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.target-step{display:flex;align-items:center;gap:14px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:14px 18px}
+.ts-num{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ts-label{font-size:12px;color:var(--text3);font-weight:500}
+.ts-value{font-size:15px;font-weight:700;color:var(--text);margin-top:1px}
+.ts-value.accent{color:var(--blue)}
+.ts-value.green{color:var(--success)}
+.ts-value.orange{color:var(--warning)}
+.target-warn{background:var(--warning-bg);border:1px solid #fcd34d;border-radius:var(--radius);padding:10px 14px;font-size:12px;color:var(--warning);font-weight:500;margin-top:8px}
 
 /* ── HELPERS ── */
 function inr(n){return'₹'+Math.abs(n).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -636,6 +870,116 @@ function bsCalc(){
   ];
   document.getElementById('bs-summary-rows').innerHTML=rows.map(r=>`<div class="mrow"><span class="mlbl">${r.l}</span><span class="mval">${r.v}</span></div>`).join('');
   document.getElementById('bs-formula').innerHTML=`<strong>P&L</strong> = (Sell price − Buy price) × Qty<br>= (${sp} − ${bp}) × ${qty} = <strong>${isProfit?'+':'-'}${inr(Math.abs(pnl))}</strong><br><br><strong>Return %</strong> = ((${sp} − ${bp}) ÷ ${bp}) × 100 = <strong>${pct(retPct)}</strong>`;
+/* ── TARGET PLANNER ── */
+let targetMode='target';
+function switchTargetTab(mode){
+  targetMode=mode;
+  document.getElementById('tab-target').classList.toggle('active',mode==='target');
+  document.getElementById('tab-capital').classList.toggle('active',mode==='capital');
+  document.getElementById('target-inputs-target').style.display=mode==='target'?'':'none';
+  document.getElementById('target-inputs-capital').style.display=mode==='capital'?'':'none';
+  document.getElementById('target-result-empty').style.display='flex';
+  document.getElementById('target-result-show').style.display='none';
+}
+document.getElementById('t-risk').addEventListener('change',function(){
+  document.getElementById('t-risk-custom-wrap').style.display=this.value==='custom'?'':'none';targetCalc();
+});
+document.getElementById('t-move').addEventListener('change',function(){
+  document.getElementById('t-move-custom-wrap').style.display=this.value==='custom'?'':'none';targetCalc();
+});
+document.getElementById('c-move').addEventListener('change',function(){
+  document.getElementById('c-move-custom-wrap').style.display=this.value==='custom'?'':'none';capitalCalc();
+});
+function getRisk(prefix){
+  const sel=document.getElementById(prefix+'-risk');
+  if(!sel)return 2;
+  if(sel.value==='custom'){const c=parseFloat(document.getElementById(prefix+'-risk-custom').value);return isNaN(c)?2:c;}
+  return parseFloat(sel.value);
+}
+function getMove(prefix){
+  const sel=document.getElementById(prefix+'-move');
+  if(sel.value==='auto')return null;
+  if(sel.value==='custom'){const c=parseFloat(document.getElementById(prefix+'-move-custom').value);return isNaN(c)?null:c;}
+  return parseFloat(sel.value);
+}
+function targetCalc(){
+  const cmp=parseFloat(document.getElementById('t-cmp').value)||0;
+  const profit=parseFloat(document.getElementById('t-profit').value)||0;
+  const empty=document.getElementById('target-result-empty');
+  const show=document.getElementById('target-result-show');
+  if(!cmp||!profit){empty.style.display='flex';show.style.display='none';return;}
+  const riskPct=getRisk('t');
+  const movePct=getMove('t');
+  // Entry = CMP (buy at market)
+  const entry=cmp;
+  const sl=parseFloat((entry*(1-riskPct/100)).toFixed(2));
+  // If move% given, exit = entry*(1+move/100), then qty = profit/profit_per_share
+  let exit,qty,actualProfit;
+  if(movePct){
+    exit=parseFloat((entry*(1+movePct/100)).toFixed(2));
+    const pps=exit-entry;
+    qty=Math.ceil(profit/pps);
+    actualProfit=(exit-entry)*qty;
+  } else {
+    // auto: find minimum qty where profit >= target with at least risk:1 R:R
+    // Use R:R of 2:1 minimum → move = riskPct * 2
+    const autoMove=riskPct*2;
+    exit=parseFloat((entry*(1+autoMove/100)).toFixed(2));
+    const pps=exit-entry;
+    qty=Math.ceil(profit/pps);
+    actualProfit=(exit-entry)*qty;
+  }
+  const capital=parseFloat((entry*qty).toFixed(2));
+  const reward=exit-entry;
+  const risk=entry-sl;
+  const rrRatio=risk>0?(reward/risk).toFixed(2):'∞';
+  const movePctActual=((exit-entry)/entry*100).toFixed(2);
+  empty.style.display='none';show.style.display='block';
+  document.getElementById('trh-profit').textContent=inr(actualProfit);
+  document.getElementById('trh-sub').textContent=`${qty} shares × ₹${reward.toFixed(2)} move (${movePctActual}%)`;
+  document.getElementById('ts-entry').textContent='₹'+entry.toFixed(2)+' (at CMP)';
+  document.getElementById('ts-exit').textContent='₹'+exit.toFixed(2)+' (+'+movePctActual+'%)';
+  document.getElementById('ts-sl').textContent='₹'+sl.toFixed(2)+' (−'+riskPct+'%)';
+  document.getElementById('ts-qty').textContent=qty.toLocaleString()+' shares';
+  document.getElementById('ts-capital').textContent=inr(capital);
+  document.getElementById('target-formula').innerHTML=
+    `<strong>Entry:</strong> ₹${entry.toFixed(2)} &nbsp;|&nbsp; <strong>Target:</strong> ₹${exit.toFixed(2)} &nbsp;|&nbsp; <strong>SL:</strong> ₹${sl.toFixed(2)}<br>`+
+    `<strong>Reward:</strong> ₹${reward.toFixed(2)} per share &nbsp;|&nbsp; <strong>Risk:</strong> ₹${risk.toFixed(2)} per share<br>`+
+    `<strong>Risk:Reward</strong> = 1 : ${rrRatio} &nbsp;·&nbsp; Capital deployed: <strong>${inr(capital)}</strong><br>`+
+    `<br>Qty = ceil(Target ÷ Reward per share) = ceil(${profit} ÷ ${reward.toFixed(2)}) = <strong>${qty}</strong>`;
+  document.getElementById('target-warn').style.display='block';
+}
+function capitalCalc(){
+  const cmp=parseFloat(document.getElementById('c-cmp').value)||0;
+  const capital=parseFloat(document.getElementById('c-capital').value)||0;
+  const empty=document.getElementById('target-result-empty');
+  const show=document.getElementById('target-result-show');
+  if(!cmp||!capital){empty.style.display='flex';show.style.display='none';return;}
+  const riskPct=parseFloat(document.getElementById('c-risk').value)||2;
+  const moveSel=document.getElementById('c-move');
+  const movePct=moveSel.value==='custom'?(parseFloat(document.getElementById('c-move-custom').value)||2):parseFloat(moveSel.value);
+  const entry=cmp;
+  const exit=parseFloat((entry*(1+movePct/100)).toFixed(2));
+  const sl=parseFloat((entry*(1-riskPct/100)).toFixed(2));
+  const qty=Math.floor(capital/entry);
+  const actualCapital=entry*qty;
+  const profit=(exit-entry)*qty;
+  const reward=exit-entry;
+  const risk=entry-sl;
+  const rrRatio=risk>0?(reward/risk).toFixed(2):'∞';
+  empty.style.display='none';show.style.display='block';
+  document.getElementById('trh-profit').textContent=inr(profit);
+  document.getElementById('trh-sub').textContent=`${qty} shares × ₹${reward.toFixed(2)} move (${movePct}%)`;
+  document.getElementById('ts-entry').textContent='₹'+entry.toFixed(2)+' (at CMP)';
+  document.getElementById('ts-exit').textContent='₹'+exit.toFixed(2)+' (+'+movePct+'%)';
+  document.getElementById('ts-sl').textContent='₹'+sl.toFixed(2)+' (−'+riskPct+'%)';
+  document.getElementById('ts-qty').textContent=qty.toLocaleString()+' shares';
+  document.getElementById('ts-capital').textContent=inr(actualCapital)+' of '+inr(capital);
+  document.getElementById('target-formula').innerHTML=
+    `<strong>Entry:</strong> ₹${entry.toFixed(2)} &nbsp;|&nbsp; <strong>Target:</strong> ₹${exit.toFixed(2)} &nbsp;|&nbsp; <strong>SL:</strong> ₹${sl.toFixed(2)}<br>`+
+    `<strong>Reward:</strong> ₹${reward.toFixed(2)} per share &nbsp;|&nbsp; <strong>Risk:</strong> ₹${risk.toFixed(2)} per share<br>`+
+    `<strong>Risk:Reward</strong> = 1 : ${rrRatio} &nbsp;·&nbsp; Qty = floor(${inr(capital)} ÷ ₹${entry.toFixed(2)}) = <strong>${qty}</strong>`;
+  document.getElementById('target-warn').style.display='block';
 }
 </script>
 </body>
