@@ -5,139 +5,253 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Stock Average Calculator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
 <style>
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --bg:#0f0f11;--surface:#18181c;--surface2:#22222a;--border:#2e2e38;
-    --text:#f0f0f4;--muted:#8888a0;--accent:#7c6ef7;--accent2:#4fd1a5;
-    --danger:#f87171;--success:#4ade80;--warning:#fbbf24;
-    --radius:10px;--radius-lg:16px;
-  }
-  html{font-size:16px}
-  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;padding:0 0 60px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0a1628;--navy2:#0f2040;--blue:#1a56db;--blue-light:#e8f0fe;
+  --blue-mid:#3b7dd8;--blue-pale:#f0f5ff;
+  --text:#0f1c2e;--text2:#4a5568;--text3:#8898aa;
+  --border:#d6e4f7;--border2:#b8d0ef;
+  --bg:#f4f7fc;--white:#ffffff;
+  --success:#0d7f4f;--success-bg:#e6f7f1;
+  --danger:#c0392b;--danger-bg:#fdf0ef;
+  --radius:8px;--radius-lg:14px;--radius-xl:20px;
+  --shadow:0 1px 4px rgba(10,22,40,.08),0 4px 16px rgba(10,22,40,.06);
+  --shadow-card:0 2px 8px rgba(10,22,40,.07),0 8px 24px rgba(10,22,40,.05);
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;padding-bottom:80px}
 
-  header{padding:32px 24px 24px;max-width:820px;margin:0 auto}
-  header h1{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;letter-spacing:-.5px;background:linear-gradient(135deg,#7c6ef7,#4fd1a5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-  header p{color:var(--muted);font-size:14px;margin-top:6px}
+/* HEADER */
+.topbar{background:var(--navy);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;border-bottom:1px solid rgba(255,255,255,.07)}
+.topbar-brand{display:flex;align-items:center;gap:10px}
+.topbar-logo{width:32px;height:32px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.topbar-logo svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.topbar-name{font-size:15px;font-weight:600;color:#fff;letter-spacing:-.2px}
+.topbar-tag{font-size:11px;color:rgba(255,255,255,.4);font-weight:400;margin-left:4px}
 
-  .container{max-width:820px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;gap:16px}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,#0d2d5e 100%);padding:52px 40px 48px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 120%,rgba(26,86,219,.25),transparent)}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(26,86,219,.2);border:1px solid rgba(26,86,219,.35);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#90b8f8;margin-bottom:20px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:40px;font-weight:400;color:#fff;line-height:1.15;letter-spacing:-.5px;margin-bottom:12px}
+.hero h1 span{color:#90b8f8}
+.hero p{color:rgba(255,255,255,.55);font-size:15px;max-width:480px;margin:0 auto;line-height:1.7}
 
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px}
-  .card-label{font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
+/* LAYOUT */
+.page{max-width:880px;margin:0 auto;padding:40px 32px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}.topbar{padding:0 20px}.hero{padding:40px 24px}.page{padding:28px 20px}}
 
-  .lot-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;margin-bottom:8px}
-  .field{display:flex;flex-direction:column;gap:5px}
-  .field label{font-size:12px;color:var(--muted)}
-  input[type=number]{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:14px;padding:9px 12px;width:100%;outline:none;-moz-appearance:textfield;font-family:'Inter',sans-serif}
-  input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
-  input[type=number]:focus{border-color:var(--accent)}
-  input[readonly]{color:var(--muted);cursor:default}
+/* CARDS */
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);padding:28px 28px;box-shadow:var(--shadow-card)}
+.card+.card{margin-top:20px}
+.card-head{display:flex;align-items:center;gap:10px;margin-bottom:24px}
+.card-icon{width:36px;height:36px;border-radius:10px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card-icon svg{width:16px;height:16px;stroke:var(--blue);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card-title{font-size:14px;font-weight:600;color:var(--text);letter-spacing:-.1px}
+.card-sub{font-size:12px;color:var(--text3);margin-top:1px}
 
-  button.icon-btn{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);width:38px;height:38px;cursor:pointer;color:var(--muted);font-size:18px;display:flex;align-items:center;justify-content:center;transition:.15s}
-  button.icon-btn:hover{background:#3a1a1a;border-color:var(--danger);color:var(--danger)}
-  button.add-btn{background:transparent;border:1px dashed var(--border);border-radius:var(--radius);color:var(--muted);font-size:13px;padding:8px 16px;cursor:pointer;transition:.15s;font-family:'Inter',sans-serif}
-  button.add-btn:hover{border-color:var(--accent);color:var(--accent)}
+/* FORM */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-size:12px;font-weight:500;color:var(--text2);letter-spacing:.01em}
+input[type=number]{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:14px;padding:11px 14px;width:100%;outline:none;font-family:'DM Sans',sans-serif;transition:border-color .15s,box-shadow .15s;-moz-appearance:textfield}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
+input[type=number]:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,86,219,.1)}
+input[readonly]{background:var(--blue-pale);color:var(--text2);border-color:var(--border)}
+.input-prefix{position:relative}
+.input-prefix span{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text3);pointer-events:none}
+.input-prefix input{padding-left:26px}
 
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media(max-width:480px){.row2{grid-template-columns:1fr}.lot-row{grid-template-columns:1fr 1fr auto}}
+.lot-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px}
+.lot-num{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
 
-  .cmp-note{font-size:12px;padding-top:6px;display:flex;align-items:center;gap:6px}
-  .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+button.rm-btn{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);width:40px;height:44px;cursor:pointer;color:var(--text3);font-size:18px;display:flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0}
+button.rm-btn:hover{border-color:#e74c3c;color:#e74c3c;background:#fdf0ef}
+button.add-btn{width:100%;background:var(--blue-pale);border:1.5px dashed var(--border2);border-radius:var(--radius);color:var(--blue);font-size:13px;font-weight:500;padding:11px;cursor:pointer;transition:.15s;font-family:'DM Sans',sans-serif;margin-top:4px}
+button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
 
-  .compare{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:start}
-  .compare-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px}
-  .compare-col.after{border-color:var(--accent);background:rgba(124,110,247,.06)}
-  .compare-divider{display:flex;align-items:center;justify-content:center;padding:0 12px;font-size:22px;color:var(--muted);align-self:center}
-  .col-head{font-size:13px;font-weight:500;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px}
-  .col-head .dot-sm{width:8px;height:8px;border-radius:50%;background:var(--accent)}
-  .col-head .dot-sm.after{background:var(--accent2)}
+.divider{height:1px;background:var(--border);margin:20px 0}
 
-  .mrow{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--border)}
-  .mrow:last-child{border-bottom:none}
-  .mlbl{font-size:12px;color:var(--muted)}
-  .mval{font-size:13px;font-weight:500;color:var(--text)}
-  .profit{color:var(--success)}
-  .loss{color:var(--danger)}
+.cmp-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:500;margin-top:10px}
+.cmp-pill.profit{background:var(--success-bg);color:var(--success)}
+.cmp-pill.loss{background:var(--danger-bg);color:var(--danger)}
+.cmp-pill .dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
 
-  .impact-section .card-label{margin-bottom:0}
-  .imp-row{display:flex;justify-content:space-between;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border)}
-  .imp-row:last-child{border-bottom:none}
-  .imp-left .imp-title{font-size:13px;font-weight:500;color:var(--text)}
-  .imp-left .imp-sub{font-size:12px;color:var(--muted);margin-top:3px}
-  .imp-left .imp-note{font-size:11px;color:var(--muted);margin-top:2px;font-style:italic}
-  .badge{display:inline-flex;align-items:center;gap:3px;font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600;white-space:nowrap}
-  .badge.good{background:rgba(74,222,128,.15);color:var(--success)}
-  .badge.bad{background:rgba(248,113,113,.15);color:var(--danger)}
-  .badge.neu{background:var(--surface2);color:var(--muted)}
+/* METRICS */
+.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.metric{background:var(--blue-pale);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px}
+.metric-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.metric-value{font-size:20px;font-weight:600;color:var(--text);letter-spacing:-.5px}
+.metric-value.profit{color:var(--success)}
+.metric-value.loss{color:var(--danger)}
+.metric-delta{font-size:11px;margin-top:4px;font-weight:500}
+.delta-up{color:var(--success)}
+.delta-dn{color:var(--danger)}
 
-  .formula-box{background:var(--surface2);border-radius:var(--radius);padding:14px 16px;font-size:12px;color:var(--muted);line-height:1.8;border-left:3px solid var(--accent)}
-  .formula-box strong{color:var(--text)}
+/* COMPARE */
+.compare-wrap{display:grid;grid-template-columns:1fr 56px 1fr;align-items:start;gap:0;margin-bottom:20px}
+.compare-col{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-xl);padding:22px 22px;box-shadow:var(--shadow)}
+.compare-col.is-after{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,86,219,.08),var(--shadow)}
+.compare-arrow{display:flex;align-items:center;justify-content:center;height:100%;padding-top:60px;color:var(--text3)}
+.compare-arrow svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.5}
+.ch{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text3);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px}
+.ch .badge-after{background:var(--blue);color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;letter-spacing:.03em}
+.mrow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
+.mrow:last-child{border-bottom:none}
+.mlbl{font-size:12px;color:var(--text3)}
+.mval{font-size:13px;font-weight:600;color:var(--text)}
+.profit{color:var(--success)}
+.loss{color:var(--danger)}
 
-  #hidden-section{display:none}
-  .section-divider{height:1px;background:var(--border);margin:4px 0}
+/* IMPACT TABLE */
+.imp-table{width:100%;border-collapse:collapse}
+.imp-table th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);padding:8px 12px;border-bottom:1.5px solid var(--border);text-align:left}
+.imp-table th:last-child{text-align:right}
+.imp-table td{padding:13px 12px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:top}
+.imp-table tr:last-child td{border-bottom:none}
+.imp-table td:last-child{text-align:right}
+.imp-row-title{font-weight:600;color:var(--text);margin-bottom:2px}
+.imp-row-note{font-size:11px;color:var(--text3)}
+.badge{display:inline-flex;align-items:center;gap:3px;font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;white-space:nowrap}
+.badge.good{background:var(--success-bg);color:var(--success)}
+.badge.bad{background:var(--danger-bg);color:var(--danger)}
+.badge.neu{background:var(--blue-pale);color:var(--text3)}
+
+/* FORMULA */
+.formula{background:var(--navy);border-radius:var(--radius-lg);padding:20px 24px;margin-top:20px}
+.formula-title{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px}
+.formula-body{font-size:13px;color:rgba(255,255,255,.7);line-height:1.9;font-family:'DM Mono',monospace}
+.formula-body strong{color:#90b8f8;font-weight:600}
+
+#result-section{display:none}
+.section-title{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Stock Average Calculator</h1>
-  <p>See exactly how buying more shares changes your average price, P&amp;L and returns — before vs after.</p>
-</header>
-
-<div class="container">
-
-  <!-- Holdings -->
-  <div class="card">
-    <div class="card-label">Your current holdings</div>
-    <div id="lots"></div>
-    <button class="add-btn" onclick="addLot()">+ Add another lot</button>
-  </div>
-
-  <!-- New buy + CMP -->
-  <div class="card">
-    <div class="card-label">New buy to average</div>
-    <div class="row2" style="margin-bottom:14px">
-      <div class="field"><label>Buy price (₹)</label><input type="number" id="np" placeholder="e.g. 450" min="0" oninput="calc()"/></div>
-      <div class="field"><label>Quantity</label><input type="number" id="nq" placeholder="e.g. 20" min="0" oninput="calc()"/></div>
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="topbar-logo">
+      <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
     </div>
-    <div class="section-divider"></div>
-    <div style="margin-top:14px">
-      <div class="field"><label>Current Market Price — CMP (₹)</label><input type="number" id="cmp" placeholder="e.g. 480" min="0" oninput="calc()"/></div>
-      <div class="cmp-note" id="cmp-note" style="display:none">
-        <span class="dot" id="cmp-dot"></span>
-        <span id="cmp-text" style="color:var(--muted)"></span>
+    <span class="topbar-name">StockAvg <span class="topbar-tag">Calculator</span></span>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+    Real-time P&amp;L Analysis
+  </div>
+  <h1>Stock Average <span>Calculator</span></h1>
+  <p>Understand exactly how averaging affects your portfolio — see the full before vs after impact on your P&amp;L and returns.</p>
+</div>
+
+<div class="page">
+
+  <!-- Row 1: Holdings + New Buy -->
+  <div class="grid2">
+
+    <!-- Holdings -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div>
+          <div class="card-title">Current Holdings</div>
+          <div class="card-sub">Enter each lot you purchased</div>
+        </div>
       </div>
+      <div id="lots"></div>
+      <button class="add-btn" onclick="addLot()">+ Add another lot</button>
+    </div>
+
+    <!-- New buy + CMP -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        </div>
+        <div>
+          <div class="card-title">New Buy to Average</div>
+          <div class="card-sub">Shares you plan to purchase</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Buy Price (₹)</label>
+        <div class="input-prefix"><span>₹</span><input type="number" id="np" placeholder="0.00" min="0" oninput="calc()"/></div>
+      </div>
+      <div class="field">
+        <label>Quantity</label>
+        <input type="number" id="nq" placeholder="0" min="0" oninput="calc()"/>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="card-head" style="margin-bottom:12px">
+        <div class="card-icon" style="background:#fffbeb">
+          <svg viewBox="0 0 24 24" style="stroke:#d97706"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div>
+          <div class="card-title">Current Market Price</div>
+          <div class="card-sub">Live CMP for P&amp;L calculation</div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:0">
+        <label>CMP (₹)</label>
+        <div class="input-prefix"><span>₹</span><input type="number" id="cmp" placeholder="0.00" min="0" oninput="calc()"/></div>
+      </div>
+      <div id="cmp-pill" style="display:none"></div>
     </div>
   </div>
 
   <!-- Results -->
-  <div id="hidden-section">
+  <div id="result-section">
+
+    <!-- Summary metrics -->
+    <div class="card" style="margin-top:20px">
+      <div class="section-title">Portfolio Summary — After New Buy</div>
+      <div class="metric-grid" id="metric-grid"></div>
+    </div>
 
     <!-- Before vs After -->
-    <div class="compare">
-      <div class="compare-col before">
-        <div class="col-head"><span class="dot-sm"></span> Before new buy</div>
-        <div id="b-metrics"></div>
-      </div>
-      <div class="compare-divider">→</div>
-      <div class="compare-col after">
-        <div class="col-head"><span class="dot-sm after"></span> After new buy</div>
-        <div id="a-metrics"></div>
+    <div class="card" style="margin-top:20px">
+      <div class="section-title">Before vs After Comparison</div>
+      <div class="compare-wrap">
+        <div class="compare-col">
+          <div class="ch">Before new buy</div>
+          <div id="b-metrics"></div>
+        </div>
+        <div class="compare-arrow">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="compare-col is-after">
+          <div class="ch">After new buy <span class="badge-after">Updated</span></div>
+          <div id="a-metrics"></div>
+        </div>
       </div>
     </div>
 
-    <!-- Impact -->
-    <div class="card impact-section">
-      <div class="card-label" style="margin-bottom:4px">Impact of new buy</div>
-      <div id="impact"></div>
-    </div>
+    <!-- Impact table -->
+    <div class="card" style="margin-top:20px">
+      <div class="section-title">Impact Breakdown</div>
+      <table class="imp-table">
+        <thead>
+          <tr><th>Metric</th><th>Before</th><th>After</th><th>Change</th></tr>
+        </thead>
+        <tbody id="impact-body"></tbody>
+      </table>
 
-    <!-- Formula box -->
-    <div class="formula-box" id="formula"></div>
+      <div class="formula" style="margin-top:20px">
+        <div class="formula-title">How P&amp;L is calculated</div>
+        <div class="formula-body" id="formula"></div>
+      </div>
+    </div>
 
   </div>
-
 </div>
 
 <script>
@@ -148,10 +262,15 @@ function upd(id,f,v){const l=lots.find(x=>x.id===id);if(l)l[f]=v;calc();}
 function render(){
   const c=document.getElementById('lots');c.innerHTML='';
   lots.forEach((l,i)=>{
-    const d=document.createElement('div');d.className='lot-row';
-    d.innerHTML=`<div class="field"><label>Buy price (₹)</label><input type="number" min="0" placeholder="e.g. 500" value="${l.p}" oninput="upd(${l.id},'p',this.value)"/></div>
-    <div class="field"><label>Qty</label><input type="number" min="0" placeholder="e.g. 10" value="${l.q}" oninput="upd(${l.id},'q',this.value)"/></div>
-    ${lots.length>1?`<button class="icon-btn" onclick="removeLot(${l.id})" title="Remove">×</button>`:'<div></div>'}`;
+    const d=document.createElement('div');
+    const n=document.createElement('div');n.className='lot-num';n.textContent=`Lot ${i+1}`;
+    d.appendChild(n);
+    const r=document.createElement('div');r.className='lot-row';
+    r.innerHTML=`<div class="field" style="margin-bottom:0"><label>Buy Price (₹)</label><div class="input-prefix"><span>₹</span><input type="number" min="0" placeholder="0.00" value="${l.p}" oninput="upd(${l.id},'p',this.value)"/></div></div>
+    <div class="field" style="margin-bottom:0"><label>Quantity</label><input type="number" min="0" placeholder="0" value="${l.q}" oninput="upd(${l.id},'q',this.value)"/></div>
+    ${lots.length>1?`<button class="rm-btn" onclick="removeLot(${l.id})" title="Remove lot">×</button>`:'<div></div>'}`;
+    d.appendChild(r);
+    if(i<lots.length-1){const dv=document.createElement('div');dv.style.cssText='height:1px;background:var(--border);margin:14px 0';d.appendChild(dv);}
     c.appendChild(d);
   });calc();
 }
@@ -159,10 +278,10 @@ function inr(n){return'₹'+Math.abs(n).toLocaleString('en-IN',{minimumFractionD
 function pct(n){return(n>=0?'+':'')+n.toFixed(2)+'%';}
 function sign(n){return n>=0?'+':'-';}
 function mrow(lbl,val,cls=''){return`<div class="mrow"><span class="mlbl">${lbl}</span><span class="mval ${cls}">${val}</span></div>`;}
-function badge(diff,lowerGood){
-  if(Math.abs(diff)<0.001)return`<span class="badge neu">no change</span>`;
+function bdg(diff,lowerGood){
+  if(Math.abs(diff)<0.001)return`<span class="badge neu">—</span>`;
   const good=lowerGood?diff<0:diff>0;
-  const arrow=good?'↑':'↓';
+  const arrow=good?'▲':'▼';
   const disp=Math.abs(diff)>=1?inr(Math.abs(diff)):Math.abs(diff).toFixed(2);
   return`<span class="badge ${good?'good':'bad'}">${arrow} ${disp}</span>`;
 }
@@ -173,63 +292,55 @@ function calc(){
   const np=parseFloat(document.getElementById('np').value)||0;
   const nq=parseFloat(document.getElementById('nq').value)||0;
 
-  const noteEl=document.getElementById('cmp-note');
-  const dotEl=document.getElementById('cmp-dot');
-  const txtEl=document.getElementById('cmp-text');
+  const pillEl=document.getElementById('cmp-pill');
   if(qty&&amt&&cmp){
     const a=amt/qty;
-    noteEl.style.display='flex';
-    if(cmp>a){dotEl.style.background='#4ade80';txtEl.textContent=`CMP is above your avg ₹${a.toFixed(2)} — currently in profit`;}
-    else if(cmp<a){dotEl.style.background='#f87171';txtEl.textContent=`CMP is below your avg ₹${a.toFixed(2)} — currently in loss`;}
-    else{dotEl.style.background='#fbbf24';txtEl.textContent=`CMP equals your avg ₹${a.toFixed(2)} — break even`;}
-  } else noteEl.style.display='none';
+    const inPro=cmp>=a;
+    pillEl.style.display='block';
+    pillEl.innerHTML=`<span class="cmp-pill ${inPro?'profit':'loss'}"><span class="dot"></span>${inPro?'CMP above avg ₹'+a.toFixed(2)+' — in profit':'CMP below avg ₹'+a.toFixed(2)+' — in loss'}</span>`;
+  } else pillEl.style.display='none';
 
-  const sec=document.getElementById('hidden-section');
+  const sec=document.getElementById('result-section');
   if(!qty||!amt||!cmp||!np||!nq){sec.style.display='none';return;}
   sec.style.display='block';
 
   const bAvg=amt/qty,bPnl=(cmp-bAvg)*qty,bPct=((cmp-bAvg)/bAvg)*100,bInv=amt,bVal=cmp*qty;
   const aAmt=amt+np*nq,aQty=qty+nq,aAvg=aAmt/aQty,aPnl=(cmp-aAvg)*aQty,aPct=((cmp-aAvg)/aAvg)*100,aInv=aAmt,aVal=cmp*aQty;
+  const bC=bPnl>=0?'profit':'loss',aC=aPnl>=0?'profit':'loss';
+
+  document.getElementById('metric-grid').innerHTML=[
+    {l:'Avg Buy Price',v:'₹'+aAvg.toFixed(2),d:aAvg<bAvg?`▼ ₹${(bAvg-aAvg).toFixed(2)} lower`:`▲ ₹${(aAvg-bAvg).toFixed(2)} higher`,dc:aAvg<=bAvg?'delta-up':'delta-dn'},
+    {l:'Total Shares',v:aQty.toLocaleString(),d:`+${nq} new shares`,dc:'delta-up'},
+    {l:'Total Invested',v:inr(aInv),d:`+${inr(np*nq)} added`,dc:'delta-dn'},
+    {l:'Current Value',v:inr(aVal),d:'At CMP',dc:''},
+    {l:'P&L (₹)',v:sign(aPnl)+inr(aPnl),d:(aPnl-bPnl)>=0?`▲ ${inr(aPnl-bPnl)}`:`▼ ${inr(aPnl-bPnl)}`,dc:(aPnl-bPnl)>=0?'delta-up':'delta-dn',vc:aC},
+    {l:'Return %',v:pct(aPct),d:(aPct-bPct)>=0?`▲ ${(aPct-bPct).toFixed(2)}%`:`▼ ${Math.abs(aPct-bPct).toFixed(2)}%`,dc:(aPct-bPct)>=0?'delta-up':'delta-dn',vc:aC},
+  ].map(m=>`<div class="metric"><div class="metric-label">${m.l}</div><div class="metric-value ${m.vc||''}">${m.v}</div><div class="metric-delta ${m.dc}">${m.d}</div></div>`).join('');
 
   document.getElementById('b-metrics').innerHTML=
-    mrow('Avg buy price','₹'+bAvg.toFixed(2))+
-    mrow('Total shares',qty.toLocaleString())+
-    mrow('Total invested',inr(bInv))+
-    mrow('Current value',inr(bVal))+
-    mrow('P&L',sign(bPnl)+inr(bPnl),bPnl>=0?'profit':'loss')+
-    mrow('Return',pct(bPct),bPnl>=0?'profit':'loss');
-
+    mrow('Avg Price','₹'+bAvg.toFixed(2))+mrow('Shares',qty.toLocaleString())+mrow('Invested',inr(bInv))+mrow('Curr Value',inr(bVal))+mrow('P&L',sign(bPnl)+inr(bPnl),bC)+mrow('Return',pct(bPct),bC);
   document.getElementById('a-metrics').innerHTML=
-    mrow('Avg buy price','₹'+aAvg.toFixed(2))+
-    mrow('Total shares',aQty.toLocaleString())+
-    mrow('Total invested',inr(aInv))+
-    mrow('Current value',inr(aVal))+
-    mrow('P&L',sign(aPnl)+inr(aPnl),aPnl>=0?'profit':'loss')+
-    mrow('Return',pct(aPct),aPnl>=0?'profit':'loss');
+    mrow('Avg Price','₹'+aAvg.toFixed(2))+mrow('Shares',aQty.toLocaleString())+mrow('Invested',inr(aInv))+mrow('Curr Value',inr(aVal))+mrow('P&L',sign(aPnl)+inr(aPnl),aC)+mrow('Return',pct(aPct),aC);
 
   const rows=[
-    {t:'Average price',sub:`${inr(bAvg)} → ${inr(aAvg)}`,note:aAvg<bAvg?'Averaging down — break-even is now easier':'Averaging up — you expect further upside',diff:aAvg-bAvg,low:true},
-    {t:'P&L (absolute ₹)',sub:`${sign(bPnl)}${inr(bPnl)} → ${sign(aPnl)}${inr(aPnl)}`,note:'More shares × new avg vs CMP',diff:aPnl-bPnl,low:false},
-    {t:'Return %',sub:`${pct(bPct)} → ${pct(aPct)}`,note:'Best indicator of whether averaging helped',diff:aPct-bPct,low:false},
-    {t:'Extra capital needed',sub:`—  →  ${inr(np*nq)}`,note:'New money going in',diff:0,low:false},
-    {t:'Break-even price',sub:`₹${bAvg.toFixed(2)} → ₹${aAvg.toFixed(2)}`,note:'Stock must cross this for you to be in profit',diff:aAvg-bAvg,low:true},
+    {t:'Average Price',n:'Break-even shifts with avg',b:'₹'+bAvg.toFixed(2),a:'₹'+aAvg.toFixed(2),diff:aAvg-bAvg,low:true},
+    {t:'P&L (₹)',n:'More shares × new avg vs CMP',b:sign(bPnl)+inr(bPnl),a:sign(aPnl)+inr(aPnl),diff:aPnl-bPnl,low:false},
+    {t:'Return %',n:'True measure of averaging benefit',b:pct(bPct),a:pct(aPct),diff:aPct-bPct,low:false},
+    {t:'Break-even',n:'Minimum CMP to be in profit',b:'₹'+bAvg.toFixed(2),a:'₹'+aAvg.toFixed(2),diff:aAvg-bAvg,low:true},
+    {t:'Capital Added',n:'New money deployed',b:'—',a:inr(np*nq),diff:0,low:false},
   ];
-
-  document.getElementById('impact').innerHTML=rows.map(r=>`
-    <div class="imp-row">
-      <div class="imp-left">
-        <div class="imp-title">${r.t}</div>
-        <div class="imp-sub">${r.sub}</div>
-        <div class="imp-note">${r.note}</div>
-      </div>
-      <div style="padding-left:12px;flex-shrink:0;padding-top:2px">${r.diff!==0?badge(r.diff,r.low):''}</div>
-    </div>`).join('');
+  document.getElementById('impact-body').innerHTML=rows.map(r=>`
+    <tr>
+      <td><div class="imp-row-title">${r.t}</div><div class="imp-row-note">${r.n}</div></td>
+      <td>${r.b}</td>
+      <td><strong>${r.a}</strong></td>
+      <td>${r.diff!==0?bdg(r.diff,r.low):''}</td>
+    </tr>`).join('');
 
   document.getElementById('formula').innerHTML=
-    `<strong>How P&L is calculated:</strong><br>` +
-    `Before → (${cmp} − ${bAvg.toFixed(2)}) × ${qty} shares = <strong>${sign(bPnl)}${inr(bPnl)}</strong><br>`+
-    `After &nbsp;→ (${cmp} − ${aAvg.toFixed(2)}) × ${aQty} shares = <strong>${sign(aPnl)}${inr(aPnl)}</strong><br><br>`+
-    `P&L changes because two things shift: your avg price (${bAvg.toFixed(2)} → ${aAvg.toFixed(2)}) and your share count (${qty} → ${aQty}).`;
+    `<strong>Before:</strong> (${cmp} − ${bAvg.toFixed(2)}) × ${qty} shares = <strong>${sign(bPnl)}${inr(bPnl)}</strong><br>`+
+    `<strong>After &nbsp;:</strong> (${cmp} − ${aAvg.toFixed(2)}) × ${aQty} shares = <strong>${sign(aPnl)}${inr(aPnl)}</strong><br><br>`+
+    `P&amp;L changes because both the avg price (${bAvg.toFixed(2)} → ${aAvg.toFixed(2)}) and the share count (${qty} → ${aQty}) shift simultaneously.`;
 }
 addLot();addLot();
 </script>
