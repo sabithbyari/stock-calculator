@@ -254,6 +254,33 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
   .imp-table{font-size:12px}
   .imp-table th,.imp-table td{padding:8px 8px}
 }
+
+/* ── SEO KEYWORDS SECTION ── */
+.seo-section{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);padding:24px 28px;margin-top:8px}
+.seo-section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:14px}
+.seo-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.seo-tags span{background:var(--blue-pale);border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--text2);padding:4px 12px;font-weight:500}
+.seo-desc{font-size:12px;color:var(--text3);line-height:1.8;margin:0}
+
+/* ── TARGET PLANNER ── */
+.target-mode-tabs{display:flex;gap:8px;margin-bottom:20px;background:var(--blue-pale);border-radius:var(--radius-lg);padding:4px}
+.target-tab{flex:1;text-align:center;padding:8px 12px;border-radius:var(--radius);font-size:13px;font-weight:500;color:var(--text3);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;transition:.15s}
+.target-tab.active{background:var(--white);color:var(--blue);box-shadow:0 1px 4px rgba(10,22,40,.12)}
+.target-result-hero{text-align:center;padding:24px 20px;border-radius:var(--radius-xl);margin-bottom:16px;border:2px solid var(--border)}
+.target-result-hero.profit-zone{background:linear-gradient(135deg,var(--success-bg),#f0fdf9);border-color:#6ee7b7}
+.target-result-hero.neutral-zone{background:var(--blue-pale);border-color:var(--border2)}
+.trh-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:6px}
+.trh-value{font-size:38px;font-weight:700;letter-spacing:-.5px;color:var(--success);line-height:1}
+.trh-sub{font-size:13px;color:var(--text3);margin-top:6px}
+.target-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.target-step{display:flex;align-items:center;gap:14px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:14px 18px}
+.ts-num{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ts-label{font-size:12px;color:var(--text3);font-weight:500}
+.ts-value{font-size:15px;font-weight:700;color:var(--text);margin-top:1px}
+.ts-value.accent{color:var(--blue)}
+.ts-value.green{color:var(--success)}
+.ts-value.orange{color:var(--warning)}
+.target-warn{background:var(--warning-bg);border:1px solid #fcd34d;border-radius:var(--radius);padding:10px 14px;font-size:12px;color:var(--warning);font-weight:500;margin-top:8px}
 </style>
 </head>
 <body>
@@ -589,7 +616,7 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
             <div class="field"><label>Profit Target (₹) — How much you want to earn</label><div class="input-pre"><span>₹</span><input type="number" id="t-profit" placeholder="e.g. 500" min="0" oninput="targetCalc()"/></div></div>
             <div class="divider"></div>
             <div class="field"><label>Risk % per trade (stop-loss buffer)</label>
-              <select id="t-risk" onchange="targetCalc()">
+              <select id="t-risk" onchange="onTRiskChange()">
                 <option value="1">1% — Very tight</option>
                 <option value="2" selected>2% — Moderate (recommended)</option>
                 <option value="3">3% — Loose</option>
@@ -599,7 +626,7 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
             </div>
             <div class="field" id="t-risk-custom-wrap" style="display:none"><label>Custom Risk %</label><input type="number" id="t-risk-custom" placeholder="e.g. 1.5" min="0.1" max="50" step="0.1" oninput="targetCalc()"/></div>
             <div class="field"><label>Target % move (optional — overrides auto)</label>
-              <select id="t-move" onchange="targetCalc()">
+              <select id="t-move" onchange="onTMoveChange()">
                 <option value="auto" selected>Auto-calculate</option>
                 <option value="1">1% move</option>
                 <option value="2">2% move</option>
@@ -619,7 +646,7 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
             <div class="field"><label>Stock CMP (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="c-cmp" placeholder="e.g. 1500.00" min="0" oninput="capitalCalc()"/></div></div>
             <div class="field"><label>Capital Available (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="c-capital" placeholder="e.g. 50000" min="0" oninput="capitalCalc()"/></div></div>
             <div class="field"><label>Target % gain you expect</label>
-              <select id="c-move" onchange="capitalCalc()">
+              <select id="c-move" onchange="onCMoveChange()">
                 <option value="1">1%</option>
                 <option value="2" selected>2%</option>
                 <option value="3">3%</option>
@@ -741,33 +768,6 @@ function closeSidebarMobile(){
   document.getElementById('sidebar-overlay').classList.remove('active');
 }
 
-/* ── SEO KEYWORDS SECTION ── */
-.seo-section{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);padding:24px 28px;margin-top:8px}
-.seo-section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:14px}
-.seo-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.seo-tags span{background:var(--blue-pale);border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--text2);padding:4px 12px;font-weight:500}
-.seo-desc{font-size:12px;color:var(--text3);line-height:1.8;margin:0}
-
-/* ── TARGET PLANNER ── */
-.target-mode-tabs{display:flex;gap:8px;margin-bottom:20px;background:var(--blue-pale);border-radius:var(--radius-lg);padding:4px}
-.target-tab{flex:1;text-align:center;padding:8px 12px;border-radius:var(--radius);font-size:13px;font-weight:500;color:var(--text3);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;transition:.15s}
-.target-tab.active{background:var(--white);color:var(--blue);box-shadow:0 1px 4px rgba(10,22,40,.12)}
-.target-result-hero{text-align:center;padding:24px 20px;border-radius:var(--radius-xl);margin-bottom:16px;border:2px solid var(--border)}
-.target-result-hero.profit-zone{background:linear-gradient(135deg,var(--success-bg),#f0fdf9);border-color:#6ee7b7}
-.target-result-hero.neutral-zone{background:var(--blue-pale);border-color:var(--border2)}
-.trh-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:6px}
-.trh-value{font-size:38px;font-weight:700;letter-spacing:-.5px;color:var(--success);line-height:1}
-.trh-sub{font-size:13px;color:var(--text3);margin-top:6px}
-.target-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
-.target-step{display:flex;align-items:center;gap:14px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:14px 18px}
-.ts-num{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ts-label{font-size:12px;color:var(--text3);font-weight:500}
-.ts-value{font-size:15px;font-weight:700;color:var(--text);margin-top:1px}
-.ts-value.accent{color:var(--blue)}
-.ts-value.green{color:var(--success)}
-.ts-value.orange{color:var(--warning)}
-.target-warn{background:var(--warning-bg);border:1px solid #fcd34d;border-radius:var(--radius);padding:10px 14px;font-size:12px;color:var(--warning);font-weight:500;margin-top:8px}
-
 /* ── HELPERS ── */
 function inr(n){return'₹'+Math.abs(n).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function pct(n){return(n>=0?'+':'')+n.toFixed(2)+'%';}
@@ -870,6 +870,7 @@ function bsCalc(){
   ];
   document.getElementById('bs-summary-rows').innerHTML=rows.map(r=>`<div class="mrow"><span class="mlbl">${r.l}</span><span class="mval">${r.v}</span></div>`).join('');
   document.getElementById('bs-formula').innerHTML=`<strong>P&L</strong> = (Sell price − Buy price) × Qty<br>= (${sp} − ${bp}) × ${qty} = <strong>${isProfit?'+':'-'}${inr(Math.abs(pnl))}</strong><br><br><strong>Return %</strong> = ((${sp} − ${bp}) ÷ ${bp}) × 100 = <strong>${pct(retPct)}</strong>`;
+}
 /* ── TARGET PLANNER ── */
 let targetMode='target';
 function switchTargetTab(mode){
@@ -881,15 +882,18 @@ function switchTargetTab(mode){
   document.getElementById('target-result-empty').style.display='flex';
   document.getElementById('target-result-show').style.display='none';
 }
-document.getElementById('t-risk').addEventListener('change',function(){
-  document.getElementById('t-risk-custom-wrap').style.display=this.value==='custom'?'':'none';targetCalc();
-});
-document.getElementById('t-move').addEventListener('change',function(){
-  document.getElementById('t-move-custom-wrap').style.display=this.value==='custom'?'':'none';targetCalc();
-});
-document.getElementById('c-move').addEventListener('change',function(){
-  document.getElementById('c-move-custom-wrap').style.display=this.value==='custom'?'':'none';capitalCalc();
-});
+function onTRiskChange(){
+  var el=document.getElementById('t-risk');if(!el)return;
+  document.getElementById('t-risk-custom-wrap').style.display=el.value==='custom'?'':'none';targetCalc();
+}
+function onTMoveChange(){
+  var el=document.getElementById('t-move');if(!el)return;
+  document.getElementById('t-move-custom-wrap').style.display=el.value==='custom'?'':'none';targetCalc();
+}
+function onCMoveChange(){
+  var el=document.getElementById('c-move');if(!el)return;
+  document.getElementById('c-move-custom-wrap').style.display=el.value==='custom'?'':'none';capitalCalc();
+}
 function getRisk(prefix){
   const sel=document.getElementById(prefix+'-risk');
   if(!sel)return 2;
