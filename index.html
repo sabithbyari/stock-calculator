@@ -4,20 +4,13 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>StockTools — Free Stock Calculators</title>
-<meta name="description" content="Free stock market calculators for Indian traders and investors. Calculate stock averages, buy/sell P&L, target-based investment planning, and more. No signup required."/>
-<meta name="keywords" content="stock average calculator, buy sell calculator, stock profit calculator, intraday target calculator, stock investment calculator, P&L calculator India, NSE BSE calculator, stock market tools, free trading calculator, entry exit point calculator"/>
-<meta name="author" content="StockTools"/>
-<meta property="og:title" content="StockTools — Free Stock Calculators for Indian Traders"/>
-<meta property="og:description" content="Calculate stock averages, P&L, and plan your trades with target-based entry & exit calculators. 100% free, no signup."/>
-<meta property="og:type" content="website"/>
-<meta name="robots" content="index, follow"/>
-<link rel="canonical" href="https://stocktools.in/"/>
+<meta name="description" content="Free stock market calculators for Indian traders. Stock averages, P&L, target planning, and TradeRadar signal scanner."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0a1628;--navy2:#0f2040;--blue:#1a56db;--blue-h:#1446b8;
+  --navy:#0a1628;--navy2:#0f2040;--blue:#1a56db;
   --blue-light:#e8f0fe;--blue-pale:#f0f5ff;--blue-mid:#3b7dd8;
   --text:#0f1c2e;--text2:#4a5568;--text3:#8898aa;
   --border:#d6e4f7;--border2:#b8d0ef;
@@ -31,11 +24,7 @@
   --shadow-lg:0 2px 8px rgba(10,22,40,.08),0 8px 32px rgba(10,22,40,.08);
 }
 html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:16px}
-
-/* ── LAYOUT ── */
 .app{display:flex;height:100vh;overflow:hidden}
-
-/* ── SIDEBAR ── */
 .sidebar{width:var(--sidebar-w);background:var(--navy);display:flex;flex-direction:column;transition:width .25s ease;flex-shrink:0;overflow:hidden;z-index:100}
 .sidebar.collapsed{width:var(--sidebar-collapsed)}
 .sb-top{display:flex;align-items:center;gap:10px;padding:18px 16px;border-bottom:1px solid rgba(255,255,255,.07);flex-shrink:0;min-height:64px}
@@ -48,43 +37,33 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
 .sb-toggle:hover{color:#fff;background:rgba(255,255,255,.08)}
 .sb-toggle svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
 .sidebar.collapsed .sb-toggle svg{transform:rotate(180deg)}
-
 .sb-section{padding:12px 10px 4px;overflow:hidden}
 .sb-section-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);padding:0 8px;margin-bottom:6px;white-space:nowrap;overflow:hidden}
 .sidebar.collapsed .sb-section-label{opacity:0}
-.sb-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--radius);cursor:pointer;transition:.15s;text-decoration:none;white-space:nowrap;color:rgba(255,255,255,.6);font-size:13px;font-weight:500;position:relative}
+.sb-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--radius);cursor:pointer;transition:.15s;text-decoration:none;white-space:nowrap;color:rgba(255,255,255,.6);font-size:13px;font-weight:500}
 .sb-item:hover{background:rgba(255,255,255,.07);color:#fff}
 .sb-item.active{background:var(--blue);color:#fff}
 .sb-item svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 .sb-item-text{overflow:hidden;white-space:nowrap}
 .sb-badge{background:rgba(255,255,255,.15);color:rgba(255,255,255,.7);font-size:10px;padding:1px 6px;border-radius:10px;margin-left:auto;flex-shrink:0}
-.sb-item.active .sb-badge{background:rgba(255,255,255,.25);color:#fff}
+.sb-badge.new-badge{background:#7c3aed;color:#fff}
 .sidebar.collapsed .sb-item-text,.sidebar.collapsed .sb-badge,.sidebar.collapsed .sb-section-label{display:none}
 .sb-divider{height:1px;background:rgba(255,255,255,.07);margin:8px 10px}
-
 .sb-bottom{margin-top:auto;padding:10px;border-top:1px solid rgba(255,255,255,.07)}
-.sb-coffee{display:flex;align-items:center;gap:8px;padding:10px 10px;border-radius:var(--radius);background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);cursor:pointer;text-decoration:none;transition:.15s;white-space:nowrap;overflow:hidden}
+.sb-coffee{display:flex;align-items:center;gap:8px;padding:10px;border-radius:var(--radius);background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);cursor:pointer;text-decoration:none;transition:.15s;white-space:nowrap;overflow:hidden}
 .sb-coffee:hover{background:rgba(251,191,36,.18)}
 .sb-coffee-icon{font-size:16px;flex-shrink:0}
 .sb-coffee-text{font-size:12px;font-weight:500;color:#fbbf24}
 .sidebar.collapsed .sb-coffee-text{display:none}
-
-/* ── MAIN ── */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;box-shadow:0 1px 0 var(--border)}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .topbar-left{display:flex;align-items:center;gap:12px}
-.topbar-title{font-size:16px;font-weight:600;color:var(--text)}
 .topbar-crumb{font-size:13px;color:var(--text3);display:flex;align-items:center;gap:6px}
-.topbar-crumb span{color:var(--text3)}
 .topbar-right{display:flex;align-items:center;gap:10px}
 .tb-badge{background:var(--blue-light);color:var(--blue);font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px}
-
 .content{flex:1;overflow-y:auto;padding:32px}
-
-/* ── PAGE: HOME ── */
 .home-hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,#0d2d5e 100%);border-radius:var(--radius-xl);padding:48px 40px;margin-bottom:28px;position:relative;overflow:hidden}
 .home-hero::before{content:'';position:absolute;right:-40px;top:-40px;width:300px;height:300px;background:radial-gradient(circle,rgba(26,86,219,.3),transparent 70%);pointer-events:none}
-.home-hero::after{content:'';position:absolute;left:40%;bottom:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(79,209,165,.15),transparent 70%);pointer-events:none}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(26,86,219,.25);border:1px solid rgba(26,86,219,.4);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#90b8f8;margin-bottom:18px}
 .home-hero h1{font-family:'DM Serif Display',serif;font-size:36px;color:#fff;line-height:1.2;margin-bottom:10px}
 .home-hero h1 span{color:#90b8f8}
@@ -92,62 +71,42 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
 .hero-stats{display:flex;gap:28px}
 .hero-stat-val{font-size:22px;font-weight:600;color:#fff}
 .hero-stat-lbl{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
-
 .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px}
 .section-head h2{font-size:16px;font-weight:600;color:var(--text)}
 .section-head span{font-size:12px;color:var(--text3)}
-
 .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:32px}
 .tool-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-xl);padding:24px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
 .tool-card:hover{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,86,219,.08),var(--shadow-lg);transform:translateY(-2px)}
 .tool-card.coming{opacity:.6;cursor:default}
 .tool-card.coming:hover{transform:none;border-color:var(--border);box-shadow:none}
-.tool-card-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:20px}
-.tool-card-icon.blue{background:var(--blue-light)}
-.tool-card-icon.green{background:var(--success-bg)}
-.tool-card-icon.orange{background:var(--warning-bg)}
-.tool-card-icon.purple{background:#f3f0ff}
+.tool-card-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.tool-card-icon.blue{background:var(--blue-light)}.tool-card-icon.green{background:var(--success-bg)}.tool-card-icon.orange{background:var(--warning-bg)}.tool-card-icon.purple{background:#f3f0ff}.tool-card-icon.teal{background:#e0fdf4}
 .tool-card-icon svg{width:20px;height:20px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.tc-blue{stroke:var(--blue)}
-.tc-green{stroke:var(--success)}
-.tc-orange{stroke:var(--warning)}
-.tc-purple{stroke:#7c3aed}
+.tc-blue{stroke:var(--blue)}.tc-green{stroke:var(--success)}.tc-orange{stroke:var(--warning)}.tc-purple{stroke:#7c3aed}.tc-teal{stroke:#0f766e}
 .tool-card h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px}
 .tool-card p{font-size:13px;color:var(--text3);line-height:1.6}
 .tool-card-tag{position:absolute;top:16px;right:16px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:10px;letter-spacing:.04em}
-.tag-free{background:var(--success-bg);color:var(--success)}
-.tag-soon{background:var(--blue-pale);color:var(--blue-mid)}
+.tag-free{background:var(--success-bg);color:var(--success)}.tag-soon{background:var(--blue-pale);color:var(--blue-mid)}.tag-new{background:#7c3aed;color:#fff}
 .tool-card-arrow{margin-top:16px;font-size:12px;font-weight:500;color:var(--blue);display:flex;align-items:center;gap:4px;transition:.15s}
 .tool-card:hover .tool-card-arrow{gap:8px}
-
-/* ── PAGE: TOOL ── */
-.tool-page{display:none}
-.tool-page.active{display:block}
-.home-page{display:none}
-.home-page.active{display:block}
-
-/* ── CARDS ── */
+.tool-page{display:none}.tool-page.active{display:block}
+.home-page{display:none}.home-page.active{display:block}
 .card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);padding:26px 28px;box-shadow:var(--shadow);margin-bottom:20px}
 .card-head{display:flex;align-items:center;gap:12px;margin-bottom:22px}
 .card-icon{width:36px;height:36px;border-radius:10px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .card-icon svg{width:16px;height:16px;stroke:var(--blue);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.card-icon.green{background:var(--success-bg)}
-.card-icon.green svg{stroke:var(--success)}
+.card-icon.green{background:var(--success-bg)}.card-icon.green svg{stroke:var(--success)}
 .card-title{font-size:14px;font-weight:600;color:var(--text)}
 .card-sub{font-size:12px;color:var(--text3);margin-top:1px}
-
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-
-/* ── FORM ── */
 .field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
 .field label{font-size:12px;font-weight:500;color:var(--text2)}
-input[type=number],select{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:14px;padding:10px 14px;width:100%;outline:none;font-family:'DM Sans',sans-serif;transition:border-color .15s,box-shadow .15s;-moz-appearance:textfield;appearance:none}
+input[type=number],input[type=text],select{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:14px;padding:10px 14px;width:100%;outline:none;font-family:'DM Sans',sans-serif;transition:border-color .15s,box-shadow .15s;-moz-appearance:textfield;appearance:none}
 input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
-input[type=number]:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,86,219,.1)}
+input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,86,219,.1)}
 .input-pre{position:relative}
 .input-pre span{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text3);pointer-events:none}
 .input-pre input{padding-left:26px}
-
 .lot-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;margin-bottom:8px}
 .lot-label{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
 button.rm-btn{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);width:40px;height:42px;cursor:pointer;color:var(--text3);font-size:18px;display:flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0}
@@ -155,25 +114,17 @@ button.rm-btn:hover{border-color:#e74c3c;color:#e74c3c;background:var(--danger-b
 button.add-btn{width:100%;background:var(--blue-pale);border:1.5px dashed var(--border2);border-radius:var(--radius);color:var(--blue);font-size:13px;font-weight:500;padding:10px;cursor:pointer;transition:.15s;font-family:'DM Sans',sans-serif;margin-top:4px}
 button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
 .divider{height:1px;background:var(--border);margin:18px 0}
-
 .cmp-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:500;margin-top:8px}
-.cmp-pill.profit{background:var(--success-bg);color:var(--success)}
-.cmp-pill.loss{background:var(--danger-bg);color:var(--danger)}
+.cmp-pill.profit{background:var(--success-bg);color:var(--success)}.cmp-pill.loss{background:var(--danger-bg);color:var(--danger)}
 .cmp-pill .dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-
-/* ── METRICS ── */
 .metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .metric{background:var(--blue-pale);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px}
 .metric-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
 .metric-value{font-size:19px;font-weight:600;color:var(--text);letter-spacing:-.4px}
-.metric-value.profit{color:var(--success)}
-.metric-value.loss{color:var(--danger)}
+.metric-value.profit{color:var(--success)}.metric-value.loss{color:var(--danger)}
 .metric-delta{font-size:11px;margin-top:4px;font-weight:500;color:var(--text3)}
-.delta-up{color:var(--success)}
-.delta-dn{color:var(--danger)}
-
-/* ── COMPARE ── */
+.delta-up{color:var(--success)}.delta-dn{color:var(--danger)}
 .compare-wrap{display:grid;grid-template-columns:1fr 48px 1fr;align-items:start}
 .compare-col{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-xl);padding:20px}
 .compare-col.is-after{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,86,219,.07)}
@@ -183,807 +134,495 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
 .ch .after-badge{background:var(--blue);color:#fff;font-size:10px;padding:2px 7px;border-radius:10px}
 .mrow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)}
 .mrow:last-child{border-bottom:none}
-.mlbl{font-size:12px;color:var(--text3)}
-.mval{font-size:13px;font-weight:600;color:var(--text)}
-.profit{color:var(--success)}
-.loss{color:var(--danger)}
-
-/* ── IMPACT TABLE ── */
+.mlbl{font-size:12px;color:var(--text3)}.mval{font-size:13px;font-weight:600;color:var(--text)}
+.profit{color:var(--success)}.loss{color:var(--danger)}
 .imp-table{width:100%;border-collapse:collapse}
 .imp-table th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);padding:8px 12px;border-bottom:1.5px solid var(--border);text-align:left}
 .imp-table th:not(:first-child){text-align:right}
 .imp-table td{padding:12px 12px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
 .imp-table td:not(:first-child){text-align:right}
 .imp-table tr:last-child td{border-bottom:none}
-.imp-row-title{font-weight:600;color:var(--text);margin-bottom:1px}
-.imp-row-note{font-size:11px;color:var(--text3)}
+.imp-row-title{font-weight:600;color:var(--text);margin-bottom:1px}.imp-row-note{font-size:11px;color:var(--text3)}
 .badge{display:inline-flex;align-items:center;gap:3px;font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600;white-space:nowrap}
-.badge.good{background:var(--success-bg);color:var(--success)}
-.badge.bad{background:var(--danger-bg);color:var(--danger)}
-.badge.neu{background:var(--blue-pale);color:var(--text3)}
-
-/* ── FORMULA BOX ── */
+.badge.good{background:var(--success-bg);color:var(--success)}.badge.bad{background:var(--danger-bg);color:var(--danger)}.badge.neu{background:var(--blue-pale);color:var(--text3)}
 .formula-box{background:var(--navy);border-radius:var(--radius-lg);padding:18px 22px;margin-top:20px}
 .formula-title{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:10px}
 .formula-body{font-size:13px;color:rgba(255,255,255,.65);line-height:1.9}
 .formula-body strong{color:#90b8f8}
-
-/* ── BUY SELL RESULT ── */
-.bs-result{border-radius:var(--radius-xl);padding:24px;margin-top:0;border:1.5px solid var(--border)}
-.bs-result.profit-result{background:var(--success-bg);border-color:#6ee7b7}
-.bs-result.loss-result{background:var(--danger-bg);border-color:#fca5a5}
 .bs-main-val{font-size:36px;font-weight:700;letter-spacing:-.5px;margin:4px 0}
-.bs-main-val.profit{color:var(--success)}
-.bs-main-val.loss{color:var(--danger)}
+.bs-main-val.profit{color:var(--success)}.bs-main-val.loss{color:var(--danger)}
 .bs-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
 .bs-item{background:rgba(255,255,255,.6);border-radius:var(--radius);padding:12px 14px}
 .bs-item-label{font-size:11px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
 .bs-item-val{font-size:15px;font-weight:600;color:var(--text)}
-.bs-item-val.profit{color:var(--success)}
-.bs-item-val.loss{color:var(--danger)}
-
-/* ── EMPTY STATE ── */
+.bs-item-val.profit{color:var(--success)}.bs-item-val.loss{color:var(--danger)}
 .empty{text-align:center;padding:40px 20px;color:var(--text3)}
 .empty svg{width:40px;height:40px;stroke:var(--border2);fill:none;stroke-width:1.5;margin-bottom:12px}
 .empty p{font-size:13px}
-
-/* ── MOBILE OVERLAY ── */
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(10,22,40,.55);z-index:99;backdrop-filter:blur(2px)}
 .sidebar-overlay.active{display:block}
-
-/* ── MOBILE HAMBURGER ── */
 .mob-menu-btn{display:none;background:none;border:none;cursor:pointer;color:var(--text2);padding:6px;border-radius:var(--radius);margin-right:4px;align-items:center;justify-content:center}
 .mob-menu-btn svg{width:20px;height:20px}
 .mob-menu-btn:hover{background:var(--blue-light);color:var(--blue)}
-
-@media(max-width:768px){
-  .mob-menu-btn{display:flex}
-  .sidebar{position:fixed;height:100vh;top:0;left:0;z-index:200;transform:translateX(-100%);transition:transform .25s ease,width .25s ease}
-  .sidebar:not(.collapsed){transform:translateX(0);box-shadow:4px 0 24px rgba(10,22,40,.35);width:var(--sidebar-w)}
-  .sidebar.collapsed{transform:translateX(-100%)}
-  .grid2,.compare-wrap{grid-template-columns:1fr}
-  .compare-arrow{display:none}
-  .metric-grid{grid-template-columns:1fr 1fr}
-  .content{padding:20px 16px}
-  .home-hero{padding:28px 20px}
-  .home-hero h1{font-size:26px}
-  .hero-stats{gap:16px;flex-wrap:wrap}
-  .bs-breakdown{grid-template-columns:1fr}
-  .tools-grid{grid-template-columns:1fr}
-  .topbar{padding:0 16px}
-  .imp-table{font-size:12px}
-  .imp-table th,.imp-table td{padding:8px 8px}
-}
-
-/* ── SEO KEYWORDS SECTION ── */
-.seo-section{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);padding:24px 28px;margin-top:8px}
-.seo-section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:14px}
-.seo-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.seo-tags span{background:var(--blue-pale);border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--text2);padding:4px 12px;font-weight:500}
-.seo-desc{font-size:12px;color:var(--text3);line-height:1.8;margin:0}
-
-/* ── TARGET PLANNER ── */
 .target-mode-tabs{display:flex;gap:8px;margin-bottom:20px;background:var(--blue-pale);border-radius:var(--radius-lg);padding:4px}
 .target-tab{flex:1;text-align:center;padding:8px 12px;border-radius:var(--radius);font-size:13px;font-weight:500;color:var(--text3);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;transition:.15s}
 .target-tab.active{background:var(--white);color:var(--blue);box-shadow:0 1px 4px rgba(10,22,40,.12)}
 .target-result-hero{text-align:center;padding:24px 20px;border-radius:var(--radius-xl);margin-bottom:16px;border:2px solid var(--border)}
 .target-result-hero.profit-zone{background:linear-gradient(135deg,var(--success-bg),#f0fdf9);border-color:#6ee7b7}
-.target-result-hero.neutral-zone{background:var(--blue-pale);border-color:var(--border2)}
 .trh-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:6px}
 .trh-value{font-size:38px;font-weight:700;letter-spacing:-.5px;color:var(--success);line-height:1}
 .trh-sub{font-size:13px;color:var(--text3);margin-top:6px}
 .target-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
 .target-step{display:flex;align-items:center;gap:14px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:14px 18px}
 .ts-num{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ts-label{font-size:12px;color:var(--text3);font-weight:500}
-.ts-value{font-size:15px;font-weight:700;color:var(--text);margin-top:1px}
-.ts-value.accent{color:var(--blue)}
-.ts-value.green{color:var(--success)}
-.ts-value.orange{color:var(--warning)}
+.ts-label{font-size:12px;color:var(--text3);font-weight:500}.ts-value{font-size:15px;font-weight:700;color:var(--text);margin-top:1px}
+.ts-value.accent{color:var(--blue)}.ts-value.green{color:var(--success)}.ts-value.orange{color:var(--warning)}
 .target-warn{background:var(--warning-bg);border:1px solid #fcd34d;border-radius:var(--radius);padding:10px 14px;font-size:12px;color:var(--warning);font-weight:500;margin-top:8px}
+.seo-section{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);padding:24px 28px;margin-top:8px}
+.seo-section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:14px}
+.seo-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.seo-tags span{background:var(--blue-pale);border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--text2);padding:4px 12px;font-weight:500}
+.seo-desc{font-size:12px;color:var(--text3);line-height:1.8;margin:0}
+
+/* TRADERADAR */
+.tr-hero{background:linear-gradient(135deg,#0f2040 0%,#0a1628 50%,#0d2d1a 100%);border-radius:var(--radius-xl);padding:32px 36px;margin-bottom:24px;position:relative;overflow:hidden}
+.tr-hero::before{content:'';position:absolute;right:-20px;top:-20px;width:220px;height:220px;background:radial-gradient(circle,rgba(15,118,110,.3),transparent 70%);pointer-events:none}
+.tr-hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(15,118,110,.25);border:1px solid rgba(15,118,110,.4);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5eead4;margin-bottom:14px}
+.tr-hero h2{font-family:'DM Serif Display',serif;font-size:28px;color:#fff;margin-bottom:6px}
+.tr-hero p{color:rgba(255,255,255,.5);font-size:13px;line-height:1.6}
+.tr-disclaimer{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);border-radius:var(--radius);padding:10px 14px;margin-top:14px;font-size:11px;color:#fbbf24;line-height:1.6}
+.tr-search-wrap{display:flex;gap:10px;align-items:stretch;margin-bottom:20px}
+.tr-search-wrap input[type=text]{flex:1;border-radius:var(--radius);font-size:14px;padding:12px 16px}
+.tr-search-wrap input[type=text]:focus{border-color:#0f766e;box-shadow:0 0 0 3px rgba(15,118,110,.1)}
+.tr-search-btn{background:#0f766e;border:none;border-radius:var(--radius);color:#fff;font-size:13px;font-weight:600;padding:0 22px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:.15s;white-space:nowrap;display:flex;align-items:center;gap:7px}
+.tr-search-btn:hover{background:#0d6b62}
+.tr-search-btn:disabled{background:var(--border2);cursor:not-allowed;color:var(--text3)}
+.tr-search-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tr-quick-picks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.tr-chip{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;transition:.15s}
+.tr-chip:hover{border-color:#0f766e;color:#0f766e;background:#f0fdf9}
+.tr-loading{text-align:center;padding:48px 20px}
+.tr-loading-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:#0f766e;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tr-loading p{color:var(--text3);font-size:13px}
+.tr-error{background:var(--danger-bg);border:1px solid #fca5a5;border-radius:var(--radius-lg);padding:16px 20px;color:var(--danger);font-size:13px;margin-bottom:20px}
+.tr-verdict{border-radius:var(--radius-xl);padding:28px;margin-bottom:20px;border:2px solid;text-align:center;position:relative;overflow:hidden}
+.tr-verdict.buy{background:linear-gradient(135deg,#e6f7f1,#f0fdf9);border-color:#6ee7b7}
+.tr-verdict.sell{background:linear-gradient(135deg,var(--danger-bg),#fff5f5);border-color:#fca5a5}
+.tr-verdict.hold{background:linear-gradient(135deg,var(--warning-bg),#fffef0);border-color:#fcd34d}
+.tr-verdict-icon{font-size:40px;margin-bottom:8px}
+.tr-verdict-signal{font-size:32px;font-weight:700;letter-spacing:-.5px;margin-bottom:4px}
+.tr-verdict.buy .tr-verdict-signal{color:var(--success)}.tr-verdict.sell .tr-verdict-signal{color:var(--danger)}.tr-verdict.hold .tr-verdict-signal{color:var(--warning)}
+.tr-verdict-sub{font-size:13px;color:var(--text3);margin-bottom:16px}
+.tr-score-bar-wrap{max-width:260px;margin:0 auto}
+.tr-score-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:6px}
+.tr-score-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.tr-score-fill{height:100%;border-radius:4px;transition:width .6s ease}
+.buy .tr-score-fill{background:var(--success)}.sell .tr-score-fill{background:var(--danger)}.hold .tr-score-fill{background:var(--warning)}
+.tr-info-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.tr-info-item{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px}
+.tr-info-label{font-size:11px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.tr-info-val{font-size:16px;font-weight:600;color:var(--text)}
+.tr-info-val.up{color:var(--success)}.tr-info-val.dn{color:var(--danger)}
+.tr-indicators{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.tr-ind-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);padding:20px;box-shadow:var(--shadow)}
+.tr-ind-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.tr-ind-name{font-size:13px;font-weight:600;color:var(--text)}
+.tr-ind-signal{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.04em}
+.tr-ind-signal.buy{background:var(--success-bg);color:var(--success)}.tr-ind-signal.sell{background:var(--danger-bg);color:var(--danger)}.tr-ind-signal.hold{background:var(--warning-bg);color:var(--warning)}
+.tr-ind-val{font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.5px;margin-bottom:4px}
+.tr-ind-desc{font-size:12px;color:var(--text3);line-height:1.5}
+.tr-ind-bar{height:6px;border-radius:3px;background:var(--border);margin-top:10px;overflow:hidden}
+.tr-ind-bar-fill{height:100%;border-radius:3px}
+.tr-sum-table{width:100%;border-collapse:collapse}
+.tr-sum-table th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);padding:8px 14px;border-bottom:1.5px solid var(--border);text-align:left}
+.tr-sum-table td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:13px}
+.tr-sum-table tr:last-child td{border-bottom:none}
+.tr-sum-table tr:hover td{background:var(--blue-pale)}
+.sig-pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
+.sig-pill.buy{background:var(--success-bg);color:var(--success)}.sig-pill.sell{background:var(--danger-bg);color:var(--danger)}.sig-pill.hold{background:var(--warning-bg);color:var(--warning)}
+@media(max-width:768px){
+  .mob-menu-btn{display:flex}
+  .sidebar{position:fixed;height:100vh;top:0;left:0;z-index:200;transform:translateX(-100%);transition:transform .25s ease,width .25s ease}
+  .sidebar:not(.collapsed){transform:translateX(0);box-shadow:4px 0 24px rgba(10,22,40,.35);width:var(--sidebar-w)}
+  .sidebar.collapsed{transform:translateX(-100%)}
+  .grid2,.compare-wrap,.tr-indicators,.tr-info-bar{grid-template-columns:1fr}
+  .compare-arrow{display:none}
+  .metric-grid{grid-template-columns:1fr 1fr}
+  .content{padding:20px 16px}
+  .home-hero,.tr-hero{padding:28px 20px}
+  .home-hero h1{font-size:26px}
+  .hero-stats{gap:16px;flex-wrap:wrap}
+  .bs-breakdown{grid-template-columns:1fr}
+  .tools-grid{grid-template-columns:1fr}
+  .topbar{padding:0 16px}
+  .tr-search-wrap{flex-direction:column}
+  .tr-search-btn{padding:12px;justify-content:center}
+}
 </style>
 </head>
 <body>
 <div class="app">
-<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebarMobile()"></div>
-<!-- ── SIDEBAR ── -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeMobile()"></div>
 <nav class="sidebar collapsed" id="sidebar">
   <div class="sb-top">
-    <div class="sb-logo" onclick="navigate('home')">
-      <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-    </div>
-    <div class="sb-brand">
-      <div class="sb-brand-name">StockTools</div>
-      <div class="sb-brand-sub">Free calculators</div>
-    </div>
-    <button class="sb-toggle" onclick="toggleSidebar()" title="Collapse sidebar">
-      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
-    </button>
+    <div class="sb-logo" onclick="nav('home')"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+    <div class="sb-brand"><div class="sb-brand-name">StockTools</div><div class="sb-brand-sub">Free calculators</div></div>
+    <button class="sb-toggle" onclick="toggleSB()"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
   </div>
-
   <div class="sb-section">
     <div class="sb-section-label">Tools</div>
-    <div class="sb-item active" id="nav-home" onclick="navigate('home')">
-      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      <span class="sb-item-text">Home</span>
-    </div>
-    <div class="sb-item" id="nav-avgcalc" onclick="navigate('avgcalc')">
-      <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-      <span class="sb-item-text">Avg Calculator</span>
-    </div>
-    <div class="sb-item" id="nav-buysell" onclick="navigate('buysell')">
-      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      <span class="sb-item-text">Buy / Sell P&L</span>
-    </div>
-    <div class="sb-item" id="nav-target" onclick="navigate('target')">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-      <span class="sb-item-text">Target Planner</span>
-    </div>
-    <div class="sb-item coming" title="Coming soon">
-      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      <span class="sb-item-text">SIP Calculator</span>
-      <span class="sb-badge">Soon</span>
-    </div>
-    <div class="sb-item coming" title="Coming soon">
-      <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-      <span class="sb-item-text">EMI Calculator</span>
-      <span class="sb-badge">Soon</span>
-    </div>
+    <div class="sb-item active" id="nav-home" onclick="nav('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="sb-item-text">Home</span></div>
+    <div class="sb-item" id="nav-avgcalc" onclick="nav('avgcalc')"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg><span class="sb-item-text">Avg Calculator</span></div>
+    <div class="sb-item" id="nav-buysell" onclick="nav('buysell')"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span class="sb-item-text">Buy / Sell P&amp;L</span></div>
+    <div class="sb-item" id="nav-target" onclick="nav('target')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg><span class="sb-item-text">Target Planner</span></div>
+    <div class="sb-item" id="nav-traderadar" onclick="nav('traderadar')"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 2a10 10 0 0 1 0 20"/><path d="M12 8l4 4-4 4"/></svg><span class="sb-item-text">TradeRadar</span><span class="sb-badge new-badge">New</span></div>
+    <div class="sb-item coming" title="Coming soon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><span class="sb-item-text">SIP Calculator</span><span class="sb-badge">Soon</span></div>
   </div>
-
   <div class="sb-divider"></div>
-
   <div class="sb-section">
     <div class="sb-section-label">More</div>
-    <a class="sb-item" href="mailto:hello@stocktools.in">
-      <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      <span class="sb-item-text">Contact</span>
-    </a>
-    <a class="sb-item" href="https://github.com" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-      <span class="sb-item-text">GitHub</span>
-    </a>
+    <a class="sb-item" href="mailto:hello@stocktools.in"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span class="sb-item-text">Contact</span></a>
+    <a class="sb-item" href="https://github.com/sabithbyari/stock-calculator" target="_blank"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg><span class="sb-item-text">GitHub</span></a>
   </div>
-
-  <div class="sb-bottom">
-    <a class="sb-coffee" href="https://buymeacoffee.com" target="_blank">
-      <span class="sb-coffee-icon">☕</span>
-      <span class="sb-coffee-text">Buy me a coffee</span>
-    </a>
-  </div>
+  <div class="sb-bottom"><a class="sb-coffee" href="https://buymeacoffee.com" target="_blank"><span class="sb-coffee-icon">☕</span><span class="sb-coffee-text">Buy me a coffee</span></a></div>
 </nav>
-
-<!-- ── MAIN ── -->
 <div class="main">
   <div class="topbar">
     <div class="topbar-left">
-      <button class="mob-menu-btn" onclick="toggleSidebar()" title="Toggle menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-      <div class="topbar-crumb" id="topbar-crumb">
-        <span>StockTools</span>
-      </div>
+      <button class="mob-menu-btn" onclick="toggleSB()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <div class="topbar-crumb" id="topbar-crumb"><span>StockTools</span></div>
     </div>
-    <div class="topbar-right">
-      <span class="tb-badge">100% Free</span>
-    </div>
+    <div class="topbar-right"><span class="tb-badge">100% Free</span></div>
   </div>
-
   <div class="content">
 
-    <!-- ── HOME PAGE ── -->
+    <!-- HOME -->
     <div class="home-page active" id="page-home">
       <div class="home-hero">
         <div class="hero-eyebrow">📊 Free Stock Tools</div>
         <h1>Smart tools for<br/><span>smarter investing</span></h1>
-        <p>Simple, no-nonsense calculators to help you understand your trades, average costs, and profits — all in one place.</p>
+        <p>Simple, no-nonsense calculators to help you understand your trades, average costs, profits — and now live technical signals.</p>
         <div class="hero-stats">
-          <div><div class="hero-stat-val">3</div><div class="hero-stat-lbl">Tools available</div></div>
-          <div><div class="hero-stat-val">Free</div><div class="hero-stat-lbl">Always & forever</div></div>
+          <div><div class="hero-stat-val">4</div><div class="hero-stat-lbl">Tools available</div></div>
+          <div><div class="hero-stat-val">Free</div><div class="hero-stat-lbl">Always &amp; forever</div></div>
           <div><div class="hero-stat-val">100%</div><div class="hero-stat-lbl">Private — no data saved</div></div>
         </div>
       </div>
-
-      <div class="section-head">
-        <h2>Available Tools</h2>
-        <span>More coming soon</span>
-      </div>
-
+      <div class="section-head"><h2>Available Tools</h2><span>More coming soon</span></div>
       <div class="tools-grid">
-        <div class="tool-card" onclick="navigate('avgcalc')">
-          <span class="tool-card-tag tag-free">Free</span>
-          <div class="tool-card-icon blue">
-            <svg viewBox="0 0 24 24" class="tc-blue"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-          </div>
-          <h3>Stock Average Calculator</h3>
-          <p>Enter multiple buy lots and see how averaging down (or up) changes your average price, P&L and returns — with a clear before vs after comparison.</p>
-          <div class="tool-card-arrow">Open tool →</div>
-        </div>
-
-        <div class="tool-card" onclick="navigate('buysell')">
-          <span class="tool-card-tag tag-free">Free</span>
-          <div class="tool-card-icon green">
-            <svg viewBox="0 0 24 24" class="tc-green"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          </div>
-          <h3>Buy / Sell P&L Calculator</h3>
-          <p>Enter your buy price, sell price and quantity to instantly see your profit or loss, return percentage and total gain on any trade.</p>
-          <div class="tool-card-arrow">Open tool →</div>
-        </div>
-
-        <div class="tool-card" onclick="navigate('target')">
-          <span class="tool-card-tag tag-free">Free</span>
-          <div class="tool-card-icon purple">
-            <svg viewBox="0 0 24 24" class="tc-purple"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-          </div>
-          <h3>Target-Based Investment Planner</h3>
-          <p>Set a profit target for any stock and instantly get your required capital, quantity, and ideal entry & exit prices to hit that exact amount.</p>
-          <div class="tool-card-arrow">Open tool →</div>
-        </div>
-
-        <div class="tool-card coming">
-          <span class="tool-card-tag tag-soon">Coming Soon</span>
-          <div class="tool-card-icon orange">
-            <svg viewBox="0 0 24 24" class="tc-orange"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          </div>
-          <h3>SIP Calculator</h3>
-          <p>Calculate your mutual fund SIP maturity value with expected returns and inflation-adjusted projections.</p>
-        </div>
-
-        <div class="tool-card coming">
-          <span class="tool-card-tag tag-soon">Coming Soon</span>
-          <div class="tool-card-icon orange">
-            <svg viewBox="0 0 24 24" class="tc-orange"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-          </div>
-          <h3>EMI Calculator</h3>
-          <p>Work out your monthly EMI, total interest paid and full repayment schedule for any loan.</p>
-        </div>
+        <div class="tool-card" onclick="nav('avgcalc')"><span class="tool-card-tag tag-free">Free</span><div class="tool-card-icon blue"><svg viewBox="0 0 24 24" class="tc-blue"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div><h3>Stock Average Calculator</h3><p>Enter multiple buy lots and see how averaging down or up changes your average price, P&amp;L and returns.</p><div class="tool-card-arrow">Open tool →</div></div>
+        <div class="tool-card" onclick="nav('buysell')"><span class="tool-card-tag tag-free">Free</span><div class="tool-card-icon green"><svg viewBox="0 0 24 24" class="tc-green"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Buy / Sell P&amp;L Calculator</h3><p>Enter your buy price, sell price and quantity to instantly see your profit or loss and return percentage.</p><div class="tool-card-arrow">Open tool →</div></div>
+        <div class="tool-card" onclick="nav('target')"><span class="tool-card-tag tag-free">Free</span><div class="tool-card-icon purple"><svg viewBox="0 0 24 24" class="tc-purple"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><h3>Target-Based Investment Planner</h3><p>Set a profit target and get the exact capital, quantity, and entry &amp; exit prices needed.</p><div class="tool-card-arrow">Open tool →</div></div>
+        <div class="tool-card" onclick="nav('traderadar')"><span class="tool-card-tag tag-new">New</span><div class="tool-card-icon teal"><svg viewBox="0 0 24 24" class="tc-teal"><path d="M5 12h14M12 2a10 10 0 0 1 0 20"/><path d="M12 8l4 4-4 4"/></svg></div><h3>TradeRadar — Signal Scanner</h3><p>Search any NSE stock and get real-time Buy / Sell / Hold signals from RSI, MACD, Moving Averages &amp; Bollinger Bands.</p><div class="tool-card-arrow">Open tool →</div></div>
+        <div class="tool-card coming"><span class="tool-card-tag tag-soon">Coming Soon</span><div class="tool-card-icon orange"><svg viewBox="0 0 24 24" class="tc-orange"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3>SIP Calculator</h3><p>Calculate your mutual fund SIP maturity value with expected returns and inflation-adjusted projections.</p></div>
+        <div class="tool-card coming"><span class="tool-card-tag tag-soon">Coming Soon</span><div class="tool-card-icon orange"><svg viewBox="0 0 24 24" class="tc-orange"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><h3>EMI Calculator</h3><p>Work out your monthly EMI, total interest paid and full repayment schedule for any loan.</p></div>
       </div>
+      <div class="seo-section"><div class="seo-section-title">Popular Tools &amp; Topics</div><div class="seo-tags"><span>Stock Average Calculator</span><span>Buy Sell P&amp;L Calculator</span><span>Intraday Target Calculator</span><span>TradeRadar Signal Scanner</span><span>RSI MACD Indicator</span><span>NSE BSE Trade Calculator</span><span>Technical Analysis Tool</span><span>Swing Trade Signals</span><span>Stock Return Calculator</span><span>Free Trading Tools India</span></div><p class="seo-desc">StockTools offers free, browser-based stock market calculators for Indian traders on NSE and BSE. Calculate stock averages, buy/sell P&amp;L, plan trades with target-based entry &amp; exit points, and scan any NSE stock for Buy/Sell signals using RSI, MACD, Moving Averages and Bollinger Bands through TradeRadar. No signup required. All data stays in your browser.</p></div>
+    </div>
 
-      <!-- SEO Keywords Section -->
-      <div class="seo-section">
-        <div class="seo-section-title">Popular Tools & Topics</div>
-        <div class="seo-tags">
-          <span>Stock Average Calculator</span><span>Buy Sell P&L Calculator</span><span>Intraday Target Calculator</span>
-          <span>Entry Exit Point Calculator</span><span>Stock Profit Calculator India</span><span>NSE BSE Trade Calculator</span>
-          <span>Capital Required for Trade</span><span>How to Average Down Stocks</span><span>Stock Return Calculator</span>
-          <span>Free Trading Tools India</span><span>Zerodha Kite Calculator</span><span>Equity Trading Calculator</span>
-          <span>Investment Planner</span><span>Risk Reward Calculator</span><span>Position Sizing Tool</span>
-        </div>
-        <p class="seo-desc">StockTools offers free, browser-based stock market calculators for Indian traders and investors on NSE and BSE. Calculate your average cost of stock purchases, figure out your buy/sell profit and loss, plan your intraday or delivery trades with target-based entry and exit points, and determine how much capital you need. All calculations are done locally — no data is stored or shared.</p>
-      </div>
-    </div><!-- end home-page -->
-
-    <!-- ── TOOL 1: STOCK AVG CALCULATOR ── -->
+    <!-- AVG CALC -->
     <div class="tool-page" id="page-avgcalc">
-      <div style="margin-bottom:24px">
-        <h2 style="font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px">Stock Average Calculator</h2>
-        <p style="font-size:13px;color:var(--text3)">See how buying more shares changes your average price and P&L — before vs after.</p>
-      </div>
-
+      <div style="margin-bottom:24px"><h2 style="font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px">Stock Average Calculator</h2><p style="font-size:13px;color:var(--text3)">See how buying more shares changes your average price and P&amp;L — before vs after.</p></div>
       <div class="grid2">
-        <div class="card">
-          <div class="card-head">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-            <div><div class="card-title">Current Holdings</div><div class="card-sub">Enter each lot you purchased</div></div>
-          </div>
-          <div id="avg-lots"></div>
-          <button class="add-btn" onclick="avgAddLot()">+ Add another lot</button>
-        </div>
-
-        <div class="card">
-          <div class="card-head">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
-            <div><div class="card-title">New Buy to Average</div><div class="card-sub">Shares you plan to purchase</div></div>
-          </div>
+        <div class="card"><div class="card-head"><div class="card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div><div class="card-title">Current Holdings</div><div class="card-sub">Enter each lot you purchased</div></div></div><div id="avg-lots"></div><button class="add-btn" onclick="avgAddLot()">+ Add another lot</button></div>
+        <div class="card"><div class="card-head"><div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div><div><div class="card-title">New Buy to Average</div><div class="card-sub">Shares you plan to purchase</div></div></div>
           <div class="field"><label>Buy Price (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="avg-np" placeholder="0.00" min="0" oninput="avgCalc()"/></div></div>
           <div class="field"><label>Quantity</label><input type="number" id="avg-nq" placeholder="0" min="0" oninput="avgCalc()"/></div>
           <div class="divider"></div>
-          <div class="card-head" style="margin-bottom:12px">
-            <div class="card-icon" style="background:#fffbeb"><svg viewBox="0 0 24 24" style="stroke:#d97706"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-            <div><div class="card-title">Current Market Price</div><div class="card-sub">For P&L calculation</div></div>
-          </div>
+          <div class="card-head" style="margin-bottom:12px"><div class="card-icon" style="background:#fffbeb"><svg viewBox="0 0 24 24" style="stroke:#d97706"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div><div class="card-title">Current Market Price</div><div class="card-sub">For P&amp;L calculation</div></div></div>
           <div class="field" style="margin-bottom:0"><label>CMP (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="avg-cmp" placeholder="0.00" min="0" oninput="avgCalc()"/></div></div>
           <div id="avg-cmp-pill"></div>
         </div>
       </div>
-
       <div id="avg-results" style="display:none">
-        <div class="card">
-          <div class="card-head" style="margin-bottom:18px">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg></div>
-            <div><div class="card-title">Portfolio Summary — After New Buy</div></div>
-          </div>
-          <div class="metric-grid" id="avg-metric-grid"></div>
-        </div>
-
-        <div class="card">
-          <div class="card-head" style="margin-bottom:18px">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-            <div><div class="card-title">Before vs After Comparison</div></div>
-          </div>
-          <div class="compare-wrap">
-            <div class="compare-col">
-              <div class="ch">Before new buy</div>
-              <div id="avg-b-metrics"></div>
-            </div>
-            <div class="compare-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-            <div class="compare-col is-after">
-              <div class="ch">After new buy <span class="after-badge">Updated</span></div>
-              <div id="avg-a-metrics"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-head" style="margin-bottom:16px">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-            <div><div class="card-title">Impact Breakdown</div></div>
-          </div>
-          <table class="imp-table">
-            <thead><tr><th>Metric</th><th>Before</th><th>After</th><th>Change</th></tr></thead>
-            <tbody id="avg-impact"></tbody>
-          </table>
-          <div class="formula-box">
-            <div class="formula-title">How P&L is calculated</div>
-            <div class="formula-body" id="avg-formula"></div>
-          </div>
-        </div>
+        <div class="card"><div class="card-head" style="margin-bottom:18px"><div class="card-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg></div><div><div class="card-title">Portfolio Summary — After New Buy</div></div></div><div class="metric-grid" id="avg-metric-grid"></div></div>
+        <div class="card"><div class="card-head" style="margin-bottom:18px"><div class="card-icon"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><div><div class="card-title">Before vs After Comparison</div></div></div><div class="compare-wrap"><div class="compare-col"><div class="ch">Before new buy</div><div id="avg-b-metrics"></div></div><div class="compare-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><div class="compare-col is-after"><div class="ch">After new buy <span class="after-badge">Updated</span></div><div id="avg-a-metrics"></div></div></div></div>
+        <div class="card"><div class="card-head" style="margin-bottom:16px"><div class="card-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div><div class="card-title">Impact Breakdown</div></div></div><table class="imp-table"><thead><tr><th>Metric</th><th>Before</th><th>After</th><th>Change</th></tr></thead><tbody id="avg-impact"></tbody></table><div class="formula-box"><div class="formula-title">How P&amp;L is calculated</div><div class="formula-body" id="avg-formula"></div></div></div>
       </div>
     </div>
 
-    <!-- ── TOOL 2: BUY SELL P&L ── -->
+    <!-- BUY SELL -->
     <div class="tool-page" id="page-buysell">
-      <div style="margin-bottom:24px">
-        <h2 style="font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px">Buy / Sell P&L Calculator</h2>
-        <p style="font-size:13px;color:var(--text3)">Enter your trade details to instantly calculate profit or loss. No charges included — pure P&L only.</p>
-      </div>
-
+      <div style="margin-bottom:24px"><h2 style="font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px">Buy / Sell P&amp;L Calculator</h2><p style="font-size:13px;color:var(--text3)">Pure P&amp;L only — no charges included.</p></div>
       <div class="grid2">
         <div>
-          <div class="card">
-            <div class="card-head">
-              <div class="card-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
-              <div><div class="card-title">Buy Details</div><div class="card-sub">Your entry into the trade</div></div>
-            </div>
-            <div class="field"><label>Buy Price (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="bs-bp" placeholder="0.00" min="0" oninput="bsCalc()"/></div></div>
-            <div class="field" style="margin-bottom:0"><label>Quantity (shares)</label><input type="number" id="bs-qty" placeholder="0" min="0" oninput="bsCalc()"/></div>
-          </div>
-
-          <div class="card" style="margin-top:20px">
-            <div class="card-head">
-              <div class="card-icon green"><svg viewBox="0 0 24 24"><polyline points="1 6 11 15.5 16 10.5 23 18"/><polyline points="17 18 23 18 23 12"/></svg></div>
-              <div><div class="card-title">Sell Details</div><div class="card-sub">Your exit from the trade</div></div>
-            </div>
-            <div class="field" style="margin-bottom:0"><label>Sell Price (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="bs-sp" placeholder="0.00" min="0" oninput="bsCalc()"/></div></div>
-          </div>
+          <div class="card"><div class="card-head"><div class="card-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div><div class="card-title">Buy Details</div><div class="card-sub">Your entry</div></div></div><div class="field"><label>Buy Price (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="bs-bp" placeholder="0.00" min="0" oninput="bsCalc()"/></div></div><div class="field" style="margin-bottom:0"><label>Quantity</label><input type="number" id="bs-qty" placeholder="0" min="0" oninput="bsCalc()"/></div></div>
+          <div class="card" style="margin-top:20px"><div class="card-head"><div class="card-icon green"><svg viewBox="0 0 24 24"><polyline points="1 6 11 15.5 16 10.5 23 18"/><polyline points="17 18 23 18 23 12"/></svg></div><div><div class="card-title">Sell Details</div><div class="card-sub">Your exit</div></div></div><div class="field" style="margin-bottom:0"><label>Sell Price (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="bs-sp" placeholder="0.00" min="0" oninput="bsCalc()"/></div></div></div>
         </div>
-
         <div>
-          <div id="bs-result-empty" class="card" style="height:100%;display:flex;flex-direction:column;justify-content:center">
-            <div class="empty">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <p>Enter buy price, sell price<br/>and quantity to see your P&L</p>
-            </div>
-          </div>
-
-          <div id="bs-result-show" style="display:none;height:100%;display:none;flex-direction:column;gap:16px">
-            <div class="card">
-              <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:4px" id="bs-result-label">Result</div>
-              <div class="bs-main-val" id="bs-main-val">—</div>
-              <div style="font-size:13px;color:var(--text3);margin-top:2px" id="bs-main-sub"></div>
-              <div class="bs-breakdown">
-                <div class="bs-item"><div class="bs-item-label">Buy Value</div><div class="bs-item-val" id="bs-buy-val">—</div></div>
-                <div class="bs-item"><div class="bs-item-label">Sell Value</div><div class="bs-item-val" id="bs-sell-val">—</div></div>
-                <div class="bs-item"><div class="bs-item-label">Per Share</div><div class="bs-item-val" id="bs-per-share">—</div></div>
-                <div class="bs-item"><div class="bs-item-label">Return %</div><div class="bs-item-val" id="bs-ret-pct">—</div></div>
-              </div>
-            </div>
-
-            <div class="card">
-              <div style="font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px">Trade Summary</div>
-              <div id="bs-summary-rows"></div>
-              <div class="formula-box" style="margin-top:16px">
-                <div class="formula-title">Calculation</div>
-                <div class="formula-body" id="bs-formula"></div>
-              </div>
-            </div>
+          <div id="bs-result-empty" class="card" style="display:flex;flex-direction:column;justify-content:center;min-height:220px"><div class="empty"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Enter buy price, sell price<br/>and quantity to see your P&amp;L</p></div></div>
+          <div id="bs-result-show" style="display:none;flex-direction:column;gap:16px">
+            <div class="card"><div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:4px" id="bs-result-label">Result</div><div class="bs-main-val" id="bs-main-val">—</div><div style="font-size:13px;color:var(--text3);margin-top:2px" id="bs-main-sub"></div><div class="bs-breakdown"><div class="bs-item"><div class="bs-item-label">Buy Value</div><div class="bs-item-val" id="bs-buy-val">—</div></div><div class="bs-item"><div class="bs-item-label">Sell Value</div><div class="bs-item-val" id="bs-sell-val">—</div></div><div class="bs-item"><div class="bs-item-label">Per Share</div><div class="bs-item-val" id="bs-per-share">—</div></div><div class="bs-item"><div class="bs-item-label">Return %</div><div class="bs-item-val" id="bs-ret-pct">—</div></div></div></div>
+            <div class="card"><div style="font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px">Trade Summary</div><div id="bs-summary-rows"></div><div class="formula-box" style="margin-top:16px"><div class="formula-title">Calculation</div><div class="formula-body" id="bs-formula"></div></div></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ── TOOL 3: TARGET PLANNER ── -->
+    <!-- TARGET PLANNER -->
     <div class="tool-page" id="page-target">
-      <div style="margin-bottom:24px">
-        <h2 style="font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px">Target-Based Investment Planner</h2>
-        <p style="font-size:13px;color:var(--text3)">Tell us how much you want to earn from a stock — we'll calculate the exact entry price, exit price, quantity, and capital required.</p>
-      </div>
-
-      <div class="target-mode-tabs">
-        <button class="target-tab active" id="tab-target" onclick="switchTargetTab('target')">🎯 I know my profit target</button>
-        <button class="target-tab" id="tab-capital" onclick="switchTargetTab('capital')">💰 I know my capital</button>
-      </div>
-
+      <div style="margin-bottom:24px"><h2 style="font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px">Target-Based Investment Planner</h2><p style="font-size:13px;color:var(--text3)">Tell us how much you want to earn — we'll calculate the exact plan.</p></div>
+      <div class="target-mode-tabs"><button class="target-tab active" id="tab-target" onclick="switchTT('target')">🎯 I know my profit target</button><button class="target-tab" id="tab-capital" onclick="switchTT('capital')">💰 I know my capital</button></div>
       <div class="grid2">
-        <!-- LEFT: Inputs -->
         <div>
-          <div class="card" id="target-inputs-target">
-            <div class="card-head">
-              <div class="card-icon" style="background:#f3f0ff"><svg viewBox="0 0 24 24" style="stroke:#7c3aed;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
-              <div><div class="card-title">Your Target</div><div class="card-sub">How much profit do you want?</div></div>
-            </div>
-            <div class="field"><label>Stock CMP — Current Market Price (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="t-cmp" placeholder="e.g. 1500.00" min="0" oninput="targetCalc()"/></div></div>
-            <div class="field"><label>Profit Target (₹) — How much you want to earn</label><div class="input-pre"><span>₹</span><input type="number" id="t-profit" placeholder="e.g. 500" min="0" oninput="targetCalc()"/></div></div>
+          <div class="card" id="target-inputs-target"><div class="card-head"><div class="card-icon" style="background:#f3f0ff"><svg viewBox="0 0 24 24" style="stroke:#7c3aed;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><div><div class="card-title">Your Target</div><div class="card-sub">How much profit do you want?</div></div></div>
+            <div class="field"><label>Stock CMP (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="t-cmp" placeholder="e.g. 1500" min="0" oninput="targetCalc()"/></div></div>
+            <div class="field"><label>Profit Target (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="t-profit" placeholder="e.g. 500" min="0" oninput="targetCalc()"/></div></div>
             <div class="divider"></div>
-            <div class="field"><label>Risk % per trade (stop-loss buffer)</label>
-              <select id="t-risk" onchange="onTRiskChange()">
-                <option value="1">1% — Very tight</option>
-                <option value="2" selected>2% — Moderate (recommended)</option>
-                <option value="3">3% — Loose</option>
-                <option value="5">5% — Wide</option>
-                <option value="custom">Custom…</option>
-              </select>
-            </div>
-            <div class="field" id="t-risk-custom-wrap" style="display:none"><label>Custom Risk %</label><input type="number" id="t-risk-custom" placeholder="e.g. 1.5" min="0.1" max="50" step="0.1" oninput="targetCalc()"/></div>
-            <div class="field"><label>Target % move (optional — overrides auto)</label>
-              <select id="t-move" onchange="onTMoveChange()">
-                <option value="auto" selected>Auto-calculate</option>
-                <option value="1">1% move</option>
-                <option value="2">2% move</option>
-                <option value="3">3% move</option>
-                <option value="5">5% move</option>
-                <option value="custom">Custom…</option>
-              </select>
-            </div>
-            <div class="field" id="t-move-custom-wrap" style="display:none"><label>Custom move %</label><input type="number" id="t-move-custom" placeholder="e.g. 2.5" min="0.1" step="0.1" oninput="targetCalc()"/></div>
+            <div class="field"><label>Risk %</label><select id="t-risk" onchange="onTR()"><option value="1">1% — Very tight</option><option value="2" selected>2% — Moderate</option><option value="3">3% — Loose</option><option value="5">5% — Wide</option><option value="custom">Custom…</option></select></div>
+            <div class="field" id="t-risk-cw" style="display:none"><label>Custom Risk %</label><input type="number" id="t-risk-c" placeholder="e.g. 1.5" min="0.1" max="50" step="0.1" oninput="targetCalc()"/></div>
+            <div class="field"><label>Target % move</label><select id="t-move" onchange="onTM()"><option value="auto" selected>Auto-calculate</option><option value="1">1%</option><option value="2">2%</option><option value="3">3%</option><option value="5">5%</option><option value="custom">Custom…</option></select></div>
+            <div class="field" id="t-move-cw" style="display:none"><label>Custom move %</label><input type="number" id="t-move-c" placeholder="e.g. 2.5" min="0.1" step="0.1" oninput="targetCalc()"/></div>
           </div>
-
-          <div class="card" id="target-inputs-capital" style="display:none">
-            <div class="card-head">
-              <div class="card-icon" style="background:#fef3c7"><svg viewBox="0 0 24 24" style="stroke:#b45309;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-              <div><div class="card-title">Your Capital</div><div class="card-sub">How much can you invest?</div></div>
-            </div>
-            <div class="field"><label>Stock CMP (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="c-cmp" placeholder="e.g. 1500.00" min="0" oninput="capitalCalc()"/></div></div>
+          <div class="card" id="target-inputs-capital" style="display:none"><div class="card-head"><div class="card-icon" style="background:#fef3c7"><svg viewBox="0 0 24 24" style="stroke:#b45309;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div><div class="card-title">Your Capital</div><div class="card-sub">How much can you invest?</div></div></div>
+            <div class="field"><label>Stock CMP (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="c-cmp" placeholder="e.g. 1500" min="0" oninput="capitalCalc()"/></div></div>
             <div class="field"><label>Capital Available (₹)</label><div class="input-pre"><span>₹</span><input type="number" id="c-capital" placeholder="e.g. 50000" min="0" oninput="capitalCalc()"/></div></div>
-            <div class="field"><label>Target % gain you expect</label>
-              <select id="c-move" onchange="onCMoveChange()">
-                <option value="1">1%</option>
-                <option value="2" selected>2%</option>
-                <option value="3">3%</option>
-                <option value="5">5%</option>
-                <option value="custom">Custom…</option>
-              </select>
-            </div>
-            <div class="field" id="c-move-custom-wrap" style="display:none"><label>Custom %</label><input type="number" id="c-move-custom" placeholder="e.g. 2.5" min="0.1" step="0.1" oninput="capitalCalc()"/></div>
-            <div class="field"><label>Risk % (stop-loss)</label>
-              <select id="c-risk" onchange="capitalCalc()">
-                <option value="1">1%</option>
-                <option value="2" selected>2%</option>
-                <option value="3">3%</option>
-                <option value="5">5%</option>
-              </select>
-            </div>
+            <div class="field"><label>Target % gain</label><select id="c-move" onchange="onCM()"><option value="1">1%</option><option value="2" selected>2%</option><option value="3">3%</option><option value="5">5%</option><option value="custom">Custom…</option></select></div>
+            <div class="field" id="c-move-cw" style="display:none"><label>Custom %</label><input type="number" id="c-move-c" placeholder="e.g. 2.5" min="0.1" step="0.1" oninput="capitalCalc()"/></div>
+            <div class="field"><label>Risk %</label><select id="c-risk" onchange="capitalCalc()"><option value="1">1%</option><option value="2" selected>2%</option><option value="3">3%</option><option value="5">5%</option></select></div>
           </div>
         </div>
-
-        <!-- RIGHT: Results -->
         <div>
-          <div id="target-result-empty" class="card" style="height:280px;display:flex;flex-direction:column;justify-content:center">
-            <div class="empty">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-              <p>Enter the stock's CMP and your<br/>profit target to get your plan</p>
-            </div>
-          </div>
-
+          <div id="target-result-empty" class="card" style="height:280px;display:flex;flex-direction:column;justify-content:center"><div class="empty"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg><p>Enter the stock CMP and your<br/>profit target to get your plan</p></div></div>
           <div id="target-result-show" style="display:none">
-            <div class="target-result-hero profit-zone" id="target-hero">
-              <div class="trh-label">Estimated Profit</div>
-              <div class="trh-value" id="trh-profit">—</div>
-              <div class="trh-sub" id="trh-sub">—</div>
-            </div>
-
+            <div class="target-result-hero profit-zone"><div class="trh-label">Estimated Profit</div><div class="trh-value" id="trh-profit">—</div><div class="trh-sub" id="trh-sub">—</div></div>
             <div class="target-steps">
-              <div class="target-step">
-                <div class="ts-num">1</div>
-                <div>
-                  <div class="ts-label">Entry Price</div>
-                  <div class="ts-value accent" id="ts-entry">—</div>
-                </div>
-              </div>
-              <div class="target-step">
-                <div class="ts-num">2</div>
-                <div>
-                  <div class="ts-label">Exit / Target Price</div>
-                  <div class="ts-value green" id="ts-exit">—</div>
-                </div>
-              </div>
-              <div class="target-step">
-                <div class="ts-num">3</div>
-                <div>
-                  <div class="ts-label">Stop-Loss Price</div>
-                  <div class="ts-value orange" id="ts-sl">—</div>
-                </div>
-              </div>
-              <div class="target-step">
-                <div class="ts-num">4</div>
-                <div>
-                  <div class="ts-label">Quantity to Buy</div>
-                  <div class="ts-value" id="ts-qty">—</div>
-                </div>
-              </div>
-              <div class="target-step">
-                <div class="ts-num">5</div>
-                <div>
-                  <div class="ts-label">Capital Required</div>
-                  <div class="ts-value" id="ts-capital">—</div>
-                </div>
-              </div>
+              <div class="target-step"><div class="ts-num">1</div><div><div class="ts-label">Entry Price</div><div class="ts-value accent" id="ts-entry">—</div></div></div>
+              <div class="target-step"><div class="ts-num">2</div><div><div class="ts-label">Exit / Target Price</div><div class="ts-value green" id="ts-exit">—</div></div></div>
+              <div class="target-step"><div class="ts-num">3</div><div><div class="ts-label">Stop-Loss Price</div><div class="ts-value orange" id="ts-sl">—</div></div></div>
+              <div class="target-step"><div class="ts-num">4</div><div><div class="ts-label">Quantity to Buy</div><div class="ts-value" id="ts-qty">—</div></div></div>
+              <div class="target-step"><div class="ts-num">5</div><div><div class="ts-label">Capital Required</div><div class="ts-value" id="ts-capital">—</div></div></div>
             </div>
-            <div id="target-rr-box" class="formula-box">
-              <div class="formula-title">Risk : Reward Summary</div>
-              <div class="formula-body" id="target-formula"></div>
-            </div>
-            <div class="target-warn" id="target-warn" style="display:none">⚠️ This is a planning tool only. Always use a stop-loss. Past performance of stocks is not indicative of future results.</div>
+            <div class="formula-box"><div class="formula-title">Risk : Reward Summary</div><div class="formula-body" id="target-formula"></div></div>
+            <div class="target-warn" id="target-warn" style="display:none">⚠️ Planning tool only. Always use a stop-loss. Not financial advice.</div>
           </div>
         </div>
       </div>
     </div>
 
-  </div><!-- end content -->
-</div><!-- end main -->
-</div><!-- end app -->
+    <!-- TRADERADAR -->
+    <div class="tool-page" id="page-traderadar">
+      <div class="tr-hero">
+        <div class="tr-hero-tag">📡 Signal Scanner</div>
+        <h2>TradeRadar</h2>
+        <p>Search any NSE stock to get real-time technical signals — RSI, MACD, Moving Averages &amp; Bollinger Bands — combined into one clear Buy / Sell / Hold verdict.</p>
+        <div class="tr-disclaimer">⚠️ Signals are based on technical indicators from historical price data only. This is not financial advice. Always do your own research before trading.</div>
+      </div>
+      <div class="tr-search-wrap">
+        <input type="text" id="tr-input" placeholder="Search NSE stock — e.g. RELIANCE, TCS, INFY, HDFCBANK..." onkeydown="if(event.key==='Enter')trScan()" autocomplete="off" spellcheck="false"/>
+        <button class="tr-search-btn" id="tr-btn" onclick="trScan()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Scan Stock</button>
+      </div>
+      <div style="margin-bottom:10px;font-size:12px;color:var(--text3);font-weight:500">Quick picks — Nifty 50 popular stocks:</div>
+      <div class="tr-quick-picks">
+        <span class="tr-chip" onclick="trQ('RELIANCE')">RELIANCE</span><span class="tr-chip" onclick="trQ('TCS')">TCS</span><span class="tr-chip" onclick="trQ('INFY')">INFY</span><span class="tr-chip" onclick="trQ('HDFCBANK')">HDFCBANK</span><span class="tr-chip" onclick="trQ('ICICIBANK')">ICICIBANK</span><span class="tr-chip" onclick="trQ('SBIN')">SBIN</span><span class="tr-chip" onclick="trQ('WIPRO')">WIPRO</span><span class="tr-chip" onclick="trQ('TATAMOTORS')">TATAMOTORS</span><span class="tr-chip" onclick="trQ('BAJFINANCE')">BAJFINANCE</span><span class="tr-chip" onclick="trQ('AXISBANK')">AXISBANK</span><span class="tr-chip" onclick="trQ('MARUTI')">MARUTI</span><span class="tr-chip" onclick="trQ('LT')">L&amp;T</span>
+      </div>
+      <div id="tr-loading" style="display:none"><div class="tr-loading"><div class="tr-loading-spinner"></div><p id="tr-load-txt">Fetching market data...</p></div></div>
+      <div id="tr-error" class="tr-error" style="display:none"></div>
+      <div id="tr-results" style="display:none">
+        <div class="tr-info-bar" id="tr-info-bar"></div>
+        <div class="tr-verdict" id="tr-verdict">
+          <div class="tr-verdict-icon" id="tr-verdict-icon"></div>
+          <div class="tr-verdict-signal" id="tr-verdict-signal"></div>
+          <div class="tr-verdict-sub" id="tr-verdict-sub"></div>
+          <div class="tr-score-bar-wrap"><div class="tr-score-label" id="tr-score-label"></div><div class="tr-score-bar"><div class="tr-score-fill" id="tr-score-fill" style="width:0%"></div></div></div>
+        </div>
+        <div class="tr-indicators" id="tr-indicators"></div>
+        <div class="card"><div class="card-head" style="margin-bottom:16px"><div class="card-icon" style="background:#e0fdf4"><svg viewBox="0 0 24 24" style="stroke:#0f766e"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div><div class="card-title">Signal Summary</div><div class="card-sub">All indicators at a glance</div></div></div><table class="tr-sum-table"><thead><tr><th>Indicator</th><th>Value</th><th>Condition</th><th>Signal</th></tr></thead><tbody id="tr-sum-body"></tbody></table></div>
+      </div>
+    </div>
 
+  </div>
+</div>
+</div>
 <script>
-/* ── NAVIGATION ── */
-const pages={home:'Home',avgcalc:'Avg Calculator',buysell:'Buy / Sell P&L',target:'Target Planner'};
-function navigate(id){
+const PGS={home:'Home',avgcalc:'Avg Calculator',buysell:'Buy / Sell P&L',target:'Target Planner',traderadar:'TradeRadar'};
+function nav(id){
   document.querySelectorAll('.home-page,.tool-page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
-  const pg=document.getElementById('page-'+id);
-  if(pg)pg.classList.add('active');
-  const nav=document.getElementById('nav-'+id);
-  if(nav)nav.classList.add('active');
-  document.getElementById('topbar-crumb').innerHTML=
-    id==='home'?'<span>StockTools</span>':
-    `<span style="cursor:pointer;color:var(--blue)" onclick="navigate('home')">StockTools</span> <span>›</span> <span>${pages[id]}</span>`;
+  const pg=document.getElementById('page-'+id);if(pg)pg.classList.add('active');
+  const n=document.getElementById('nav-'+id);if(n)n.classList.add('active');
+  document.getElementById('topbar-crumb').innerHTML=id==='home'?'<span>StockTools</span>':`<span style="cursor:pointer;color:var(--blue)" onclick="nav('home')">StockTools</span> <span>&rsaquo;</span> <span>${PGS[id]}</span>`;
   document.querySelector('.content').scrollTo(0,0);
-  // Close sidebar on mobile after navigation
-  if(window.innerWidth<=768){
-    document.getElementById('sidebar').classList.add('collapsed');
-    document.getElementById('sidebar-overlay').classList.remove('active');
-  }
+  if(window.innerWidth<=768){document.getElementById('sidebar').classList.add('collapsed');document.getElementById('sidebar-overlay').classList.remove('active');}
 }
-function toggleSidebar(){
-  const sb=document.getElementById('sidebar');
-  const isMobile=window.innerWidth<=768;
-  if(isMobile){
-    sb.classList.toggle('collapsed');
-    document.getElementById('sidebar-overlay').classList.toggle('active',!sb.classList.contains('collapsed'));
-  } else {
-    sb.classList.toggle('collapsed');
-  }
-}
-function closeSidebarMobile(){
-  document.getElementById('sidebar').classList.add('collapsed');
-  document.getElementById('sidebar-overlay').classList.remove('active');
-}
-
-/* ── HELPERS ── */
-function inr(n){return'₹'+Math.abs(n).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function toggleSB(){const sb=document.getElementById('sidebar');const mob=window.innerWidth<=768;if(mob){sb.classList.toggle('collapsed');document.getElementById('sidebar-overlay').classList.toggle('active',!sb.classList.contains('collapsed'));}else sb.classList.toggle('collapsed');}
+function closeMobile(){document.getElementById('sidebar').classList.add('collapsed');document.getElementById('sidebar-overlay').classList.remove('active');}
+function inr(n){return'&#8377;'+Math.abs(n).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function pct(n){return(n>=0?'+':'')+n.toFixed(2)+'%';}
-function sign(n){return n>=0?'+':'-';}
+function sgn(n){return n>=0?'+':'-';}
 function mrow(l,v,c=''){return`<div class="mrow"><span class="mlbl">${l}</span><span class="mval ${c}">${v}</span></div>`;}
-function bdg(diff,lowerGood){
-  if(Math.abs(diff)<0.001)return`<span class="badge neu">—</span>`;
-  const good=lowerGood?diff<0:diff>0;
-  return`<span class="badge ${good?'good':'bad'}">${good?'▲':'▼'} ${Math.abs(diff)>=1?inr(Math.abs(diff)):Math.abs(diff).toFixed(2)}</span>`;
-}
-
-/* ── AVG CALCULATOR ── */
-let avgLots=[],avgUid=0;
-function avgAddLot(p='',q=''){avgLots.push({id:avgUid++,p,q});avgRender();}
-function avgRemoveLot(id){avgLots=avgLots.filter(l=>l.id!==id);avgRender();}
-function avgUpd(id,f,v){const l=avgLots.find(x=>x.id===id);if(l)l[f]=v;avgCalc();}
-function avgRender(){
+function bdg(d,lg){if(Math.abs(d)<0.001)return'<span class="badge neu">—</span>';const g=lg?d<0:d>0;return`<span class="badge ${g?'good':'bad'}">${g?'▲':'▼'} ${Math.abs(d)>=1?inr(Math.abs(d)):Math.abs(d).toFixed(2)}</span>`;}
+// AVG
+let aLots=[],aUid=0;
+function avgAddLot(p='',q=''){aLots.push({id:aUid++,p,q});avgR();}
+function avgRL(id){aLots=aLots.filter(l=>l.id!==id);avgR();}
+function avgU(id,f,v){const l=aLots.find(x=>x.id===id);if(l)l[f]=v;avgCalc();}
+function avgR(){
   const c=document.getElementById('avg-lots');c.innerHTML='';
-  avgLots.forEach((l,i)=>{
-    const wrap=document.createElement('div');
-    const lbl=document.createElement('div');lbl.className='lot-label';lbl.textContent=`Lot ${i+1}`;
-    wrap.appendChild(lbl);
-    const row=document.createElement('div');row.className='lot-row';
-    row.innerHTML=`<div class="field" style="margin-bottom:0"><label>Buy Price (₹)</label><div class="input-pre"><span>₹</span><input type="number" min="0" placeholder="0.00" value="${l.p}" oninput="avgUpd(${l.id},'p',this.value)"/></div></div>
-    <div class="field" style="margin-bottom:0"><label>Qty</label><input type="number" min="0" placeholder="0" value="${l.q}" oninput="avgUpd(${l.id},'q',this.value)"/></div>
-    ${avgLots.length>1?`<button class="rm-btn" onclick="avgRemoveLot(${l.id})">×</button>`:'<div></div>'}`;
-    wrap.appendChild(row);
-    if(i<avgLots.length-1){const dv=document.createElement('div');dv.style.cssText='height:1px;background:var(--border);margin:12px 0';wrap.appendChild(dv);}
-    c.appendChild(wrap);
+  aLots.forEach((l,i)=>{
+    const w=document.createElement('div');
+    const lb=document.createElement('div');lb.className='lot-label';lb.textContent='Lot '+(i+1);w.appendChild(lb);
+    const r=document.createElement('div');r.className='lot-row';
+    r.innerHTML=`<div class="field" style="margin-bottom:0"><label>Buy Price (&#8377;)</label><div class="input-pre"><span>&#8377;</span><input type="number" min="0" placeholder="0.00" value="${l.p}" oninput="avgU(${l.id},'p',this.value)"/></div></div><div class="field" style="margin-bottom:0"><label>Qty</label><input type="number" min="0" placeholder="0" value="${l.q}" oninput="avgU(${l.id},'q',this.value)"/></div>${aLots.length>1?`<button class="rm-btn" onclick="avgRL(${l.id})">&#215;</button>`:'<div></div>'}`;
+    w.appendChild(r);
+    if(i<aLots.length-1){const dv=document.createElement('div');dv.style.cssText='height:1px;background:var(--border);margin:12px 0';w.appendChild(dv);}
+    c.appendChild(w);
   });avgCalc();
 }
 function avgCalc(){
-  let amt=0,qty=0;
-  avgLots.forEach(l=>{const p=parseFloat(l.p)||0,q=parseFloat(l.q)||0;amt+=p*q;qty+=q;});
-  const cmp=parseFloat(document.getElementById('avg-cmp').value)||0;
-  const np=parseFloat(document.getElementById('avg-np').value)||0;
-  const nq=parseFloat(document.getElementById('avg-nq').value)||0;
-  const pillEl=document.getElementById('avg-cmp-pill');
-  if(qty&&amt&&cmp){
-    const a=amt/qty;const pro=cmp>=a;
-    pillEl.innerHTML=`<span class="cmp-pill ${pro?'profit':'loss'}"><span class="dot"></span>${pro?'CMP above avg ₹'+a.toFixed(2)+' — in profit':'CMP below avg ₹'+a.toFixed(2)+' — in loss'}</span>`;
-  }else pillEl.innerHTML='';
+  let amt=0,qty=0;aLots.forEach(l=>{const p=parseFloat(l.p)||0,q=parseFloat(l.q)||0;amt+=p*q;qty+=q;});
+  const cmp=parseFloat(document.getElementById('avg-cmp').value)||0,np=parseFloat(document.getElementById('avg-np').value)||0,nq=parseFloat(document.getElementById('avg-nq').value)||0;
+  const pill=document.getElementById('avg-cmp-pill');
+  if(qty&&amt&&cmp){const a=amt/qty,pr=cmp>=a;pill.innerHTML=`<span class="cmp-pill ${pr?'profit':'loss'}"><span class="dot"></span>${pr?'CMP above avg &#8377;'+a.toFixed(2)+' — in profit':'CMP below avg &#8377;'+a.toFixed(2)+' — in loss'}</span>`;}else pill.innerHTML='';
   const res=document.getElementById('avg-results');
   if(!qty||!amt||!cmp||!np||!nq){res.style.display='none';return;}
   res.style.display='block';
-  const bAvg=amt/qty,bPnl=(cmp-bAvg)*qty,bPct=((cmp-bAvg)/bAvg)*100;
-  const aAmt=amt+np*nq,aQty=qty+nq,aAvg=aAmt/aQty,aPnl=(cmp-aAvg)*aQty,aPct=((cmp-aAvg)/aAvg)*100;
-  const bC=bPnl>=0?'profit':'loss',aC=aPnl>=0?'profit':'loss';
-  document.getElementById('avg-metric-grid').innerHTML=[
-    {l:'Avg Buy Price',v:'₹'+aAvg.toFixed(2),d:aAvg<bAvg?`▼ ₹${(bAvg-aAvg).toFixed(2)} lower`:`▲ ₹${(aAvg-bAvg).toFixed(2)} higher`,dc:aAvg<=bAvg?'delta-up':'delta-dn'},
-    {l:'Total Shares',v:aQty.toLocaleString(),d:`+${nq} new`,dc:''},
-    {l:'Total Invested',v:inr(aAmt),d:`+${inr(np*nq)}`,dc:''},
-    {l:'Current Value',v:inr(cmp*aQty),d:'At CMP',dc:''},
-    {l:'P&L (₹)',v:sign(aPnl)+inr(aPnl),d:(aPnl-bPnl)>=0?`▲ ${inr(Math.abs(aPnl-bPnl))}`:`▼ ${inr(Math.abs(aPnl-bPnl))}`,dc:(aPnl-bPnl)>=0?'delta-up':'delta-dn',vc:aC},
-    {l:'Return %',v:pct(aPct),d:(aPct-bPct)>=0?`▲ ${Math.abs(aPct-bPct).toFixed(2)}%`:`▼ ${Math.abs(aPct-bPct).toFixed(2)}%`,dc:(aPct-bPct)>=0?'delta-up':'delta-dn',vc:aC},
-  ].map(m=>`<div class="metric"><div class="metric-label">${m.l}</div><div class="metric-value ${m.vc||''}">${m.v}</div><div class="metric-delta ${m.dc}">${m.d}</div></div>`).join('');
-  document.getElementById('avg-b-metrics').innerHTML=mrow('Avg Price','₹'+bAvg.toFixed(2))+mrow('Shares',qty.toLocaleString())+mrow('Invested',inr(amt))+mrow('Curr Value',inr(cmp*qty))+mrow('P&L',sign(bPnl)+inr(bPnl),bC)+mrow('Return',pct(bPct),bC);
-  document.getElementById('avg-a-metrics').innerHTML=mrow('Avg Price','₹'+aAvg.toFixed(2))+mrow('Shares',aQty.toLocaleString())+mrow('Invested',inr(aAmt))+mrow('Curr Value',inr(cmp*aQty))+mrow('P&L',sign(aPnl)+inr(aPnl),aC)+mrow('Return',pct(aPct),aC);
-  const rows=[
-    {t:'Average Price',n:'Break-even shifts',b:'₹'+bAvg.toFixed(2),a:'₹'+aAvg.toFixed(2),diff:aAvg-bAvg,low:true},
-    {t:'P&L (₹)',n:'Shares × (CMP − avg)',b:sign(bPnl)+inr(bPnl),a:sign(aPnl)+inr(aPnl),diff:aPnl-bPnl,low:false},
-    {t:'Return %',n:'True measure of impact',b:pct(bPct),a:pct(aPct),diff:aPct-bPct,low:false},
-    {t:'Break-even',n:'Min CMP to be in profit',b:'₹'+bAvg.toFixed(2),a:'₹'+aAvg.toFixed(2),diff:aAvg-bAvg,low:true},
-    {t:'Capital Added',n:'New money deployed',b:'—',a:inr(np*nq),diff:0,low:false},
-  ];
-  document.getElementById('avg-impact').innerHTML=rows.map(r=>`<tr><td><div class="imp-row-title">${r.t}</div><div class="imp-row-note">${r.n}</div></td><td>${r.b}</td><td><strong>${r.a}</strong></td><td>${r.diff!==0?bdg(r.diff,r.low):''}</td></tr>`).join('');
-  document.getElementById('avg-formula').innerHTML=`<strong>Before:</strong> (${cmp} − ${bAvg.toFixed(2)}) × ${qty} = <strong>${sign(bPnl)}${inr(bPnl)}</strong><br><strong>After &nbsp;:</strong> (${cmp} − ${aAvg.toFixed(2)}) × ${aQty} = <strong>${sign(aPnl)}${inr(aPnl)}</strong><br><br>Both avg price and share count shift simultaneously — that's why P&L changes.`;
+  const bA=amt/qty,bP=(cmp-bA)*qty,bPc=((cmp-bA)/bA)*100,aAmt=amt+np*nq,aQ=qty+nq,aA=aAmt/aQ,aP=(cmp-aA)*aQ,aPc=((cmp-aA)/aA)*100,bC=bP>=0?'profit':'loss',aC=aP>=0?'profit':'loss';
+  document.getElementById('avg-metric-grid').innerHTML=[{l:'Avg Buy Price',v:'&#8377;'+aA.toFixed(2),d:aA<bA?'&#9660; &#8377;'+(bA-aA).toFixed(2)+' lower':'&#9650; &#8377;'+(aA-bA).toFixed(2)+' higher',dc:aA<=bA?'delta-up':'delta-dn'},{l:'Total Shares',v:aQ.toLocaleString(),d:'+'+nq+' new',dc:''},{l:'Total Invested',v:inr(aAmt),d:'+'+inr(np*nq),dc:''},{l:'Current Value',v:inr(cmp*aQ),d:'At CMP',dc:''},{l:'P&L (&#8377;)',v:sgn(aP)+inr(aP),d:(aP-bP)>=0?'&#9650; '+inr(Math.abs(aP-bP)):'&#9660; '+inr(Math.abs(aP-bP)),dc:(aP-bP)>=0?'delta-up':'delta-dn',vc:aC},{l:'Return %',v:pct(aPc),d:(aPc-bPc)>=0?'&#9650; '+Math.abs(aPc-bPc).toFixed(2)+'%':'&#9660; '+Math.abs(aPc-bPc).toFixed(2)+'%',dc:(aPc-bPc)>=0?'delta-up':'delta-dn',vc:aC}].map(m=>`<div class="metric"><div class="metric-label">${m.l}</div><div class="metric-value ${m.vc||''}">${m.v}</div><div class="metric-delta ${m.dc}">${m.d}</div></div>`).join('');
+  document.getElementById('avg-b-metrics').innerHTML=mrow('Avg Price','&#8377;'+bA.toFixed(2))+mrow('Shares',qty.toLocaleString())+mrow('Invested',inr(amt))+mrow('Curr Value',inr(cmp*qty))+mrow('P&L',sgn(bP)+inr(bP),bC)+mrow('Return',pct(bPc),bC);
+  document.getElementById('avg-a-metrics').innerHTML=mrow('Avg Price','&#8377;'+aA.toFixed(2))+mrow('Shares',aQ.toLocaleString())+mrow('Invested',inr(aAmt))+mrow('Curr Value',inr(cmp*aQ))+mrow('P&L',sgn(aP)+inr(aP),aC)+mrow('Return',pct(aPc),aC);
+  document.getElementById('avg-impact').innerHTML=[{t:'Average Price',n:'Break-even shifts',b:'&#8377;'+bA.toFixed(2),a:'&#8377;'+aA.toFixed(2),d:aA-bA,l:true},{t:'P&L (&#8377;)',n:'Shares × (CMP − avg)',b:sgn(bP)+inr(bP),a:sgn(aP)+inr(aP),d:aP-bP,l:false},{t:'Return %',n:'True measure of impact',b:pct(bPc),a:pct(aPc),d:aPc-bPc,l:false},{t:'Break-even',n:'Min CMP to be in profit',b:'&#8377;'+bA.toFixed(2),a:'&#8377;'+aA.toFixed(2),d:aA-bA,l:true},{t:'Capital Added',n:'New money deployed',b:'—',a:inr(np*nq),d:0,l:false}].map(r=>`<tr><td><div class="imp-row-title">${r.t}</div><div class="imp-row-note">${r.n}</div></td><td>${r.b}</td><td><strong>${r.a}</strong></td><td>${r.d!==0?bdg(r.d,r.l):''}</td></tr>`).join('');
+  document.getElementById('avg-formula').innerHTML=`<strong>Before:</strong> (${cmp} − ${bA.toFixed(2)}) × ${qty} = <strong>${sgn(bP)}${inr(bP)}</strong><br><strong>After&nbsp;:</strong> (${cmp} − ${aA.toFixed(2)}) × ${aQ} = <strong>${sgn(aP)}${inr(aP)}</strong><br><br>Both avg price and share count shift — that's why P&L changes.`;
 }
 avgAddLot();avgAddLot();
-
-/* ── BUY SELL CALCULATOR ── */
+// BUY SELL
 function bsCalc(){
-  const bp=parseFloat(document.getElementById('bs-bp').value)||0;
-  const sp=parseFloat(document.getElementById('bs-sp').value)||0;
-  const qty=parseFloat(document.getElementById('bs-qty').value)||0;
-  const empty=document.getElementById('bs-result-empty');
-  const show=document.getElementById('bs-result-show');
-  if(!bp||!sp||!qty){empty.style.display='flex';show.style.display='none';return;}
-  empty.style.display='none';show.style.display='flex';
-  const buyVal=bp*qty,sellVal=sp*qty,pnl=sellVal-buyVal;
-  const perShare=sp-bp,retPct=((sp-bp)/bp)*100;
-  const isProfit=pnl>=0;
-  document.getElementById('bs-result-label').textContent=isProfit?'Total Profit':'Total Loss';
-  const mv=document.getElementById('bs-main-val');
-  mv.textContent=(isProfit?'+':'-')+inr(Math.abs(pnl));
-  mv.className='bs-main-val '+(isProfit?'profit':'loss');
-  document.getElementById('bs-main-sub').textContent=`on ${qty.toLocaleString()} shares · ${pct(retPct)} return`;
-  document.getElementById('bs-buy-val').textContent=inr(buyVal);
-  document.getElementById('bs-sell-val').textContent=inr(sellVal);
-  const ps=document.getElementById('bs-per-share');
-  ps.textContent=(perShare>=0?'+':'-')+inr(Math.abs(perShare));
-  ps.className='bs-item-val '+(perShare>=0?'profit':'loss');
-  const rp=document.getElementById('bs-ret-pct');
-  rp.textContent=pct(retPct);
-  rp.className='bs-item-val '+(retPct>=0?'profit':'loss');
-  const rows=[
-    {l:'Buy price',v:'₹'+bp.toFixed(2)},{l:'Sell price',v:'₹'+sp.toFixed(2)},
-    {l:'Shares',v:qty.toLocaleString()},{l:'Buy value',v:inr(buyVal)},
-    {l:'Sell value',v:inr(sellVal)},{l:'P&L per share',v:(perShare>=0?'+':'-')+'₹'+Math.abs(perShare).toFixed(2)},
-  ];
-  document.getElementById('bs-summary-rows').innerHTML=rows.map(r=>`<div class="mrow"><span class="mlbl">${r.l}</span><span class="mval">${r.v}</span></div>`).join('');
-  document.getElementById('bs-formula').innerHTML=`<strong>P&L</strong> = (Sell price − Buy price) × Qty<br>= (${sp} − ${bp}) × ${qty} = <strong>${isProfit?'+':'-'}${inr(Math.abs(pnl))}</strong><br><br><strong>Return %</strong> = ((${sp} − ${bp}) ÷ ${bp}) × 100 = <strong>${pct(retPct)}</strong>`;
+  const bp=parseFloat(document.getElementById('bs-bp').value)||0,sp=parseFloat(document.getElementById('bs-sp').value)||0,qty=parseFloat(document.getElementById('bs-qty').value)||0;
+  const em=document.getElementById('bs-result-empty'),sh=document.getElementById('bs-result-show');
+  if(!bp||!sp||!qty){em.style.display='flex';sh.style.display='none';return;}
+  em.style.display='none';sh.style.display='flex';
+  const bv=bp*qty,sv=sp*qty,pnl=sv-bv,ps=sp-bp,rp=((sp-bp)/bp)*100,ip=pnl>=0;
+  document.getElementById('bs-result-label').textContent=ip?'Total Profit':'Total Loss';
+  const mv=document.getElementById('bs-main-val');mv.textContent=(ip?'+':'-')+inr(Math.abs(pnl));mv.className='bs-main-val '+(ip?'profit':'loss');
+  document.getElementById('bs-main-sub').textContent=`on ${qty.toLocaleString()} shares · ${pct(rp)} return`;
+  document.getElementById('bs-buy-val').textContent=inr(bv);document.getElementById('bs-sell-val').textContent=inr(sv);
+  const pe=document.getElementById('bs-per-share');pe.textContent=(ps>=0?'+':'-')+inr(Math.abs(ps));pe.className='bs-item-val '+(ps>=0?'profit':'loss');
+  const re=document.getElementById('bs-ret-pct');re.textContent=pct(rp);re.className='bs-item-val '+(rp>=0?'profit':'loss');
+  document.getElementById('bs-summary-rows').innerHTML=[{l:'Buy price',v:'&#8377;'+bp.toFixed(2)},{l:'Sell price',v:'&#8377;'+sp.toFixed(2)},{l:'Shares',v:qty.toLocaleString()},{l:'Buy value',v:inr(bv)},{l:'Sell value',v:inr(sv)},{l:'P&L/share',v:(ps>=0?'+':'-')+'&#8377;'+Math.abs(ps).toFixed(2)}].map(r=>`<div class="mrow"><span class="mlbl">${r.l}</span><span class="mval">${r.v}</span></div>`).join('');
+  document.getElementById('bs-formula').innerHTML=`<strong>P&L</strong> = (${sp} − ${bp}) × ${qty} = <strong>${ip?'+':'-'}${inr(Math.abs(pnl))}</strong><br><strong>Return %</strong> = ((${sp} − ${bp}) ÷ ${bp}) × 100 = <strong>${pct(rp)}</strong>`;
 }
-/* ── TARGET PLANNER ── */
-let targetMode='target';
-function switchTargetTab(mode){
-  targetMode=mode;
-  document.getElementById('tab-target').classList.toggle('active',mode==='target');
-  document.getElementById('tab-capital').classList.toggle('active',mode==='capital');
-  document.getElementById('target-inputs-target').style.display=mode==='target'?'':'none';
-  document.getElementById('target-inputs-capital').style.display=mode==='capital'?'':'none';
-  document.getElementById('target-result-empty').style.display='flex';
-  document.getElementById('target-result-show').style.display='none';
-}
-function onTRiskChange(){
-  var el=document.getElementById('t-risk');if(!el)return;
-  document.getElementById('t-risk-custom-wrap').style.display=el.value==='custom'?'':'none';targetCalc();
-}
-function onTMoveChange(){
-  var el=document.getElementById('t-move');if(!el)return;
-  document.getElementById('t-move-custom-wrap').style.display=el.value==='custom'?'':'none';targetCalc();
-}
-function onCMoveChange(){
-  var el=document.getElementById('c-move');if(!el)return;
-  document.getElementById('c-move-custom-wrap').style.display=el.value==='custom'?'':'none';capitalCalc();
-}
-function getRisk(prefix){
-  const sel=document.getElementById(prefix+'-risk');
-  if(!sel)return 2;
-  if(sel.value==='custom'){const c=parseFloat(document.getElementById(prefix+'-risk-custom').value);return isNaN(c)?2:c;}
-  return parseFloat(sel.value);
-}
-function getMove(prefix){
-  const sel=document.getElementById(prefix+'-move');
-  if(sel.value==='auto')return null;
-  if(sel.value==='custom'){const c=parseFloat(document.getElementById(prefix+'-move-custom').value);return isNaN(c)?null:c;}
-  return parseFloat(sel.value);
-}
+// TARGET
+let ttMode='target';
+function switchTT(m){ttMode=m;document.getElementById('tab-target').classList.toggle('active',m==='target');document.getElementById('tab-capital').classList.toggle('active',m==='capital');document.getElementById('target-inputs-target').style.display=m==='target'?'':'none';document.getElementById('target-inputs-capital').style.display=m==='capital'?'':'none';document.getElementById('target-result-empty').style.display='flex';document.getElementById('target-result-show').style.display='none';}
+function onTR(){const e=document.getElementById('t-risk');document.getElementById('t-risk-cw').style.display=e.value==='custom'?'':'none';targetCalc();}
+function onTM(){const e=document.getElementById('t-move');document.getElementById('t-move-cw').style.display=e.value==='custom'?'':'none';targetCalc();}
+function onCM(){const e=document.getElementById('c-move');document.getElementById('c-move-cw').style.display=e.value==='custom'?'':'none';capitalCalc();}
+function gR(p){const s=document.getElementById(p+'-risk');if(!s)return 2;if(s.value==='custom'){const c=parseFloat(document.getElementById(p+'-risk-c').value);return isNaN(c)?2:c;}return parseFloat(s.value);}
+function gM(p){const s=document.getElementById(p+'-move');if(s.value==='auto')return null;if(s.value==='custom'){const c=parseFloat(document.getElementById(p+'-move-c').value);return isNaN(c)?null:c;}return parseFloat(s.value);}
 function targetCalc(){
-  const cmp=parseFloat(document.getElementById('t-cmp').value)||0;
-  const profit=parseFloat(document.getElementById('t-profit').value)||0;
-  const empty=document.getElementById('target-result-empty');
-  const show=document.getElementById('target-result-show');
-  if(!cmp||!profit){empty.style.display='flex';show.style.display='none';return;}
-  const riskPct=getRisk('t');
-  const movePct=getMove('t');
-  // Entry = CMP (buy at market)
-  const entry=cmp;
-  const sl=parseFloat((entry*(1-riskPct/100)).toFixed(2));
-  // If move% given, exit = entry*(1+move/100), then qty = profit/profit_per_share
-  let exit,qty,actualProfit;
-  if(movePct){
-    exit=parseFloat((entry*(1+movePct/100)).toFixed(2));
-    const pps=exit-entry;
-    qty=Math.ceil(profit/pps);
-    actualProfit=(exit-entry)*qty;
-  } else {
-    // auto: find minimum qty where profit >= target with at least risk:1 R:R
-    // Use R:R of 2:1 minimum → move = riskPct * 2
-    const autoMove=riskPct*2;
-    exit=parseFloat((entry*(1+autoMove/100)).toFixed(2));
-    const pps=exit-entry;
-    qty=Math.ceil(profit/pps);
-    actualProfit=(exit-entry)*qty;
-  }
-  const capital=parseFloat((entry*qty).toFixed(2));
-  const reward=exit-entry;
-  const risk=entry-sl;
-  const rrRatio=risk>0?(reward/risk).toFixed(2):'∞';
-  const movePctActual=((exit-entry)/entry*100).toFixed(2);
-  empty.style.display='none';show.style.display='block';
-  document.getElementById('trh-profit').textContent=inr(actualProfit);
-  document.getElementById('trh-sub').textContent=`${qty} shares × ₹${reward.toFixed(2)} move (${movePctActual}%)`;
-  document.getElementById('ts-entry').textContent='₹'+entry.toFixed(2)+' (at CMP)';
-  document.getElementById('ts-exit').textContent='₹'+exit.toFixed(2)+' (+'+movePctActual+'%)';
-  document.getElementById('ts-sl').textContent='₹'+sl.toFixed(2)+' (−'+riskPct+'%)';
-  document.getElementById('ts-qty').textContent=qty.toLocaleString()+' shares';
-  document.getElementById('ts-capital').textContent=inr(capital);
-  document.getElementById('target-formula').innerHTML=
-    `<strong>Entry:</strong> ₹${entry.toFixed(2)} &nbsp;|&nbsp; <strong>Target:</strong> ₹${exit.toFixed(2)} &nbsp;|&nbsp; <strong>SL:</strong> ₹${sl.toFixed(2)}<br>`+
-    `<strong>Reward:</strong> ₹${reward.toFixed(2)} per share &nbsp;|&nbsp; <strong>Risk:</strong> ₹${risk.toFixed(2)} per share<br>`+
-    `<strong>Risk:Reward</strong> = 1 : ${rrRatio} &nbsp;·&nbsp; Capital deployed: <strong>${inr(capital)}</strong><br>`+
-    `<br>Qty = ceil(Target ÷ Reward per share) = ceil(${profit} ÷ ${reward.toFixed(2)}) = <strong>${qty}</strong>`;
+  const cmp=parseFloat(document.getElementById('t-cmp').value)||0,profit=parseFloat(document.getElementById('t-profit').value)||0;
+  const em=document.getElementById('target-result-empty'),sh=document.getElementById('target-result-show');
+  if(!cmp||!profit){em.style.display='flex';sh.style.display='none';return;}
+  const rp=gR('t'),mp=gM('t'),entry=cmp,sl=parseFloat((entry*(1-rp/100)).toFixed(2));
+  let exit,qty,ap;
+  const m=mp||(rp*2);exit=parseFloat((entry*(1+m/100)).toFixed(2));const pps=exit-entry;qty=Math.ceil(profit/pps);ap=(exit-entry)*qty;
+  const cap=parseFloat((entry*qty).toFixed(2)),rew=exit-entry,risk=entry-sl,rr=risk>0?(rew/risk).toFixed(2):'∞',ma=((exit-entry)/entry*100).toFixed(2);
+  em.style.display='none';sh.style.display='block';
+  document.getElementById('trh-profit').textContent=inr(ap);document.getElementById('trh-sub').textContent=qty+' shares × &#8377;'+rew.toFixed(2)+' move ('+ma+'%)';
+  document.getElementById('ts-entry').textContent='&#8377;'+entry.toFixed(2)+' (at CMP)';document.getElementById('ts-exit').textContent='&#8377;'+exit.toFixed(2)+' (+'+ma+'%)';document.getElementById('ts-sl').textContent='&#8377;'+sl.toFixed(2)+' (−'+rp+'%)';document.getElementById('ts-qty').textContent=qty.toLocaleString()+' shares';document.getElementById('ts-capital').textContent=inr(cap);
+  document.getElementById('target-formula').innerHTML=`<strong>Entry:</strong> &#8377;${entry.toFixed(2)} | <strong>Target:</strong> &#8377;${exit.toFixed(2)} | <strong>SL:</strong> &#8377;${sl.toFixed(2)}<br><strong>R:R</strong> = 1:${rr} · Capital: <strong>${inr(cap)}</strong> · Qty = ceil(${profit} ÷ ${rew.toFixed(2)}) = <strong>${qty}</strong>`;
   document.getElementById('target-warn').style.display='block';
 }
 function capitalCalc(){
-  const cmp=parseFloat(document.getElementById('c-cmp').value)||0;
-  const capital=parseFloat(document.getElementById('c-capital').value)||0;
-  const empty=document.getElementById('target-result-empty');
-  const show=document.getElementById('target-result-show');
-  if(!cmp||!capital){empty.style.display='flex';show.style.display='none';return;}
-  const riskPct=parseFloat(document.getElementById('c-risk').value)||2;
-  const moveSel=document.getElementById('c-move');
-  const movePct=moveSel.value==='custom'?(parseFloat(document.getElementById('c-move-custom').value)||2):parseFloat(moveSel.value);
-  const entry=cmp;
-  const exit=parseFloat((entry*(1+movePct/100)).toFixed(2));
-  const sl=parseFloat((entry*(1-riskPct/100)).toFixed(2));
-  const qty=Math.floor(capital/entry);
-  const actualCapital=entry*qty;
-  const profit=(exit-entry)*qty;
-  const reward=exit-entry;
-  const risk=entry-sl;
-  const rrRatio=risk>0?(reward/risk).toFixed(2):'∞';
-  empty.style.display='none';show.style.display='block';
-  document.getElementById('trh-profit').textContent=inr(profit);
-  document.getElementById('trh-sub').textContent=`${qty} shares × ₹${reward.toFixed(2)} move (${movePct}%)`;
-  document.getElementById('ts-entry').textContent='₹'+entry.toFixed(2)+' (at CMP)';
-  document.getElementById('ts-exit').textContent='₹'+exit.toFixed(2)+' (+'+movePct+'%)';
-  document.getElementById('ts-sl').textContent='₹'+sl.toFixed(2)+' (−'+riskPct+'%)';
-  document.getElementById('ts-qty').textContent=qty.toLocaleString()+' shares';
-  document.getElementById('ts-capital').textContent=inr(actualCapital)+' of '+inr(capital);
-  document.getElementById('target-formula').innerHTML=
-    `<strong>Entry:</strong> ₹${entry.toFixed(2)} &nbsp;|&nbsp; <strong>Target:</strong> ₹${exit.toFixed(2)} &nbsp;|&nbsp; <strong>SL:</strong> ₹${sl.toFixed(2)}<br>`+
-    `<strong>Reward:</strong> ₹${reward.toFixed(2)} per share &nbsp;|&nbsp; <strong>Risk:</strong> ₹${risk.toFixed(2)} per share<br>`+
-    `<strong>Risk:Reward</strong> = 1 : ${rrRatio} &nbsp;·&nbsp; Qty = floor(${inr(capital)} ÷ ₹${entry.toFixed(2)}) = <strong>${qty}</strong>`;
+  const cmp=parseFloat(document.getElementById('c-cmp').value)||0,cap=parseFloat(document.getElementById('c-capital').value)||0;
+  const em=document.getElementById('target-result-empty'),sh=document.getElementById('target-result-show');
+  if(!cmp||!cap){em.style.display='flex';sh.style.display='none';return;}
+  const rp=parseFloat(document.getElementById('c-risk').value)||2,ms=document.getElementById('c-move'),mp=ms.value==='custom'?(parseFloat(document.getElementById('c-move-c').value)||2):parseFloat(ms.value);
+  const entry=cmp,exit=parseFloat((entry*(1+mp/100)).toFixed(2)),sl=parseFloat((entry*(1-rp/100)).toFixed(2)),qty=Math.floor(cap/entry),ac=entry*qty,profit=(exit-entry)*qty,rew=exit-entry,risk=entry-sl,rr=risk>0?(rew/risk).toFixed(2):'∞';
+  em.style.display='none';sh.style.display='block';
+  document.getElementById('trh-profit').textContent=inr(profit);document.getElementById('trh-sub').textContent=qty.toLocaleString()+' shares × &#8377;'+rew.toFixed(2)+' move ('+mp+'%)';
+  document.getElementById('ts-entry').textContent='&#8377;'+entry.toFixed(2);document.getElementById('ts-exit').textContent='&#8377;'+exit.toFixed(2)+' (+'+mp+'%)';document.getElementById('ts-sl').textContent='&#8377;'+sl.toFixed(2)+' (−'+rp+'%)';document.getElementById('ts-qty').textContent=qty.toLocaleString()+' shares';document.getElementById('ts-capital').textContent=inr(ac)+' of '+inr(cap);
+  document.getElementById('target-formula').innerHTML=`<strong>Entry:</strong> &#8377;${entry.toFixed(2)} | <strong>Target:</strong> &#8377;${exit.toFixed(2)} | <strong>SL:</strong> &#8377;${sl.toFixed(2)}<br><strong>R:R</strong> = 1:${rr} · Qty = floor(${inr(cap)} ÷ &#8377;${entry.toFixed(2)}) = <strong>${qty}</strong>`;
   document.getElementById('target-warn').style.display='block';
+}
+
+/* ═══════════ TRADERADAR ═══════════ */
+function trQ(s){document.getElementById('tr-input').value=s;trScan();}
+async function trScan(){
+  const sym=document.getElementById('tr-input').value.trim().toUpperCase().replace(/\.NS$/,'');
+  if(!sym){alert('Please enter a stock symbol');return;}
+  const btn=document.getElementById('tr-btn');
+  document.getElementById('tr-loading').style.display='block';
+  document.getElementById('tr-results').style.display='none';
+  document.getElementById('tr-error').style.display='none';
+  document.getElementById('tr-load-txt').textContent='Fetching data for '+sym+'...';
+  btn.disabled=true;
+  try{
+    const ticker=sym+'.NS';
+    const url='https://api.allorigins.win/get?url='+encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/'+ticker+'?interval=1d&range=6mo');
+    const res=await fetch(url);const outer=await res.json();const data=JSON.parse(outer.contents);
+    if(data.chart.error||!data.chart.result||!data.chart.result[0])throw new Error('Stock not found. Try exact NSE symbol e.g. RELIANCE, TCS, HDFCBANK');
+    const result=data.chart.result[0],meta=result.meta,q=result.indicators.quote[0];
+    const closes=q.close.filter(x=>x!=null);
+    if(closes.length<30)throw new Error('Not enough historical data. Try a different symbol.');
+    document.getElementById('tr-load-txt').textContent='Calculating indicators...';
+    const signals=calcSig(closes,meta);
+    renderTR(sym,meta,closes,signals);
+    document.getElementById('tr-loading').style.display='none';
+    document.getElementById('tr-results').style.display='block';
+  }catch(e){
+    document.getElementById('tr-loading').style.display='none';
+    const el=document.getElementById('tr-error');el.style.display='block';el.textContent='⚠️ '+e.message;
+  }
+  btn.disabled=false;
+}
+function ema(data,p){const k=2/(p+1);let e=data.slice(0,p).reduce((a,b)=>a+b,0)/p;const r=[e];for(let i=p;i<data.length;i++){e=data[i]*k+e*(1-k);r.push(e);}return r;}
+function calcRSI(c,p=14){let g=0,l=0;for(let i=1;i<=p;i++){const d=c[i]-c[i-1];d>0?g+=d:l+=Math.abs(d);}let ag=g/p,al=l/p;for(let i=p+1;i<c.length;i++){const d=c[i]-c[i-1];ag=(ag*(p-1)+(d>0?d:0))/p;al=(al*(p-1)+(d<0?Math.abs(d):0))/p;}const rs=al===0?100:ag/al;return 100-(100/(1+rs));}
+function calcMACD(c){const e12=ema(c,12),e26=ema(c,26),ml=[];for(let i=0;i<e26.length;i++)ml.push(e12[e12.length-e26.length+i]-e26[i]);const sig=ema(ml,9),last=ml[ml.length-1],s=sig[sig.length-1];return{macd:last,signal:s,hist:last-s};}
+function calcBB(c,p=20){const sl=c.slice(-p),m=sl.reduce((a,b)=>a+b,0)/p,sd=Math.sqrt(sl.map(x=>(x-m)**2).reduce((a,b)=>a+b,0)/p);return{upper:m+2*sd,lower:m-2*sd,mid:m};}
+function sma(a,p){const s=a.slice(-p);return s.reduce((a,b)=>a+b,0)/s.length;}
+function calcSig(closes,meta){
+  const price=closes[closes.length-1],rsi=calcRSI(closes),macdD=calcMACD(closes),bb=calcBB(closes),s20=sma(closes,20),s50=sma(closes,50),s200=closes.length>=200?sma(closes,200):null,e9=ema(closes,9),e9v=e9[e9.length-1];
+  let rsiS='hold',rsiC='Neutral zone (30–70)';
+  if(rsi<30){rsiS='buy';rsiC='Oversold (<30) — potential reversal';}
+  else if(rsi<45){rsiS='buy';rsiC='Below midline — mild buy pressure';}
+  else if(rsi>70){rsiS='sell';rsiC='Overbought (>70) — potential pullback';}
+  else if(rsi>58){rsiS='sell';rsiC='Above midline — mild sell pressure';}
+  let maS='hold',maC='Price between key MAs';
+  if(price>s20&&price>s50){maS='buy';maC='Price above SMA20 & SMA50 — uptrend'+(s200&&s50>s200?' · Golden Cross':' ');}
+  else if(price<s20&&price<s50){maS='sell';maC='Price below SMA20 & SMA50 — downtrend'+(s200&&s50<s200?' · Death Cross':' ');}
+  let mdS='hold',mdC='MACD near signal line';
+  if(macdD.hist>0&&macdD.macd>0){mdS='buy';mdC='MACD above signal & zero — bullish';}
+  else if(macdD.hist>0){mdS='buy';mdC='MACD crossing above signal — early bullish';}
+  else if(macdD.hist<0&&macdD.macd<0){mdS='sell';mdC='MACD below signal & zero — bearish';}
+  else if(macdD.hist<0){mdS='sell';mdC='MACD crossing below signal — early bearish';}
+  const bbPos=(price-bb.lower)/(bb.upper-bb.lower);
+  let bbS='hold',bbC='Price inside Bollinger Bands';
+  if(price<=bb.lower){bbS='buy';bbC='At/below lower band — oversold zone';}
+  else if(bbPos<0.25){bbS='buy';bbC='Near lower band — watch for bounce';}
+  else if(price>=bb.upper){bbS='sell';bbC='At/above upper band — overbought zone';}
+  else if(bbPos>0.75){bbS='sell';bbC='Near upper band — watch for pullback';}
+  let eS='hold',eC='Price near EMA9';
+  if(price>e9v*1.005){eS='buy';eC='Price above EMA9 — short-term bullish';}
+  else if(price<e9v*0.995){eS='sell';eC='Price below EMA9 — short-term bearish';}
+  const all=[rsiS,maS,mdS,bbS,eS],buys=all.filter(s=>s==='buy').length,sells=all.filter(s=>s==='sell').length;
+  let verdict='hold',score=50;
+  if(buys>=3){verdict='buy';score=Math.min(95,60+buys*9);}
+  else if(sells>=3){verdict='sell';score=Math.min(95,60+sells*9);}
+  else if(buys>sells){verdict='buy';score=54;}
+  else if(sells>buys){verdict='sell';score=54;}
+  return{rsi:{v:rsi,s:rsiS,c:rsiC},ma:{v:{s20,s50,s200},s:maS,c:maC},macd:{v:macdD,s:mdS,c:mdC},bb:{v:bb,s:bbS,c:bbC,pos:bbPos},ema:{v:e9v,s:eS,c:eC},verdict,score,buys,sells,price};
+}
+function renderTR(sym,meta,closes,sg){
+  const price=sg.price,prev=closes[closes.length-2]||price,ch=price-prev,chp=(ch/prev)*100,up=ch>=0;
+  document.getElementById('tr-info-bar').innerHTML=`<div class="tr-info-item"><div class="tr-info-label">Symbol</div><div class="tr-info-val">${sym}.NS</div></div><div class="tr-info-item"><div class="tr-info-label">Last Price</div><div class="tr-info-val">&#8377;${price.toFixed(2)}</div></div><div class="tr-info-item"><div class="tr-info-label">Change</div><div class="tr-info-val ${up?'up':'dn'}">${up?'+':''}${ch.toFixed(2)} (${chp.toFixed(2)}%)</div></div><div class="tr-info-item"><div class="tr-info-label">52W H / L</div><div class="tr-info-val" style="font-size:13px">&#8377;${(meta.fiftyTwoWeekHigh||0).toFixed(0)} / &#8377;${(meta.fiftyTwoWeekLow||0).toFixed(0)}</div></div>`;
+  const vc=document.getElementById('tr-verdict');vc.className='tr-verdict '+sg.verdict;
+  document.getElementById('tr-verdict-icon').textContent=sg.verdict==='buy'?'🟢':sg.verdict==='sell'?'🔴':'🟡';
+  document.getElementById('tr-verdict-signal').textContent=sg.verdict.toUpperCase();
+  document.getElementById('tr-verdict-sub').textContent=sg.buys+' Buy · '+sg.sells+' Sell · '+(5-sg.buys-sg.sells)+' Hold  (out of 5 indicators)';
+  document.getElementById('tr-score-label').textContent='Signal strength: '+sg.score+'%';
+  document.getElementById('tr-score-fill').style.width=sg.score+'%';
+  const bbP=Math.min(100,Math.max(0,(price-sg.bb.v.lower)/(sg.bb.v.upper-sg.bb.v.lower)*100));
+  const inds=[
+    {n:'RSI (14)',sn:'RSI',v:sg.rsi.v.toFixed(1),s:sg.rsi.s,d:sg.rsi.c,bar:true,bp:sg.rsi.v,bc:sg.rsi.v<30?'var(--success)':sg.rsi.v>70?'var(--danger)':'var(--blue)'},
+    {n:'MACD',sn:'MACD',v:sg.macd.v.macd.toFixed(3),s:sg.macd.s,d:sg.macd.c,ex:'Signal: '+sg.macd.v.signal.toFixed(3)+' · Hist: '+sg.macd.v.hist.toFixed(3)},
+    {n:'SMA 20 / 50',sn:'MA',v:'&#8377;'+sg.ma.v.s20.toFixed(2),s:sg.ma.s,d:sg.ma.c,ex:'SMA50: &#8377;'+sg.ma.v.s50.toFixed(2)+(sg.ma.v.s200?' · SMA200: &#8377;'+sg.ma.v.s200.toFixed(2):'')},
+    {n:'Bollinger Bands',sn:'BB',v:'&#8377;'+sg.bb.v.mid.toFixed(2),s:sg.bb.s,d:sg.bb.c,ex:'Upper: &#8377;'+sg.bb.v.upper.toFixed(2)+' · Lower: &#8377;'+sg.bb.v.lower.toFixed(2),bar:true,bp:bbP,bc:bbP<25?'var(--success)':bbP>75?'var(--danger)':'var(--blue)'},
+    {n:'EMA 9',sn:'EMA9',v:'&#8377;'+sg.ema.v.toFixed(2),s:sg.ema.s,d:sg.ema.c},
+  ];
+  document.getElementById('tr-indicators').innerHTML=inds.map(i=>`<div class="tr-ind-card"><div class="tr-ind-head"><div class="tr-ind-name">${i.n}</div><span class="tr-ind-signal ${i.s}">${i.s.toUpperCase()}</span></div><div class="tr-ind-val">${i.v}</div><div class="tr-ind-desc">${i.d}</div>${i.ex?`<div class="tr-ind-desc" style="margin-top:4px;color:var(--text2)">${i.ex}</div>`:''} ${i.bar?`<div class="tr-ind-bar"><div class="tr-ind-bar-fill" style="width:${i.bp}%;background:${i.bc}"></div></div>`:''}</div>`).join('');
+  document.getElementById('tr-sum-body').innerHTML=inds.map(i=>`<tr><td><strong>${i.sn}</strong></td><td>${i.v}</td><td style="color:var(--text3);font-size:12px">${i.d}</td><td><span class="sig-pill ${i.s}">${i.s==='buy'?'▲ BUY':i.s==='sell'?'▼ SELL':'● HOLD'}</span></td></tr>`).join('');
 }
 </script>
 </body>
