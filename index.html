@@ -932,18 +932,32 @@ async function drScan() {
 
         console.log('Dividend range:', fromStr, '->', toStr);
 
-        const resp = await fetch(
-            `/api/dividends?from=${fromStr}&to=${toStr}`,
-            {
-                signal: AbortSignal.timeout(30000)
-            }
-        );
+        const nseUrl =
+		`https://www.nseindia.com/api/corporates-corporateActions` +
+		`?index=equities` +
+		`&from_date=${fromStr}` +
+		`&to_date=${toStr}` +
+		`&subject=Dividend`;
+
+		console.log('Calling NSE:', nseUrl);
+
+		const resp = await fetch(nseUrl, {
+			method: 'GET',
+			headers: {
+				'Accept': 'application/json'
+			}
+		});
+
+		console.log('Status:', resp.status);
+
+		const raw = await resp.json();
+		//console.log(raw);
 
         if (!resp.ok) {
             throw new Error(`API Error: ${resp.status}`);
         }
 
-        const raw = await resp.json();
+        //const raw = await resp.json();
 
         console.log('NSE RAW RESPONSE:', raw);
 
