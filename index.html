@@ -241,7 +241,92 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
 .tr-sum-table tr:hover td{background:var(--blue-pale)}
 .sig-pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
 .sig-pill.buy{background:var(--success-bg);color:var(--success)}.sig-pill.sell{background:var(--danger-bg);color:var(--danger)}.sig-pill.hold{background:var(--warning-bg);color:var(--warning)}
+/* ═══ DIVIDENDRADAR ═══ */
+.dr-hero{background:linear-gradient(135deg,#0f2040 0%,#0a1628 50%,#1a0a3d 100%);border-radius:var(--radius-xl);padding:32px 36px;margin-bottom:24px;position:relative;overflow:hidden}
+.dr-hero::before{content:'';position:absolute;right:-20px;top:-20px;width:220px;height:220px;background:radial-gradient(circle,rgba(124,58,237,.25),transparent 70%);pointer-events:none}
+.dr-hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(124,58,237,.25);border:1px solid rgba(124,58,237,.4);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#c4b5fd;margin-bottom:14px}
+.dr-hero h2{font-family:'DM Serif Display',serif;font-size:28px;color:#fff;margin-bottom:6px}
+.dr-hero p{color:rgba(255,255,255,.5);font-size:13px;line-height:1.6}
+.dr-disclaimer{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);border-radius:var(--radius);padding:10px 14px;margin-top:14px;font-size:11px;color:#fbbf24;line-height:1.6}
+.dr-tabs{display:flex;gap:8px;margin-bottom:24px;background:var(--blue-pale);border-radius:var(--radius-lg);padding:4px}
+.dr-tab{flex:1;text-align:center;padding:9px 12px;border-radius:var(--radius);font-size:13px;font-weight:500;color:var(--text3);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;transition:.15s}
+.dr-tab.active{background:var(--white);color:#7c3aed;box-shadow:0 1px 4px rgba(10,22,40,.12)}
+.dr-period-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.dr-period-btn{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:7px 18px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;transition:.15s;font-family:'DM Sans',sans-serif}
+.dr-period-btn:hover{border-color:#7c3aed;color:#7c3aed}
+.dr-period-btn.active{background:#7c3aed;border-color:#7c3aed;color:#fff}
+.dr-filter-row{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:flex-end}
+.dr-filter-row .field{margin-bottom:0;min-width:160px}
+.dr-filter-row select,.dr-filter-row input{font-size:13px;padding:8px 12px}
+.dr-filter-clear{background:none;border:1.5px solid var(--border);border-radius:var(--radius);padding:8px 14px;font-size:12px;font-weight:500;color:var(--text3);cursor:pointer;font-family:'DM Sans',sans-serif;transition:.15s}
+.dr-filter-clear:hover{border-color:var(--danger);color:var(--danger)}
+.dr-loading{text-align:center;padding:48px 20px}
+.dr-loading-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:#7c3aed;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+.dr-error{background:var(--danger-bg);border:1px solid #fca5a5;border-radius:var(--radius-lg);padding:16px 20px;color:var(--danger);font-size:13px;margin-bottom:20px}
+.dr-warn-banner{background:rgba(124,58,237,.06);border:1px solid rgba(124,58,237,.25);border-radius:var(--radius);padding:10px 14px;margin-bottom:20px;font-size:12px;color:#7c3aed;font-weight:500}
+.dr-table-wrap{overflow-x:auto;border-radius:var(--radius-xl);border:1px solid var(--border);box-shadow:var(--shadow)}
+.dr-table{width:100%;border-collapse:collapse;background:var(--white)}
+.dr-table th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);padding:11px 16px;border-bottom:1.5px solid var(--border);text-align:left;white-space:nowrap;background:var(--blue-pale)}
+.dr-table td{padding:13px 16px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
+.dr-table tr:last-child td{border-bottom:none}
+.dr-table tr:hover td{background:var(--blue-pale)}
+.dr-sym{font-weight:700;color:var(--text);font-size:13px}
+.dr-name{font-size:11px;color:var(--text3);margin-top:2px}
+.dr-exdate{font-weight:600;color:var(--text)}
+.dr-days-away{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:3px;display:inline-block}
+.dr-days-away.urgent{background:#fef9c3;color:#92400e}
+.dr-days-away.near{background:#dcfce7;color:#166534}
+.dr-days-away.far{background:var(--blue-pale);color:var(--blue-mid)}
+.dr-amount{font-weight:700;color:var(--success);font-size:14px}
+.dr-type-pill{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px}
+.dr-type-pill.final{background:#e0f2fe;color:#0369a1}
+.dr-type-pill.interim{background:#dcfce7;color:#166534}
+.dr-type-pill.special{background:#fef3c7;color:#92400e}
+.dr-type-pill.bonus{background:#f3e8ff;color:#7c3aed}
+.dr-empty{text-align:center;padding:48px 20px;color:var(--text3)}
+.dr-empty svg{width:40px;height:40px;stroke:var(--border2);fill:none;stroke-width:1.5;margin-bottom:12px}
+.dr-empty p{font-size:13px}
+.dr-count-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.dr-count{font-size:13px;font-weight:600;color:var(--text2)}
+.dr-fallback-badge{background:#fef3c7;color:#92400e;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid #fcd34d}
+/* History tab */
+.dr-search-wrap{display:flex;gap:10px;margin-bottom:20px;align-items:stretch}
+.dr-search-wrap input{flex:1;border-radius:var(--radius);font-size:14px;padding:12px 16px}
+.dr-search-wrap input:focus{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.1)}
+.dr-search-btn{background:#7c3aed;border:none;border-radius:var(--radius);color:#fff;font-size:13px;font-weight:600;padding:0 22px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:.15s;white-space:nowrap}
+.dr-search-btn:hover{background:#6d28d9}
+.dr-search-btn:disabled{background:var(--border2);cursor:not-allowed;color:var(--text3)}
+.dr-quick-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.dr-chip{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;transition:.15s}
+.dr-chip:hover{border-color:#7c3aed;color:#7c3aed;background:#faf5ff}
+.dr-hist-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.dr-hist-stat{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;box-shadow:var(--shadow)}
+.dr-hist-stat-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.dr-hist-stat-val{font-size:18px;font-weight:700;color:var(--text);letter-spacing:-.4px}
+.dr-hist-stat-val.green{color:var(--success)}.dr-hist-stat-val.purple{color:#7c3aed}.dr-hist-stat-val.orange{color:var(--warning)}
+.dr-hist-stat-sub{font-size:11px;color:var(--text3);margin-top:4px}
+.dr-trend-row{display:flex;align-items:center;gap:8px;margin-bottom:20px;padding:12px 16px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg)}
+.dr-trend-icon{font-size:22px}
+.dr-trend-label{font-size:13px;font-weight:600;color:var(--text)}
+.dr-trend-sub{font-size:12px;color:var(--text3)}
+.dr-chart-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);padding:20px 24px;margin-bottom:20px;box-shadow:var(--shadow)}
+.dr-chart-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:16px}
+.dr-bar-chart{display:flex;align-items:flex-end;gap:6px;height:120px;padding-bottom:24px;position:relative}
+.dr-bar-chart::after{content:'';position:absolute;bottom:24px;left:0;right:0;height:1px;background:var(--border)}
+.dr-bar-col{display:flex;flex-direction:column;align-items:center;flex:1;position:relative}
+.dr-bar{background:linear-gradient(180deg,#a78bfa,#7c3aed);border-radius:4px 4px 0 0;min-height:4px;width:100%;transition:opacity .15s;cursor:default;position:relative}
+.dr-bar:hover{opacity:.8}
+.dr-bar-label{font-size:10px;color:var(--text3);margin-top:4px;text-align:center;transform:rotate(-40deg);transform-origin:center top;white-space:nowrap}
+.dr-bar-amt{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:600;color:#7c3aed;white-space:nowrap;opacity:0;transition:.15s}
+.dr-bar:hover .dr-bar-amt{opacity:1}
+.dr-hist-table{width:100%;border-collapse:collapse;margin-top:4px}
+.dr-hist-table th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);padding:8px 14px;border-bottom:1.5px solid var(--border);text-align:left}
+.dr-hist-table td{padding:11px 14px;border-bottom:1px solid var(--border);font-size:13px}
+.dr-hist-table tr:last-child td{border-bottom:none}
+.dr-hist-table tr:hover td{background:var(--blue-pale)}
 @media(max-width:768px){
+  .dr-hist-stats{grid-template-columns:1fr 1fr}
+  .dr-filter-row{flex-direction:column}
   .mob-menu-btn{display:flex}
   .sidebar{position:fixed;height:100vh;top:0;left:0;z-index:200;transform:translateX(-100%);transition:transform .25s ease,width .25s ease}
   .sidebar:not(.collapsed){transform:translateX(0);box-shadow:4px 0 24px rgba(10,22,40,.35);width:var(--sidebar-w)}
@@ -277,6 +362,7 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
     <div class="sb-item" id="nav-buysell" onclick="nav('buysell')"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span class="sb-item-text">Buy / Sell P&amp;L</span></div>
     <div class="sb-item" id="nav-target" onclick="nav('target')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg><span class="sb-item-text">Target Planner</span></div>
     <div class="sb-item" id="nav-traderadar" onclick="nav('traderadar')"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 2a10 10 0 0 1 0 20"/><path d="M12 8l4 4-4 4"/></svg><span class="sb-item-text">TradeRadar</span><span class="sb-badge new-badge">New</span></div>
+    <div class="sb-item" id="nav-dividendradar" onclick="nav('dividendradar')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><path d="M12 2a10 10 0 0 1 0 20"/><path d="M12 6a6 6 0 0 1 0 12"/><path d="M12 10a2 2 0 0 1 0 4"/></svg><span class="sb-item-text">DividendRadar</span><span class="sb-badge new-badge">New</span></div>
     <div class="sb-item coming" title="Coming soon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><span class="sb-item-text">SIP Calculator</span><span class="sb-badge">Soon</span></div>
   </div>
   <div class="sb-divider"></div>
@@ -304,7 +390,7 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
         <h1>Smart tools for<br/><span>smarter investing</span></h1>
         <p>Simple, no-nonsense calculators to help you understand your trades, average costs, profits — and now live technical signals.</p>
         <div class="hero-stats">
-          <div><div class="hero-stat-val">4</div><div class="hero-stat-lbl">Tools available</div></div>
+          <div><div class="hero-stat-val">5</div><div class="hero-stat-lbl">Tools available</div></div>
           <div><div class="hero-stat-val">Free</div><div class="hero-stat-lbl">Always &amp; forever</div></div>
           <div><div class="hero-stat-val">100%</div><div class="hero-stat-lbl">Private — no data saved</div></div>
         </div>
@@ -315,6 +401,7 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
         <div class="tool-card" onclick="nav('buysell')"><span class="tool-card-tag tag-free">Free</span><div class="tool-card-icon green"><svg viewBox="0 0 24 24" class="tc-green"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Buy / Sell P&amp;L Calculator</h3><p>Enter your buy price, sell price and quantity to instantly see your profit or loss and return percentage.</p><div class="tool-card-arrow">Open tool →</div></div>
         <div class="tool-card" onclick="nav('target')"><span class="tool-card-tag tag-free">Free</span><div class="tool-card-icon purple"><svg viewBox="0 0 24 24" class="tc-purple"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><h3>Target-Based Investment Planner</h3><p>Set a profit target and get the exact capital, quantity, and entry &amp; exit prices needed.</p><div class="tool-card-arrow">Open tool →</div></div>
         <div class="tool-card" onclick="nav('traderadar')"><span class="tool-card-tag tag-new">New</span><div class="tool-card-icon teal"><svg viewBox="0 0 24 24" class="tc-teal"><path d="M5 12h14M12 2a10 10 0 0 1 0 20"/><path d="M12 8l4 4-4 4"/></svg></div><h3>TradeRadar — Signal Scanner</h3><p>Search any NSE stock and get real-time Buy / Sell / Hold signals from RSI, MACD, Moving Averages &amp; Bollinger Bands.</p><div class="tool-card-arrow">Open tool →</div></div>
+        <div class="tool-card" onclick="nav('dividendradar')"><span class="tool-card-tag tag-new">New</span><div class="tool-card-icon purple"><svg viewBox="0 0 24 24" class="tc-purple"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/><path d="M8 2l1 3M16 2l-1 3"/></svg></div><h3>DividendRadar</h3><p>Scan upcoming NSE dividends by period, or analyse a stock's full dividend history — yield, growth, consistency &amp; year-by-year chart.</p><div class="tool-card-arrow">Open tool →</div></div>
         <div class="tool-card coming"><span class="tool-card-tag tag-soon">Coming Soon</span><div class="tool-card-icon orange"><svg viewBox="0 0 24 24" class="tc-orange"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3>SIP Calculator</h3><p>Calculate your mutual fund SIP maturity value with expected returns and inflation-adjusted projections.</p></div>
         <div class="tool-card coming"><span class="tool-card-tag tag-soon">Coming Soon</span><div class="tool-card-icon orange"><svg viewBox="0 0 24 24" class="tc-orange"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><h3>EMI Calculator</h3><p>Work out your monthly EMI, total interest paid and full repayment schedule for any loan.</p></div>
       </div>
@@ -432,11 +519,77 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
       </div>
     </div>
 
+    <!-- DIVIDENDRADAR -->
+    <div class="tool-page" id="page-dividendradar">
+      <div class="dr-hero">
+        <div class="dr-hero-tag">💰 Dividend Intelligence</div>
+        <h2>DividendRadar</h2>
+        <p>Scan upcoming NSE dividend announcements or deep-dive into any stock's full dividend history. Understand income potential before you invest.</p>
+        <div class="dr-disclaimer">⚠️ You must BUY the stock <strong>before the ex-dividend date</strong> to qualify. Buying on or after the ex-date means you will NOT receive the dividend. Dividends are income, not guaranteed returns — stock price typically drops by the dividend amount on ex-date.</div>
+      </div>
+
+      <div class="dr-tabs">
+        <button class="dr-tab active" id="dr-tab-scanner" onclick="drSwitchTab('scanner')">📅 Upcoming Dividends Scanner</button>
+        <button class="dr-tab" id="dr-tab-history" onclick="drSwitchTab('history')">📈 Dividend History Analyser</button>
+      </div>
+
+      <!-- SCANNER TAB -->
+      <div id="dr-scanner-panel">
+        <div class="dr-period-row">
+          <button class="dr-period-btn active" id="drp-month" onclick="drSetPeriod('month')">This Month</button>
+          <button class="dr-period-btn" id="drp-next" onclick="drSetPeriod('next')">Next Month</button>
+          <button class="dr-period-btn" id="drp-60" onclick="drSetPeriod('60')">Next 60 Days</button>
+        </div>
+        <div class="dr-filter-row">
+          <div class="field"><label>Filter by Sector</label><select id="dr-sector-filter" onchange="drApplyFilter()"><option value="">All Sectors</option><option>Banking &amp; Finance</option><option>IT &amp; Technology</option><option>Pharma &amp; Healthcare</option><option>FMCG &amp; Consumer</option><option>Energy &amp; Power</option><option>Auto &amp; Ancillaries</option><option>Metals &amp; Mining</option><option>Infrastructure</option></select></div>
+          <div class="field"><label>Min Dividend (₹)</label><input type="number" id="dr-min-div" placeholder="e.g. 5" min="0" step="0.5" oninput="drApplyFilter()"/></div>
+          <button class="dr-filter-clear" onclick="drClearFilters()">✕ Clear filters</button>
+        </div>
+        <div id="dr-scan-loading" class="dr-loading" style="display:none"><div class="dr-loading-spinner"></div><p style="color:var(--text3);font-size:13px" id="dr-scan-load-txt">Fetching dividend announcements…</p></div>
+        <div id="dr-scan-error" class="dr-error" style="display:none"></div>
+        <div id="dr-scan-results" style="display:none">
+          <div class="dr-count-bar"><span class="dr-count" id="dr-count-label"></span> </div>
+          <div class="dr-warn-banner">💡 Buy <strong>before the ex-date</strong> to receive the dividend. If today is the ex-date or later, you're too late for this payout.</div>
+          <div class="dr-table-wrap"><table class="dr-table"><thead><tr><th>Symbol</th><th>Ex-Date</th><th>Record Date</th><th>Dividend</th><th>Type</th></tr></thead><tbody id="dr-scan-body"></tbody></table></div>
+          <div id="dr-scan-empty" class="dr-empty" style="display:none"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p id="dr-scan-empty-msg">No dividends found for the selected period.</p></div>
+        </div>
+      </div>
+
+      <!-- HISTORY TAB -->
+      <div id="dr-history-panel" style="display:none">
+        <div class="dr-search-wrap">
+          <input type="text" id="dr-hist-input" placeholder="Enter NSE symbol — e.g. TCS, INFY, RELIANCE, HDFCBANK…" onkeydown="if(event.key==='Enter')drAnalyse()" autocomplete="off" spellcheck="false"/>
+          <button class="dr-search-btn" id="dr-hist-btn" onclick="drAnalyse()">Analyse →</button>
+        </div>
+        <div class="dr-quick-chips">
+          <span class="dr-chip" onclick="drQ('TCS')">TCS</span>
+          <span class="dr-chip" onclick="drQ('INFY')">INFY</span>
+          <span class="dr-chip" onclick="drQ('RELIANCE')">RELIANCE</span>
+          <span class="dr-chip" onclick="drQ('HDFCBANK')">HDFCBANK</span>
+          <span class="dr-chip" onclick="drQ('ITC')">ITC</span>
+          <span class="dr-chip" onclick="drQ('COALINDIA')">COALINDIA</span>
+          <span class="dr-chip" onclick="drQ('NESTLEIND')">NESTLEIND</span>
+        </div>
+        <div id="dr-hist-loading" class="dr-loading" style="display:none"><div class="dr-loading-spinner"></div><p style="color:var(--text3);font-size:13px" id="dr-hist-load-txt">Fetching dividend history…</p></div>
+        <div id="dr-hist-error" class="dr-error" style="display:none"></div>
+        <div id="dr-hist-results" style="display:none">
+          <div class="dr-hist-stats" id="dr-hist-stats"></div>
+          <div class="dr-trend-row" id="dr-trend-row"></div>
+          <div class="dr-chart-wrap">
+            <div class="dr-chart-title" id="dr-chart-title">Year-by-Year Dividends (₹ per share)</div>
+            <div class="dr-bar-chart" id="dr-bar-chart"></div>
+          </div>
+          <div class="card"><div class="card-head" style="margin-bottom:14px"><div class="card-icon" style="background:#f3e8ff"><svg viewBox="0 0 24 24" style="stroke:#7c3aed"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div><div class="card-title">Full Dividend History</div><div class="card-sub" id="dr-hist-sub">Detailed payout records</div></div></div><table class="dr-hist-table"><thead><tr><th>Ex-Date</th><th>Dividend (₹)</th><th>Type</th><th>FY</th></tr></thead><tbody id="dr-hist-body"></tbody></table></div>
+          <div class="dr-warn-banner" style="margin-top:16px">📌 Dividend yield is calculated on live CMP. Past dividend history does not guarantee future payouts. Data sourced via Yahoo Finance — may be incomplete for older records.</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 </div>
 <script>
-const PGS={home:'Home',avgcalc:'Avg Calculator',buysell:'Buy / Sell P&L',target:'Target Planner',traderadar:'TradeRadar'};
+const PGS={home:'Home',avgcalc:'Avg Calculator',buysell:'Buy / Sell P&L',target:'Target Planner',traderadar:'TradeRadar',dividendradar:'DividendRadar'};
 function nav(id){
   document.querySelectorAll('.home-page,.tool-page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
@@ -624,6 +777,374 @@ function renderTR(sym,meta,closes,sg){
   document.getElementById('tr-indicators').innerHTML=inds.map(i=>`<div class="tr-ind-card"><div class="tr-ind-head"><div class="tr-ind-name">${i.n}</div><span class="tr-ind-signal ${i.s}">${i.s.toUpperCase()}</span></div><div class="tr-ind-val">${i.v}</div><div class="tr-ind-desc">${i.d}</div>${i.ex?`<div class="tr-ind-desc" style="margin-top:4px;color:var(--text2)">${i.ex}</div>`:''} ${i.bar?`<div class="tr-ind-bar"><div class="tr-ind-bar-fill" style="width:${i.bp}%;background:${i.bc}"></div></div>`:''}</div>`).join('');
   document.getElementById('tr-sum-body').innerHTML=inds.map(i=>`<tr><td><strong>${i.sn}</strong></td><td>${i.v}</td><td style="color:var(--text3);font-size:12px">${i.d}</td><td><span class="sig-pill ${i.s}">${i.s==='buy'?'▲ BUY':i.s==='sell'?'▼ SELL':'● HOLD'}</span></td></tr>`).join('');
 }
+/* ═══════════ DIVIDENDRADAR ═══════════ */
+let drCurrentPeriod='month';
+let drAllRows=[];
+let drUsedFallback=false;
+
+ 
+
+const DR_HIST_FALLBACK={
+  TCS:{name:'Tata Consultancy Services',currency:'INR',
+    history:[
+      {exDate:'2024-06-17',amount:28,type:'Interim'},{exDate:'2024-01-17',amount:27,type:'Interim'},
+      {exDate:'2023-06-20',amount:24,type:'Interim'},{exDate:'2023-01-18',amount:8,type:'Interim'},
+      {exDate:'2022-06-13',amount:22,type:'Interim'},{exDate:'2022-01-17',amount:7,type:'Interim'},
+      {exDate:'2021-06-14',amount:15,type:'Interim'},{exDate:'2021-01-18',amount:6,type:'Interim'},
+      {exDate:'2020-07-17',amount:6,type:'Interim'},{exDate:'2019-10-16',amount:10,type:'Interim'},
+    ]},
+  INFY:{name:'Infosys Ltd',currency:'INR',
+    history:[
+      {exDate:'2024-09-27',amount:21,type:'Interim'},{exDate:'2024-05-30',amount:20,type:'Final'},
+      {exDate:'2023-09-25',amount:18,type:'Interim'},{exDate:'2023-05-26',amount:17.50,type:'Final'},
+      {exDate:'2022-09-26',amount:16.50,type:'Interim'},{exDate:'2022-05-31',amount:16,type:'Final'},
+      {exDate:'2021-09-27',amount:15,type:'Interim'},{exDate:'2021-06-01',amount:15,type:'Final'},
+      {exDate:'2020-10-26',amount:12,type:'Interim'},{exDate:'2019-10-24',amount:8,type:'Interim'},
+    ]},
+  RELIANCE:{name:'Reliance Industries Ltd',currency:'INR',
+    history:[
+      {exDate:'2024-08-19',amount:10,type:'Final'},{exDate:'2023-08-21',amount:9,type:'Final'},
+      {exDate:'2022-08-22',amount:8,type:'Final'},{exDate:'2021-08-05',amount:7,type:'Final'},
+      {exDate:'2020-07-30',amount:6.50,type:'Final'},{exDate:'2019-08-08',amount:6.50,type:'Final'},
+      {exDate:'2018-07-20',amount:6,type:'Final'},{exDate:'2017-07-21',amount:11,type:'Final'},
+      {exDate:'2016-07-22',amount:10.50,type:'Final'},{exDate:'2015-07-23',amount:10,type:'Final'},
+    ]},
+  ITC:{name:'ITC Ltd',currency:'INR',
+    history:[
+      {exDate:'2024-07-16',amount:7.50,type:'Final'},{exDate:'2023-07-17',amount:6.75,type:'Final'},
+      {exDate:'2022-07-19',amount:6.25,type:'Final'},{exDate:'2021-07-14',amount:5.75,type:'Final'},
+      {exDate:'2020-07-10',amount:10.15,type:'Special'},{exDate:'2019-07-12',amount:5.75,type:'Final'},
+      {exDate:'2018-07-13',amount:5.15,type:'Final'},{exDate:'2017-07-14',amount:4.75,type:'Final'},
+      {exDate:'2016-07-08',amount:4.25,type:'Final'},{exDate:'2015-07-10',amount:3.50,type:'Final'},
+    ]},
+  HDFCBANK:{name:'HDFC Bank Ltd',currency:'INR',
+    history:[
+      {exDate:'2024-07-19',amount:19,type:'Final'},{exDate:'2023-07-14',amount:19,type:'Final'},
+      {exDate:'2022-07-06',amount:15.50,type:'Final'},{exDate:'2021-07-05',amount:6.50,type:'Final'},
+      {exDate:'2019-07-02',amount:15,type:'Final'},{exDate:'2018-07-04',amount:13,type:'Final'},
+      {exDate:'2017-07-06',amount:11,type:'Final'},{exDate:'2016-07-08',amount:9.50,type:'Final'},
+      {exDate:'2015-07-07',amount:8,type:'Final'},{exDate:'2014-07-08',amount:6.50,type:'Final'},
+    ]},
+  COALINDIA:{name:'Coal India Ltd',currency:'INR',
+    history:[
+      {exDate:'2024-02-16',amount:5,type:'Interim'},{exDate:'2023-11-10',amount:15,type:'Interim'},
+      {exDate:'2023-02-17',amount:4,type:'Interim'},{exDate:'2022-11-11',amount:15,type:'Interim'},
+      {exDate:'2022-02-18',amount:3,type:'Interim'},{exDate:'2021-11-12',amount:17,type:'Interim'},
+      {exDate:'2021-02-05',amount:3.50,type:'Interim'},{exDate:'2020-03-13',amount:7.50,type:'Interim'},
+      {exDate:'2019-11-08',amount:5,type:'Interim'},{exDate:'2018-11-09',amount:7.50,type:'Interim'},
+    ]},
+  NESTLEIND:{name:'Nestle India Ltd',currency:'INR',
+    history:[
+      {exDate:'2024-07-30',amount:140,type:'Interim'},{exDate:'2024-03-01',amount:2.75,type:'Interim'},
+      {exDate:'2023-08-01',amount:120,type:'Interim'},{exDate:'2023-03-03',amount:27,type:'Interim'},
+      {exDate:'2022-08-02',amount:135,type:'Interim'},{exDate:'2021-08-04',amount:145,type:'Interim'},
+      {exDate:'2020-08-07',amount:135,type:'Interim'},{exDate:'2019-08-05',amount:60,type:'Interim'},
+      {exDate:'2018-08-06',amount:50,type:'Interim'},{exDate:'2017-08-04',amount:45,type:'Interim'},
+    ]},
+};
+
+function drSwitchTab(tab){
+  document.getElementById('dr-tab-scanner').classList.toggle('active',tab==='scanner');
+  document.getElementById('dr-tab-history').classList.toggle('active',tab==='history');
+  document.getElementById('dr-scanner-panel').style.display=tab==='scanner'?'block':'none';
+  document.getElementById('dr-history-panel').style.display=tab==='history'?'block':'none';
+}
+
+function drSetPeriod(p){
+  drCurrentPeriod=p;
+  ['month','next','60'].forEach(x=>document.getElementById('drp-'+x).classList.toggle('active',x===p));
+  drScan();
+}
+
+function drClearFilters(){
+  document.getElementById('dr-sector-filter').value='';
+  document.getElementById('dr-min-div').value='';
+  drApplyFilter();
+}
+
+function drApplyFilter(){
+  const sec=document.getElementById('dr-sector-filter').value;
+  const minDiv=parseFloat(document.getElementById('dr-min-div').value)||0;
+  const filtered=drAllRows.filter(r=>{
+    if(sec&&r.sector!==sec)return false;
+    if(minDiv&&r.amount<minDiv)return false;
+    return true;
+  });
+  drRenderScanRows(filtered);
+}
+
+function drDaysAway(exDateStr){
+  const today=new Date();today.setHours(0,0,0,0);
+  const ex=new Date(exDateStr);ex.setHours(0,0,0,0);
+  return Math.round((ex-today)/(1000*60*60*24));
+}
+
+function drFmtDate(d){
+  const dt=new Date(d);
+  return dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+}
+
+function drTypeClass(t){
+  const m={Final:'final',Interim:'interim',Special:'special',Bonus:'bonus'};
+  return m[t]||'interim';
+}
+
+async function drScan(){
+  const panel=document.getElementById('dr-scanner-panel');
+  document.getElementById('dr-scan-loading').style.display='block';
+  document.getElementById('dr-scan-results').style.display='none';
+  document.getElementById('dr-scan-error').style.display='none';
+  document.getElementById('dr-scan-load-txt').textContent='Fetching NSE corporate actions…';
+  drUsedFallback=false;
+  try{
+    // Try live NSE corporate actions endpoint via CORS proxy
+    const today=new Date();
+    const from=new Date(today);
+    const to=new Date(today);
+   if (drCurrentPeriod === 'month') {
+
+    from.setDate(1);
+
+    to.setMonth(today.getMonth() + 1, 0);
+
+}
+else if (drCurrentPeriod === 'next') {
+
+    from.setMonth(today.getMonth() + 1, 1);
+
+    to.setMonth(today.getMonth() + 2, 0);
+
+}
+else {
+
+    to.setDate(today.getDate() + 60);
+
+}
+    //const fmt=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    const fmt = d =>  `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`;    
+    const nseUrl=`https://www.nseindia.com/api/corporates-corporateActions?index=equities&from_date=${fmt(from)}&to_date=${fmt(to)}&subject=Dividend`;
+    const proxyUrl='https://api.allorigins.win/get?url='+encodeURIComponent(nseUrl);
+    console.log(nseUrl)	
+    const resp=await fetch(proxyUrl,{signal:AbortSignal.timeout(8000)});
+    const outer=await resp.json();
+    const data=JSON.parse(outer.contents);
+	console.log('DividendRadar NSE response:', data);
+
+	if (!Array.isArray(data)) {
+	    throw new Error('Unexpected NSE response format');
+	}
+
+    if(!Array.isArray(data)||data.length===0)throw new Error('No live data');
+    drAllRows = data.map(r => ({
+  sym: r.symbol || '',
+  name: r.companyName || r.symbol || '',
+
+  exDate:
+      r.exDate ||
+      r.exdate ||
+      r['ex-date'] ||
+      r.bcStartDate ||
+      '',
+
+  recDate:
+      r.recordDate ||
+      r.recDate ||
+      r['record-date'] ||
+      '',
+
+  amount:
+      parseFloat(
+        r.dividendAmount ||
+        r.amount ||
+        r.faceVal ||
+        0
+      ),
+
+  type:
+      r.purpose?.toLowerCase().includes('interim')
+        ? 'Interim'
+        : r.purpose?.toLowerCase().includes('special')
+          ? 'Special'
+          : 'Final',
+
+  sector:''
+}));
+    drAllRows.sort((a,b)=>new Date(a.exDate)-new Date(b.exDate));
+  }catch(e){
+	  console.error('DividendRadar live fetch failed:', e);
+
+	  drUsedFallback = false;
+	  drAllRows = [];
+
+	  document.getElementById('dr-scan-loading').style.display='none';
+
+	  const err=document.getElementById('dr-scan-error');
+	  err.style.display='block';
+	  err.textContent =
+	    'Unable to fetch live dividend announcements from NSE. Please try again later.';
+
+	  return;
+}
+  document.getElementById('dr-scan-loading').style.display='none';
+  document.getElementById('dr-scan-results').style.display='block';
+  //document.getElementById('dr-fallback-badge').style.display=drUsedFallback?'inline-flex':'none';
+  drApplyFilter();
+}
+
+function drRenderScanRows(rows){
+  const tbody=document.getElementById('dr-scan-body');
+  const empty=document.getElementById('dr-scan-empty');
+  const count=document.getElementById('dr-count-label');
+  if(!rows.length){
+    tbody.innerHTML='';
+    empty.style.display='block';
+    count.textContent='0 dividends found';
+    return;
+  }
+  empty.style.display='none';
+  count.textContent=rows.length+' dividend'+(rows.length!==1?'s':'')+' found';
+  tbody.innerHTML=rows.map(r=>{
+    const days=drDaysAway(r.exDate);
+    const dClass=days<=7?'urgent':days<=21?'near':'far';
+    const dLabel=days<0?'Ex-date passed':days===0?'TODAY — too late!':days+' days away';
+    return`<tr>
+      <td><div class="dr-sym">${r.sym}</div><div class="dr-name">${r.name}</div></td>
+      <td><div class="dr-exdate">${drFmtDate(r.exDate)}</div><span class="dr-days-away ${dClass}">${dLabel}</span></td>
+      <td>${r.recDate?drFmtDate(r.recDate):'—'}</td>
+      <td><span class="dr-amount">₹${r.amount.toFixed(2)}</span></td>
+      <td><span class="dr-type-pill ${drTypeClass(r.type)}">${r.type}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+// History analyser
+function drQ(sym){document.getElementById('dr-hist-input').value=sym;drAnalyse();}
+
+async function drAnalyse(){
+  const sym=document.getElementById('dr-hist-input').value.trim().toUpperCase().replace(/\.NS$/,'');
+  if(!sym){alert('Please enter a stock symbol');return;}
+  const btn=document.getElementById('dr-hist-btn');
+  btn.disabled=true;
+  document.getElementById('dr-hist-loading').style.display='block';
+  document.getElementById('dr-hist-results').style.display='none';
+  document.getElementById('dr-hist-error').style.display='none';
+  document.getElementById('dr-hist-load-txt').textContent='Fetching dividend history for '+sym+'…';
+
+  let history=[], cmp=0, companyName=sym;
+  try{
+    // Fetch dividend history from Yahoo Finance
+    const ticker=sym+'.NS';
+    const url='https://api.allorigins.win/get?url='+encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/'+ticker+'?interval=1mo&range=10y&events=dividends');
+    const res=await fetch(url,{signal:AbortSignal.timeout(10000)});
+    const outer=await res.json();
+    const data=JSON.parse(outer.contents);
+    if(data.chart.error||!data.chart.result||!data.chart.result[0])throw new Error('Symbol not found on Yahoo Finance');
+    const result=data.chart.result[0];
+    cmp=result.meta.regularMarketPrice||result.meta.previousClose||0;
+    companyName=result.meta.longName||result.meta.shortName||sym;
+    const events=result.events&&result.events.dividends;
+    if(events){
+      history=Object.values(events).map(d=>({
+        exDate:new Date(d.date*1000).toISOString().slice(0,10),
+        amount:d.amount,
+        type:'Dividend',
+      }));
+      history.sort((a,b)=>new Date(b.exDate)-new Date(a.exDate));
+    }
+    if(!history.length)throw new Error('No dividend data available for '+sym);
+  }catch(e){
+    // Try fallback curated
+    const fb=DR_HIST_FALLBACK[sym];
+    if(fb){
+      history=fb.history.map(h=>({...h,type:h.type||'Dividend'}));
+      companyName=fb.name;
+      // Try to get CMP separately
+      try{
+        const url2='https://api.allorigins.win/get?url='+encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/'+sym+'.NS?interval=1d&range=5d');
+        const r2=await fetch(url2,{signal:AbortSignal.timeout(5000)});
+        const o2=await r2.json();const d2=JSON.parse(o2.contents);
+        cmp=d2.chart.result[0].meta.regularMarketPrice||0;
+      }catch(e2){cmp=0;}
+    }else{
+      document.getElementById('dr-hist-loading').style.display='none';
+      const el=document.getElementById('dr-hist-error');
+      el.style.display='block';el.textContent='⚠️ '+e.message+'. Try: TCS, INFY, RELIANCE, ITC, HDFCBANK, COALINDIA, NESTLEIND';
+      btn.disabled=false;return;
+    }
+  }
+
+  document.getElementById('dr-hist-load-txt').textContent='Analysing dividend patterns…';
+  drRenderHistory(sym,companyName,history,cmp);
+  document.getElementById('dr-hist-loading').style.display='none';
+  document.getElementById('dr-hist-results').style.display='block';
+  btn.disabled=false;
+}
+
+function drRenderHistory(sym,name,history,cmp){
+  // Aggregate by fiscal year (Apr–Mar)
+  const byYear={};
+  history.forEach(h=>{
+    const d=new Date(h.exDate);
+    const fy=d.getMonth()>=3?d.getFullYear():d.getFullYear()-1;
+    const fyLabel='FY'+(String(fy).slice(-2))+'-'+(String(fy+1).slice(-2));
+    if(!byYear[fy])byYear[fy]={fy,fyLabel,total:0,count:0};
+    byYear[fy].total+=h.amount;byYear[fy].count++;
+  });
+  const years=Object.values(byYear).sort((a,b)=>a.fy-b.fy);
+  const totalPaid=history.reduce((s,h)=>s+h.amount,0);
+  const avgAnnual=years.length?years.reduce((s,y)=>s+y.total,0)/years.length:0;
+  const paidYears=years.length;
+  const yields=cmp>0?((history[0]?.amount||0)*((history[0]?.type?.toLowerCase().includes('interim'))?2:1)/cmp*100):null;
+  // Trend
+  let trend='→ Stable',trendIcon='→',trendColor='orange';
+  if(years.length>=3){
+    const last3=years.slice(-3).map(y=>y.total);
+    if(last3[2]>last3[0]*1.1){trend='↑ Growing';trendIcon='↑';trendColor='green';}
+    else if(last3[2]<last3[0]*0.9){trend='↓ Declining';trendIcon='↓';trendColor='red';}
+  }
+  // Highest ever
+  const byYearArr=years.map(y=>({fy:y.fyLabel,total:y.total}));
+  const highYear=byYearArr.reduce((m,y)=>y.total>m.total?y:m,byYearArr[0]);
+  // Frequency
+  const avgPmts=history.length/Math.max(paidYears,1);
+  const freq=avgPmts>=3.5?'Quarterly':avgPmts>=1.8?'Semi-Annual':'Annual';
+
+  document.getElementById('dr-hist-stats').innerHTML=[
+    {l:'Total Paid (All Time)',v:'₹'+totalPaid.toFixed(2),s:'',sub:history.length+' payouts recorded'},
+    {l:'Avg Annual Dividend',v:'₹'+avgAnnual.toFixed(2),s:'purple',sub:'Per share / year'},
+    {l:'Dividend Yield (CMP)',v:yields!==null?yields.toFixed(2)+'%':'N/A',s:yields>3?'green':'',sub:cmp?'At ₹'+cmp.toFixed(2):' Live price unavailable'},
+    {l:'Consistency',v:paidYears+' yrs paid',s:'green',sub:'Out of '+paidYears+' tracked years'},
+    {l:'Highest Ever',v:'₹'+highYear.total.toFixed(2),s:'orange',sub:highYear.fy},
+    {l:'Payment Frequency',v:freq,s:'',sub:'Approximate pattern'},
+  ].map(s=>`<div class="dr-hist-stat"><div class="dr-hist-stat-label">${s.l}</div><div class="dr-hist-stat-val ${s.s}">${s.v}</div><div class="dr-hist-stat-sub">${s.sub}</div></div>`).join('');
+
+  document.getElementById('dr-trend-row').innerHTML=`
+    <div class="dr-trend-icon">${trendIcon==='↑'?'📈':trendIcon==='↓'?'📉':'➡️'}</div>
+    <div><div class="dr-trend-label">${trend}</div><div class="dr-trend-sub">${name} · Dividend trend based on last ${Math.min(years.length,5)} years of data</div></div>`;
+
+  // Bar chart
+  const maxT=Math.max(...years.map(y=>y.total),0.01);
+  document.getElementById('dr-chart-title').textContent=sym+' — Annual Dividends (₹/share)';
+  document.getElementById('dr-bar-chart').innerHTML=years.map(y=>{
+    const h=Math.max(4,Math.round((y.total/maxT)*100));
+    return`<div class="dr-bar-col"><div class="dr-bar" style="height:${h}px" title="₹${y.total.toFixed(2)} in ${y.fyLabel}"><span class="dr-bar-amt">₹${y.total.toFixed(2)}</span></div><div class="dr-bar-label">${y.fyLabel}</div></div>`;
+  }).join('');
+
+  // Detailed table
+  document.getElementById('dr-hist-sub').textContent=name+' · '+history.length+' payouts';
+  document.getElementById('dr-hist-body').innerHTML=history.map(h=>{
+    const d=new Date(h.exDate);
+    const fy=d.getMonth()>=3?d.getFullYear():d.getFullYear()-1;
+    return`<tr><td>${drFmtDate(h.exDate)}</td><td><strong>₹${h.amount.toFixed(2)}</strong></td><td><span class="dr-type-pill ${drTypeClass(h.type)}">${h.type}</span></td><td>FY${String(fy).slice(-2)}-${String(fy+1).slice(-2)}</td></tr>`;
+  }).join('');
+}
+
+// Auto-trigger scanner on page load when navigating to dividendradar
+const _origNav = nav;
+nav = function(id){
+  _origNav(id);
+  if(id==='dividendradar' && drAllRows.length===0){ drScan(); }
+};
 </script>
 </body>
 </html>
