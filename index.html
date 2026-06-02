@@ -1018,18 +1018,84 @@ const raw = await resp.json();
 
                 sector: '',
 
-                amount: 1 // keep all dividend announcements
+                 amount: (() => {
+
+								    const txt = r.subject || '';
+								
+								    const match = txt.match(
+								        /(?:Rs|Re)\s*([\d.]+)/i
+								    );
+								
+								    return match
+								        ? parseFloat(match[1])
+								        : 0;
+								
+								})()
             }))
             .filter(r => r.exDate);
 
-        drAllRows.sort((a, b) => {
+       drAllRows = data
+    .map(r => ({
 
-            const da = new Date(a.exDate);
-            const db = new Date(b.exDate);
+        sym:
+            r.symbol || '',
 
-            return da - db;
+        name:
+            r.comp ||
+            r.companyName ||
+            r.symbol ||
+            '',
 
-        });
+        exDate:
+            r.exDate ||
+            r.exdate ||
+            r['ex-date'] ||
+            r.bcStartDate ||
+            '',
+
+        recDate:
+            r.recDate ||
+            r.recordDate ||
+            r['record-date'] ||
+            '',
+
+        purpose:
+            r.subject ||
+            r.purpose ||
+            '',
+
+        amount: (() => {
+
+            const txt =
+                r.subject ||
+                r.purpose ||
+                '';
+
+            const match = txt.match(
+                /(?:Rs|Re)\s*([\d.]+)/i
+            );
+
+            return match
+                ? parseFloat(match[1])
+                : 0;
+
+        })(),
+
+        type:
+            (r.subject || '')
+                .toLowerCase()
+                .includes('interim')
+                ? 'Interim'
+                : (r.subject || '')
+                    .toLowerCase()
+                    .includes('special')
+                    ? 'Special'
+                    : 'Final',
+
+        sector: ''
+
+    }))
+    .filter(r => r.exDate);
 
         console.log('Processed dividend rows:', drAllRows);
 
