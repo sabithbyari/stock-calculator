@@ -981,7 +981,7 @@ const raw = await resp.json();
             throw new Error('No dividend records returned');
         }
 
-        /*
+    
 		drAllRows = data
             .map(r => ({
 
@@ -1097,36 +1097,9 @@ const raw = await resp.json();
 
     }))
     .filter(r => r.exDate);
-	*/
+	
 
-		drAllRows = data.map(r => ({
-
-    sym: r.symbol,
-
-    name: r.company,
-
-    exDate: r.exDate,
-
-    recDate: r.recDate,
-
-    purpose: r.subject,
-
-    amount: r.dividend,
-
-    cmp: r.cmp,
-
-    yieldPct: r.yieldPct,
-
-    type:
-        r.subject?.toLowerCase().includes('interim')
-            ? 'Interim'
-            : r.subject?.toLowerCase().includes('special')
-                ? 'Special'
-                : 'Final',
-
-    sector: ''
-
-}));
+		 
 
         console.log('Processed dividend rows:', drAllRows);
 
