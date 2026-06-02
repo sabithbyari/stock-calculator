@@ -889,106 +889,151 @@ function drTypeClass(t){
   return m[t]||'interim';
 }
 
-async function drScan(){
-  const panel=document.getElementById('dr-scanner-panel');
-  document.getElementById('dr-scan-loading').style.display='block';
-  document.getElementById('dr-scan-results').style.display='none';
-  document.getElementById('dr-scan-error').style.display='none';
-  document.getElementById('dr-scan-load-txt').textContent='Fetching NSE corporate actions…';
-  drUsedFallback=false;
-  try{
-    // Try live NSE corporate actions endpoint via CORS proxy
-    const today=new Date();
-    const from=new Date(today);
-    const to=new Date(today);
-   if (drCurrentPeriod === 'month') {
+async function drScan() {
 
-    from.setDate(1);
+    document.getElementById('dr-scan-loading').style.display = 'block';
+    document.getElementById('dr-scan-results').style.display = 'none';
+    document.getElementById('dr-scan-error').style.display = 'none';
+    document.getElementById('dr-scan-load-txt').textContent =
+        'Fetching NSE corporate actions…';
 
-    to.setMonth(today.getMonth() + 1, 0);
+    drUsedFallback = false;
 
-}
-else if (drCurrentPeriod === 'next') {
+    try {
 
-    from.setMonth(today.getMonth() + 1, 1);
+        const today = new Date();
 
-    to.setMonth(today.getMonth() + 2, 0);
+        const from = new Date(today);
+        const to = new Date(today);
 
-}
-else {
+        if (drCurrentPeriod === 'month') {
 
-    to.setDate(today.getDate() + 60);
+            from.setDate(1);
+            to.setMonth(today.getMonth() + 1, 0);
 
-}
-    //const fmt=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-    const fmt = d =>  `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`;    
-    const nseUrl=`https://www.nseindia.com/api/corporates-corporateActions?index=equities&from_date=${fmt(from)}&to_date=${fmt(to)}&subject=Dividend`;
-    const proxyUrl='https://api.allorigins.win/get?url='+encodeURIComponent(nseUrl);
-    console.log(nseUrl)	
-    const resp=await fetch(proxyUrl,{signal:AbortSignal.timeout(8000)});
-    const outer=await resp.json();
-    const data=JSON.parse(outer.contents);
-	console.log('DividendRadar NSE response:', data);
+        }
+        else if (drCurrentPeriod === 'next') {
 
-	if (!Array.isArray(data)) {
-	    throw new Error('Unexpected NSE response format');
-	}
+            from.setMonth(today.getMonth() + 1, 1);
+            to.setMonth(today.getMonth() + 2, 0);
 
-    if(!Array.isArray(data)||data.length===0)throw new Error('No live data');
-    drAllRows = data.map(r => ({
-  sym: r.symbol || '',
-  name: r.companyName || r.symbol || '',
+        }
+        else {
 
-  exDate:
-      r.exDate ||
-      r.exdate ||
-      r['ex-date'] ||
-      r.bcStartDate ||
-      '',
+            to.setDate(today.getDate() + 60);
 
-  recDate:
-      r.recordDate ||
-      r.recDate ||
-      r['record-date'] ||
-      '',
+        }
 
-  amount:
-      parseFloat(
-        r.dividendAmount ||
-        r.amount ||
-        r.faceVal ||
-        0
-      ),
+        const fmt = d =>
+            `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`;
 
-  type:
-      r.purpose?.toLowerCase().includes('interim')
-        ? 'Interim'
-        : r.purpose?.toLowerCase().includes('special')
-          ? 'Special'
-          : 'Final',
+        const fromStr = fmt(from);
+        const toStr = fmt(to);
 
-  sector:''
-}));
-    drAllRows.sort((a,b)=>new Date(a.exDate)-new Date(b.exDate));
-  }catch(e){
-	  console.error('DividendRadar live fetch failed:', e);
+        console.log('Dividend range:', fromStr, '->', toStr);
 
-	  drUsedFallback = false;
-	  drAllRows = [];
+        const resp = await fetch(
+            `/api/dividends?from=${fromStr}&to=${toStr}`,
+            {
+                signal: AbortSignal.timeout(30000)
+            }
+        );
 
-	  document.getElementById('dr-scan-loading').style.display='none';
+        if (!resp.ok) {
+            throw new Error(`API Error: ${resp.status}`);
+        }
 
-	  const err=document.getElementById('dr-scan-error');
-	  err.style.display='block';
-	  err.textContent =
-	    'Unable to fetch live dividend announcements from NSE. Please try again later.';
+        const raw = await resp.json();
 
-	  return;
-}
-  document.getElementById('dr-scan-loading').style.display='none';
-  document.getElementById('dr-scan-results').style.display='block';
-  //document.getElementById('dr-fallback-badge').style.display=drUsedFallback?'inline-flex':'none';
-  drApplyFilter();
+        console.log('NSE RAW RESPONSE:', raw);
+
+        const data = Array.isArray(raw)
+            ? raw
+            : (raw.data || []);
+
+        console.log('Dividend count:', data.length);
+
+        if (data.length === 0) {
+            throw new Error('No dividend records returned');
+        }
+
+        drAllRows = data
+            .map(r => ({
+
+                sym:
+                    r.symbol || '',
+
+                name:
+                    r.comp ||
+                    r.companyName ||
+                    r.symbol ||
+                    '',
+
+                exDate:
+                    r.exDate ||
+                    r.exdate ||
+                    r['ex-date'] ||
+                    r.bcStartDate ||
+                    '',
+
+                recDate:
+                    r.recordDate ||
+                    r.recDate ||
+                    r['record-date'] ||
+                    '',
+
+                purpose:
+                    r.purpose || '',
+
+                type:
+                    r.purpose?.toLowerCase().includes('interim')
+                        ? 'Interim'
+                        : r.purpose?.toLowerCase().includes('special')
+                            ? 'Special'
+                            : 'Final',
+
+                sector: '',
+
+                amount: 1 // keep all dividend announcements
+            }))
+            .filter(r => r.exDate);
+
+        drAllRows.sort((a, b) => {
+
+            const da = new Date(a.exDate);
+            const db = new Date(b.exDate);
+
+            return da - db;
+
+        });
+
+        console.log('Processed dividend rows:', drAllRows);
+
+    }
+    catch (e) {
+
+        console.error('DividendRadar live fetch failed:', e);
+
+        drAllRows = [];
+
+        document.getElementById('dr-scan-loading').style.display = 'none';
+
+        const err = document.getElementById('dr-scan-error');
+
+        err.style.display = 'block';
+
+        err.textContent =
+            `Unable to fetch live dividend announcements. ${e.message}`;
+
+        return;
+
+    }
+
+    document.getElementById('dr-scan-loading').style.display = 'none';
+    document.getElementById('dr-scan-results').style.display = 'block';
+
+    drApplyFilter();
+
 }
 
 function drRenderScanRows(rows){
