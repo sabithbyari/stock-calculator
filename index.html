@@ -289,6 +289,90 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
 .dr-count-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .dr-count{font-size:13px;font-weight:600;color:var(--text2)}
 .dr-fallback-badge{background:#fef3c7;color:#92400e;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid #fcd34d}
+
+/* Dividend table sort styles */
+.dr-table { width: 100%; border-collapse: collapse; min-width: 750px; }
+.dr-table-wrap { overflow-x: auto; }
+ 
+.dr-table th {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--text3); padding: 10px 14px;
+  border-bottom: 1.5px solid var(--border); text-align: left;
+  white-space: nowrap;
+}
+.dr-table th.sortable {
+  cursor: pointer; user-select: none;
+}
+.dr-table th.sortable:hover {
+  color: var(--text); background: var(--gold-bg);
+}
+.dr-table th.sort-active {
+  color: var(--gold);
+}
+.sort-icon {
+  font-size: 10px; margin-left: 4px; opacity: 0.5;
+}
+th.sort-active .sort-icon { opacity: 1; color: var(--gold); }
+ 
+.dr-table td {
+  padding: 12px 14px; border-bottom: 1px solid var(--border);
+  font-size: 13px; vertical-align: middle;
+}
+.dr-table tr:last-child td { border-bottom: none; }
+.dr-table tr:hover td { background: var(--gold-bg); }
+ 
+.dr-stock-name { font-weight: 600; color: var(--text); }
+.dr-stock-co   { font-size: 11px; color: var(--text3); margin-top: 1px;
+                  max-width: 160px; overflow: hidden; text-overflow: ellipsis;
+                  white-space: nowrap; }
+.dr-cmp        { font-weight: 600; color: var(--text); }
+.dr-div        { font-weight: 700; color: var(--success); }
+.dr-yield-high { font-weight: 600; color: var(--success); }
+.dr-yield-mid  { font-weight: 500; color: var(--warning); }
+.dr-yield-low  { color: var(--text3); }
+ 
+.dr-type-pill  {
+  display: inline-flex; align-items: center; font-size: 10px;
+  font-weight: 700; padding: 2px 9px; border-radius: 10px;
+  letter-spacing: .04em; text-transform: uppercase;
+}
+.dr-type-pill.final        { background: var(--success-bg); color: var(--success); }
+.dr-type-pill.interim      { background: var(--blue-light);  color: var(--blue); }
+.dr-type-pill.special      { background: var(--purple-bg);   color: var(--purple); }
+.dr-type-pill.distribution { background: var(--warning-bg);  color: var(--warning); }
+
+/* ── DividendRadar sort + CMP styles ── */
+.dr-th-sort {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+.dr-th-sort:hover {
+  color: var(--text);
+  background: rgba(146,64,14,.06);
+}
+.dr-th-sort.sort-active {
+  color: #92400e; /* gold */
+}
+.dr-sort-icon {
+  font-size: 10px;
+  margin-left: 3px;
+  opacity: 0.5;
+}
+.dr-th-sort.sort-active .dr-sort-icon {
+  opacity: 1;
+}
+.dr-cmp {
+  font-weight: 600;
+  color: var(--text);
+}
+.dr-na {
+  color: var(--text3);
+}
+.dr-yield-hi  { font-weight: 600; color: var(--success); }
+.dr-yield-mid { font-weight: 500; color: var(--warning); }
+.dr-yield-lo  { color: var(--text3); }
+	
 /* History tab */
 .dr-search-wrap{display:flex;gap:10px;margin-bottom:20px;align-items:stretch}
 .dr-search-wrap input{flex:1;border-radius:var(--radius);font-size:14px;padding:12px 16px}
@@ -550,7 +634,32 @@ button.add-btn:hover{background:var(--blue-light);border-color:var(--blue)}
         <div id="dr-scan-results" style="display:none">
           <div class="dr-count-bar"><span class="dr-count" id="dr-count-label"></span> </div>
           <div class="dr-warn-banner">💡 Buy <strong>before the ex-date</strong> to receive the dividend. If today is the ex-date or later, you're too late for this payout.</div>
-          <div class="dr-table-wrap"><table class="dr-table"><thead><tr><th>Symbol</th><th>Ex-Date</th><th>Record Date</th><th>Dividend</th><th>Type</th></tr></thead><tbody id="dr-scan-body"></tbody></table></div>
+          <!-- <div class="dr-table-wrap"><table class="dr-table"><thead><tr><th>Symbol</th><th>Ex-Date</th><th>Record Date</th><th>Dividend</th><th>Type</th></tr></thead><tbody id="dr-scan-body"></tbody></table></div> -->
+
+			<!-- <div class="dr-table-wrap"><table class="dr-table"><thead>
+  <tr>
+    <th onclick="drSort('sym')" class="dr-th-sort" id="drth-sym">
+      Symbol <span class="dr-sort-icon">↕</span>
+    </th>
+    <th onclick="drSort('exDate')" class="dr-th-sort sort-active" id="drth-exDate">
+      Ex-Date <span class="dr-sort-icon">↑</span>
+    </th>
+    <th onclick="drSort('recDate')" class="dr-th-sort" id="drth-recDate">
+      Record Date <span class="dr-sort-icon">↕</span>
+    </th>
+    <th onclick="drSort('cmp')" class="dr-th-sort" id="drth-cmp">
+      CMP (₹) <span class="dr-sort-icon">↕</span>
+    </th>
+    <th onclick="drSort('amount')" class="dr-th-sort" id="drth-amount">
+      Dividend (₹) <span class="dr-sort-icon">↕</span>
+    </th>
+    <th onclick="drSort('yieldPct')" class="dr-th-sort" id="drth-yieldPct">
+      Yield % <span class="dr-sort-icon">↕</span>
+    </th>
+    <th>Type</th>
+  </tr>
+</thead><tbody id="dr-scan-body"></tbody></table></div> -->
+		  
           <div id="dr-scan-empty" class="dr-empty" style="display:none"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p id="dr-scan-empty-msg">No dividends found for the selected period.</p></div>
         </div>
       </div>
@@ -1082,7 +1191,7 @@ const raw = await resp.json();
 
         })(),
 
-        type:
+       type:
             (r.subject || '')
                 .toLowerCase()
                 .includes('interim')
@@ -1093,7 +1202,11 @@ const raw = await resp.json();
                     ? 'Special'
                     : 'Final',
 
-        sector: ''
+        sector: '',
+
+        cmp: r.cmp || 0,
+
+        yieldPct: r.yieldPct || 0
 
     }))
     .filter(r => r.exDate);
@@ -1130,31 +1243,148 @@ const raw = await resp.json();
 
 }
 
-function drRenderScanRows(rows){
-  const tbody=document.getElementById('dr-scan-body');
-  const empty=document.getElementById('dr-scan-empty');
-  const count=document.getElementById('dr-count-label');
-  if(!rows.length){
-    tbody.innerHTML='';
-    empty.style.display='block';
-    count.textContent='0 dividends found';
+// function drRenderScanRows(rows){
+//   const tbody=document.getElementById('dr-scan-body');
+//   const empty=document.getElementById('dr-scan-empty');
+//   const count=document.getElementById('dr-count-label');
+//   if(!rows.length){
+//     tbody.innerHTML='';
+//     empty.style.display='block';
+//     count.textContent='0 dividends found';
+//     return;
+//   }
+//   empty.style.display='none';
+//   count.textContent=rows.length+' dividend'+(rows.length!==1?'s':'')+' found';
+//   tbody.innerHTML=rows.map(r=>{
+//     const days=drDaysAway(r.exDate);
+//     const dClass=days<=7?'urgent':days<=21?'near':'far';
+//     const dLabel=days<0?'Ex-date passed':days===0?'TODAY — too late!':days+' days away';
+//     return`<tr>
+//       <td><div class="dr-sym">${r.sym}</div><div class="dr-name">${r.name}</div></td>
+//       <td><div class="dr-exdate">${drFmtDate(r.exDate)}</div><span class="dr-days-away ${dClass}">${dLabel}</span></td>
+//       <td>${r.recDate?drFmtDate(r.recDate):'—'}</td>
+//       <td><span class="dr-amount">₹${r.amount.toFixed(2)}</span></td>
+//       <td><span class="dr-type-pill ${drTypeClass(r.type)}">${r.type}</span></td>
+//     </tr>`;
+//   }).join('');
+// }
+
+// ── Sort helper ────────────────────────────────────────────
+function drSort(col) {
+  if (drSortCol === col) {
+    drSortAsc = !drSortAsc;
+  } else {
+    drSortCol = col;
+    // text cols default asc, numeric/date cols default asc too
+    drSortAsc = true;
+  }
+  // Re-render with new sort using the stored full dataset
+  drRenderScanRows(drAllRows);
+}
+
+function drUpdateSortIcons() {
+  const cols = ['sym','exDate','recDate','cmp','amount','yieldPct'];
+  cols.forEach(c => {
+    const th = document.getElementById('drth-' + c);
+    if (!th) return;
+    const icon = th.querySelector('.dr-sort-icon');
+    if (c === drSortCol) {
+      th.classList.add('sort-active');
+      if (icon) icon.textContent = drSortAsc ? '↑' : '↓';
+    } else {
+      th.classList.remove('sort-active');
+      if (icon) icon.textContent = '↕';
+    }
+  });
+}
+
+function drRenderScanRows(rows) {
+  // Always store full dataset so sort can re-render without re-fetching
+  if (rows) drAllRows = rows;
+
+  const tbody = document.getElementById('dr-scan-body');
+  const empty = document.getElementById('dr-scan-empty');
+  const count = document.getElementById('dr-count-label');
+
+  if (!drAllRows.length) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    count.textContent = '0 dividends found';
     return;
   }
-  empty.style.display='none';
-  count.textContent=rows.length+' dividend'+(rows.length!==1?'s':'')+' found';
-  tbody.innerHTML=rows.map(r=>{
-    const days=drDaysAway(r.exDate);
-    const dClass=days<=7?'urgent':days<=21?'near':'far';
-    const dLabel=days<0?'Ex-date passed':days===0?'TODAY — too late!':days+' days away';
-    return`<tr>
-      <td><div class="dr-sym">${r.sym}</div><div class="dr-name">${r.name}</div></td>
-      <td><div class="dr-exdate">${drFmtDate(r.exDate)}</div><span class="dr-days-away ${dClass}">${dLabel}</span></td>
-      <td>${r.recDate?drFmtDate(r.recDate):'—'}</td>
+
+  empty.style.display = 'none';
+
+  // ── Sort ──────────────────────────────────────────────────
+  const sorted = [...drAllRows].sort((a, b) => {
+    let av = a[drSortCol];
+    let bv = b[drSortCol];
+
+    // Date columns
+    if (drSortCol === 'exDate' || drSortCol === 'recDate') {
+      av = new Date(av || 0);
+      bv = new Date(bv || 0);
+    }
+    // String columns
+    if (typeof av === 'string') av = av.toLowerCase();
+    if (typeof bv === 'string') bv = bv.toLowerCase();
+    // Nulls/zeros to bottom always
+    if (!av && av !== 0) return 1;
+    if (!bv && bv !== 0) return -1;
+
+    if (av < bv) return drSortAsc ? -1 :  1;
+    if (av > bv) return drSortAsc ?  1 : -1;
+    return 0;
+  });
+
+  count.textContent = sorted.length + ' dividend' + (sorted.length !== 1 ? 's' : '') + ' found';
+
+  // Update header icons
+  drUpdateSortIcons();
+
+  // ── Render rows ───────────────────────────────────────────
+  tbody.innerHTML = sorted.map(r => {
+    const days = drDaysAway(r.exDate);
+    const dClass = days < 0 ? 'past' : days <= 7 ? 'urgent' : days <= 21 ? 'near' : 'far';
+    const dLabel = days < 0
+      ? 'Ex-date passed'
+      : days === 0
+        ? 'TODAY — too late!'
+        : days + ' days away';
+
+    // CMP cell
+    const cmpHtml = r.cmp > 0
+      ? `<span class="dr-cmp">₹${Number(r.cmp).toLocaleString('en-IN', {
+            minimumFractionDigits: 2, maximumFractionDigits: 2
+          })}</span>`
+      : `<span class="dr-na">—</span>`;
+
+    // Yield cell — colour coded green ≥3%, amber ≥1%, grey <1%
+    let yieldHtml = '<span class="dr-na">—</span>';
+    if (r.yieldPct > 0) {
+      const yc = r.yieldPct >= 3 ? 'dr-yield-hi'
+               : r.yieldPct >= 1 ? 'dr-yield-mid'
+               : 'dr-yield-lo';
+      yieldHtml = `<span class="${yc}">${r.yieldPct.toFixed(2)}%</span>`;
+    }
+
+    return `<tr>
+      <td>
+        <div class="dr-sym">${r.sym}</div>
+        <div class="dr-name">${r.name}</div>
+      </td>
+      <td>
+        <div class="dr-exdate">${drFmtDate(r.exDate)}</div>
+        <span class="dr-days-away ${dClass}">${dLabel}</span>
+      </td>
+      <td>${r.recDate ? drFmtDate(r.recDate) : '—'}</td>
+      <td>${cmpHtml}</td>
       <td><span class="dr-amount">₹${r.amount.toFixed(2)}</span></td>
+      <td>${yieldHtml}</td>
       <td><span class="dr-type-pill ${drTypeClass(r.type)}">${r.type}</span></td>
     </tr>`;
   }).join('');
-}
+}	
 
 // History analyser
 function drQ(sym){document.getElementById('dr-hist-input').value=sym;drAnalyse();}
