@@ -634,9 +634,9 @@ th.sort-active .sort-icon { opacity: 1; color: var(--gold); }
         <div id="dr-scan-results" style="display:none">
           <div class="dr-count-bar"><span class="dr-count" id="dr-count-label"></span> </div>
           <div class="dr-warn-banner">💡 Buy <strong>before the ex-date</strong> to receive the dividend. If today is the ex-date or later, you're too late for this payout.</div>
-          <div class="dr-table-wrap"><table class="dr-table"><thead><tr><th>Symbol</th><th>Ex-Date</th><th>Record Date</th><th>Dividend</th><th>Type</th></tr></thead><tbody id="dr-scan-body"></tbody></table></div>
+          <!-- <div class="dr-table-wrap"><table class="dr-table"><thead><tr><th>Symbol</th><th>Ex-Date</th><th>Record Date</th><th>Dividend</th><th>Type</th></tr></thead><tbody id="dr-scan-body"></tbody></table></div> -->
 
-			<!-- <div class="dr-table-wrap"><table class="dr-table"><thead>
+		<div class="dr-table-wrap"><table class="dr-table"><thead>
   <tr>
     <th onclick="drSort('sym')" class="dr-th-sort" id="drth-sym">
       Symbol <span class="dr-sort-icon">↕</span>
@@ -658,7 +658,7 @@ th.sort-active .sort-icon { opacity: 1; color: var(--gold); }
     </th>
     <th>Type</th>
   </tr>
-</thead><tbody id="dr-scan-body"></tbody></table></div> -->
+</thead><tbody id="dr-scan-body"></tbody></table></div> 
 		  
           <div id="dr-scan-empty" class="dr-empty" style="display:none"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p id="dr-scan-empty-msg">No dividends found for the selected period.</p></div>
         </div>
