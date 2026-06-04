@@ -887,9 +887,6 @@ function renderTR(sym,meta,closes,sg){
   document.getElementById('tr-sum-body').innerHTML=inds.map(i=>`<tr><td><strong>${i.sn}</strong></td><td>${i.v}</td><td style="color:var(--text3);font-size:12px">${i.d}</td><td><span class="sig-pill ${i.s}">${i.s==='buy'?'▲ BUY':i.s==='sell'?'▼ SELL':'● HOLD'}</span></td></tr>`).join('');
 }
 /* ═══════════ DIVIDENDRADAR ═══════════ */
-let drCurrentPeriod = 'month';
-let drAllRows = [];
-let drUsedFallback = false;
 
 /* Sort state */
 let drSortCol = 'exDate';   // default sort column
